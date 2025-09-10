@@ -28,7 +28,7 @@ function renderCategories() {
 // Cargar datos públicos (categorías y herramientas aprobadas)
 function loadPublicData() {
   const categoriesView = document.getElementById('categoriesView');
-  categoriesView.replaceChildren(`<div class="loading">Cargando categorías...</div>`);
+  categoriesView.insertAdjacentElement("beforeend", `<div id="loading" class="loading">Cargando categorías...</div>`);
   // Cargar categorías aprobadas
   db.collection("categories").where("approved", "==", true)
     .get()
@@ -48,6 +48,7 @@ function loadPublicData() {
       });
 
       // Renderizar categorías con el conteo correcto
+      document.getElementById("loading").delete
       renderCategories();
     })
     .catch(error => {
