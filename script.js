@@ -34,6 +34,7 @@ function renderCategories() {
           </div>`;
   }).join('');
   categoriesHtml = sanitizarHtml(categoriesHtml);
+  console.log(categoriesHtml);
   document.getElementById("loading").remove()
   categoriesView.insertAdjacentHTML("beforeend", `${categoriesHtml}`);
 }
