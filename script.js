@@ -28,7 +28,7 @@ function renderCategories() {
 // Cargar datos públicos (categorías y herramientas aprobadas)
 function loadPublicData() {
   const categoriesView = document.getElementById('categoriesView');
-  categoriesView.insertAdjacentHTML("beforeend", `<div class="loading">Cargando categorías...</div>`);
+  categoriesView.replaceChildren(`<div class="loading">Cargando categorías...</div>`);
   // Cargar categorías aprobadas
   db.collection("categories").where("approved", "==", true)
     .get()
