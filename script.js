@@ -3,6 +3,59 @@ function eliminarHtml(id) {
   const elemento = document.getElementById(id);
   elemento.innerHTML = ``;
 }
+
+// Renderizar categorías
+function renderCategories() {
+  const categoriesView = document.getElementById('categoriesView');
+
+  if (categories.length === 0) {
+    categoriesView.innerHTML = '<p style="color:white; text-align:center; grid-column:1/-1;">No hay categorías disponibles</p>';
+    return;
+  }
+  categoriesView.innerHTML = categories.map(cat => {
+    // Contar herramientas en esta categoría
+    const count = tools.filter(t => t.cats && t.cats.includes(cat.id)).length;
+    return `
+          <div class='category-card' onclick='showTools("${cat.id}")'>
+            <h3>${cat.name}</h3>
+            <p>${cat.desc}</p>
+            <p class='count'>${count} herramienta${count !== 1 ? 's' : ''}</p>
+          </div>`;
+  }).join('');
+}
+
+// Cargar datos públicos (categorías y herramientas aprobadas)
+function loadPublicData() {
+  // Cargar categorías aprobadas
+  db.collection("categories").where("approved", "==", true)
+    .get()
+    .then(querySnapshot => {
+      categories = [];
+      querySnapshot.forEach(doc => {
+        categories.push({ id: doc.id, ...doc.data() });
+      });
+
+      // Cargar herramientas aprobadas
+      return db.collection("tools").where("approved", "==", true).get();
+    })
+    .then(querySnapshot => {
+      tools = [];
+      querySnapshot.forEach(doc => {
+        tools.push({ id: doc.id, ...doc.data() });
+      });
+
+      // Renderizar categorías con el conteo correcto
+      renderCategories();
+    })
+    .catch(error => {
+      console.error("Error cargando datos:", error);
+      // No mostrar error de permisos al usuario general
+      if (!error.message.includes("permissions")) {
+        showError("Error cargando datos: " + error.message);
+      }
+    });
+}
+
 // Funciones de navegación
 function hideAllViews() {
   const views = [
@@ -14,11 +67,11 @@ function hideAllViews() {
   });
 }
 
-
 function showHome() {
   hideAllViews();
+  loadPublicData();
   document.getElementById('categoriesView').style.display = 'grid';
-  document.getElementById('backButton').style.display = 'none';
+  
 }
 // Funciones de autenticación
 function showLogin() {
@@ -76,40 +129,6 @@ function initApp() {
       loadPublicData();
     }
   });
-}
-
-
-
-// Cargar datos públicos (categorías y herramientas aprobadas)
-function loadPublicData() {
-  // Cargar categorías aprobadas
-  db.collection("categories").where("approved", "==", true)
-    .get()
-    .then(querySnapshot => {
-      categories = [];
-      querySnapshot.forEach(doc => {
-        categories.push({ id: doc.id, ...doc.data() });
-      });
-
-      // Cargar herramientas aprobadas
-      return db.collection("tools").where("approved", "==", true).get();
-    })
-    .then(querySnapshot => {
-      tools = [];
-      querySnapshot.forEach(doc => {
-        tools.push({ id: doc.id, ...doc.data() });
-      });
-
-      // Renderizar categorías con el conteo correcto
-      renderCategories();
-    })
-    .catch(error => {
-      console.error("Error cargando datos:", error);
-      // No mostrar error de permisos al usuario general
-      if (!error.message.includes("permissions")) {
-        showError("Error cargando datos: " + error.message);
-      }
-    });
 }
 
 // Actualizar la interfaz según el estado de autenticación
@@ -178,7 +197,6 @@ function showSuccess(message) {
 function showRegister() {
   hideAllViews();
   document.getElementById('registerView').style.display = 'block';
-  document.getElementById('backButton').style.display = 'none';
 }
 
 function login() {
@@ -257,27 +275,6 @@ function goBack() {
   }
 }
 
-// Renderizar categorías
-function renderCategories() {
-  const categoriesView = document.getElementById('categoriesView');
-
-  if (categories.length === 0) {
-    categoriesView.innerHTML = '<p style="color:white; text-align:center; grid-column:1/-1;">No hay categorías disponibles</p>';
-    return;
-  }
-
-  categoriesView.innerHTML = categories.map(cat => {
-    // Contar herramientas en esta categoría
-    const count = tools.filter(t => t.cats && t.cats.includes(cat.id)).length;
-    return `
-          <div class='category-card' onclick='showTools("${cat.id}")'>
-            <h3>${cat.name}</h3>
-            <p>${cat.desc}</p>
-            <p class='count'>${count} herramienta${count !== 1 ? 's' : ''}</p>
-          </div>`;
-  }).join('');
-}
-
 // Mostrar herramientas de una categoría
 function showTools(catId) {
   currentCategory = catId;
@@ -285,7 +282,6 @@ function showTools(catId) {
 
   hideAllViews();
   document.getElementById('toolsView').style.display = 'grid';
-  document.getElementById('backButton').style.display = 'block';
 
   const categoryTools = tools.filter(t => t.cats && t.cats.includes(catId));
 
@@ -313,7 +309,6 @@ function showTool(toolId) {
 
   hideAllViews();
   document.getElementById('toolDetailView').style.display = 'block';
-  document.getElementById('backButton').style.display = 'block';
 
   // Obtener rating promedio
   let averageRating = 0;
@@ -471,7 +466,6 @@ async function showAdminPanel() {
   }
   adminPanelHtml();
   document.getElementById('adminPanelView').style.display = 'block';
-  document.getElementById('backButton').style.display = 'block';
   loadAdminCategories();
   loadAdminTools();
 }
@@ -717,7 +711,6 @@ function deleteTool(toolId) {
 function showUserPanel() {
   hideAllViews();
   document.getElementById('userPanelView').style.display = 'block';
-  document.getElementById('backButton').style.display = 'block';
   loadUserTools();
 }
 
