@@ -23,7 +23,7 @@ function renderCategories() {
       `<p style="color:white; text-align:center; grid-column:1/-1;">No hay categorías disponibles</p>`);
     return;
   }
-  const categoriesHtml = categories.map(cat => {
+  let categoriesHtml = categories.map(cat => {
     // Contar herramientas en esta categoría
     const count = tools.filter(t => t.cats && t.cats.includes(cat.id)).length;
     return `
