@@ -4,6 +4,28 @@ function eliminarHtml(id) {
   elemento.innerHTML = ``;
 }
 
+// Funciones de autenticación
+function showLogin() {
+  hideAllViews();
+  const loginHtml = `<div class="auth-form">
+        <h2>Iniciar Sesión</h2>
+        <div class="form-group">
+          <label for="loginEmail">Correo electrónico</label>
+          <input type="email" id="loginEmail" placeholder="Tu correo electrónico">
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Contraseña</label>
+          <input type="password" id="loginPassword" placeholder="Tu contraseña">
+        </div>
+        <button class="form-submit" onclick="login()">Iniciar Sesión</button>
+        <div class="form-toggle">
+          ¿No tienes cuenta? <a onclick="showRegister()">Regístrate aquí</a>
+        </div>
+      </div>`;
+  const loginId = document.getElementById('loginView'); 
+  loginId.innerHTML = `${loginHtml}`;
+  loginId.style.display = 'block';
+}
 // Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDYnkB7glh2xov8IkjELUWiBqXgFQ7oWew",
@@ -135,30 +157,6 @@ function showError(message) {
 
 function showSuccess(message) {
   showMessage(message, 'success');
-}
-
-// Funciones de autenticación
-//  
-function showLogin() {
-  hideAllViews();
-  const loginHtml = `<div class="auth-form">
-        <h2>Iniciar Sesión</h2>
-        <div class="form-group">
-          <label for="loginEmail">Correo electrónico</label>
-          <input type="email" id="loginEmail" placeholder="Tu correo electrónico">
-        </div>
-        <div class="form-group">
-          <label for="loginPassword">Contraseña</label>
-          <input type="password" id="loginPassword" placeholder="Tu contraseña">
-        </div>
-        <button class="form-submit" onclick="login()">Iniciar Sesión</button>
-        <div class="form-toggle">
-          ¿No tienes cuenta? <a onclick="showRegister()">Regístrate aquí</a>
-        </div>
-      </div>`;
-  const loginId = document.getElementById('loginView'); 
-  loginId.innerHTML = `${loginHtml}`;
-  loginId.style.display = 'block';
 }
 
 function showRegister() {
