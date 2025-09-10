@@ -3,12 +3,23 @@ function eliminarHtml(id) {
   const elemento = document.getElementById(id);
   elemento.innerHTML = ``;
 }
-
+function sanitizarHtml(html) {
+  return html.replace(/[&<>"']/g, match => {
+    const chars = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;',
+    };
+    return chars[match];
+  });
+}
 // Renderizar categorías
 function renderCategories() {
   const categoriesView = document.getElementById('categoriesView');
   if (categories.length === 0) {
-    categoriesView.insertAdjacentHTML("beforeend", 
+    categoriesView.insertAdjacentHTML("beforeend",
       `<p style="color:white; text-align:center; grid-column:1/-1;">No hay categorías disponibles</p>`);
     return;
   }
@@ -22,8 +33,9 @@ function renderCategories() {
             <p class='count'>${count} herramienta${count !== 1 ? 's' : ''}</p>
           </div>`;
   }).join('');
+  categoriesHtml = sanitizarHtml(categoriesHtml);
   document.getElementById("loading").remove()
-  categoriesView.insertAdjacentHTML("beforeend", `${categoriesHtml}`); 
+  categoriesView.insertAdjacentHTML("beforeend", `${categoriesHtml}`);
 }
 
 // Cargar datos públicos (categorías y herramientas aprobadas)
