@@ -8,7 +8,7 @@ categoria y luego a las herramientas, ver que otras cosillas
 // Funcion que borra html de elementos
 function eliminarHtml(id) {
   const elemento = document.getElementById(id);
-  elemento.innerHTML = ``;
+  elemento.textContent = ``;
 }
 function sanitizarHtml(html) {
   let htmlSanitizado = html.replace(/[&<>"']/g, match => {
@@ -756,6 +756,7 @@ function getCategoryName(categoryId) {
 function loadUserTools() {
   if (!currentUser) {
     showError('Usuario no autenticado.', 'error');
+    loadPublicData();
     return;
   }
 
