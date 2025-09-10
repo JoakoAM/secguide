@@ -29,14 +29,12 @@ function renderCategories() {
     const count = tools.filter(t => t.cats && t.cats.includes(cat.id)).length;
     return `
           <div class="category-card" onclick='showTools("${cat.id}")'>
-            <h3>${cat.name}</h3>
-            <p>${cat.desc}</p>
+            <h3>${sanitizarHtml(cat.name)}</h3>
+            <p>${sanitizarHtml(cat.desc)}</p>
             <p class='count'>${count} herramienta${count !== 1 ? 's' : ''}</p>
           </div>
           `;
   }).join('');
-  categoriesHtml = sanitizarHtml(categoriesHtml);
-  console.log(categoriesHtml);
   document.getElementById("loading").remove()
   categoriesView.insertAdjacentHTML("beforeend", `${categoriesHtml} </div>`);
 }
