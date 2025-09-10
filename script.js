@@ -7,6 +7,7 @@ function eliminarHtml(id) {
 // Renderizar categorías
 function renderCategories() {
   const categoriesView = document.getElementById('categoriesView');
+  categoriesView.innerHTML = `<div class="loading">Cargando categorías...</div>`
 
   if (categories.length === 0) {
     categoriesView.innerHTML = '<p style="color:white; text-align:center; grid-column:1/-1;">No hay categorías disponibles</p>';
