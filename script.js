@@ -22,6 +22,7 @@ function renderCategories() {
             <p class='count'>${count} herramienta${count !== 1 ? 's' : ''}</p>
           </div>`;
   }).join('');
+  document.getElementById("loading").delete
   categoriesView.insertAdjacentHTML("beforeend", `${categoriesHtml}`); 
 }
 
@@ -48,7 +49,6 @@ function loadPublicData() {
       });
 
       // Renderizar categorías con el conteo correcto
-      document.getElementById("loading").delete
       renderCategories();
     })
     .catch(error => {
