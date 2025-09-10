@@ -59,7 +59,7 @@ function loadPublicData() {
 // Funciones de navegación
 function hideAllViews() {
   const views = [
-    'toolsView', 'toolDetailView',
+    'categoriesView', 'toolsView', 'toolDetailView',
     'loginView', 'registerView', 'adminPanelView', 'userPanelView'
   ];
   views.forEach(view => {
