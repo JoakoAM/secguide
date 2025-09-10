@@ -115,9 +115,9 @@ function showLogin() {
           ¿No tienes cuenta? <a onclick="showRegister()">Regístrate aquí</a>
         </div>
       </div>`;
-  const loginId = document.getElementById('loginView');
-  loginId.innerHTML = `${loginHtml}`;
-  loginId.style.display = 'block';
+  const loginView = document.getElementById('loginView');
+  loginView.insertAdjacentHTML("beforeend",`${loginHtml}`);
+  loginView.style.display = 'block';
 }
 // Configuración de Firebase
 const firebaseConfig = {
