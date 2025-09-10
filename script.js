@@ -6,11 +6,13 @@ function eliminarHtml(id) {
 
 // Renderizar categorías
 function renderCategories() {
+  const categoriesView = document.getElementById('categoriesView');
   if (categories.length === 0) {
-    categoriesView.innerHTML = '<p style="color:white; text-align:center; grid-column:1/-1;">No hay categorías disponibles</p>';
+    categoriesView.insertAdjacentHTML("beforeend", 
+      `<p style="color:white; text-align:center; grid-column:1/-1;">No hay categorías disponibles</p>`);
     return;
   }
-  categoriesView.innerHTML = categories.map(cat => {
+  const categoriesHtml = categories.map(cat => {
     // Contar herramientas en esta categoría
     const count = tools.filter(t => t.cats && t.cats.includes(cat.id)).length;
     return `
@@ -20,12 +22,14 @@ function renderCategories() {
             <p class='count'>${count} herramienta${count !== 1 ? 's' : ''}</p>
           </div>`;
   }).join('');
+  categoriesView.insertAdjacentHTML("beforeend", `${categoriesHtml}`); 
 }
 
 // Cargar datos públicos (categorías y herramientas aprobadas)
 function loadPublicData() {
   const categoriesView = document.getElementById('categoriesView');
-  categoriesView.textContent = `<div class="loading">Cargando categorías...</div>`
+  categoriesView.insertAdjacentHTML("beforeend", 
+    `<div class="loading">Cargando categorías...</div>`);
   // Cargar categorías aprobadas
   db.collection("categories").where("approved", "==", true)
     .get()
