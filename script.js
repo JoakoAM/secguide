@@ -37,7 +37,7 @@ function renderCategories() {
   categoriesHtml = sanitizarHtml(categoriesHtml);
   console.log(categoriesHtml);
   document.getElementById("loading").remove()
-  categoriesView.insertAdjacentHTML("beforeend", `<div class='category-card'> ${categoriesHtml} </div>`);
+  categoriesView.insertAdjacentHTML("beforeend", `<div class="category-card">${categoriesHtml}</div>`);
 }
 
 // Cargar datos públicos (categorías y herramientas aprobadas)
