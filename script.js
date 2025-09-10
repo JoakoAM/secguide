@@ -189,7 +189,6 @@ function updateUI() {
 // Función para verificar si el usuario es administrador
 async function checkAdminStatus() {
   if (!currentUser) return false;
-
   try {
     const userDoc = await db.collection("users").doc(currentUser.uid).get();
     return userDoc.exists && userDoc.data().isAdmin === true;
@@ -756,7 +755,7 @@ function getCategoryName(categoryId) {
 // Cargar herramientas del usuario (incluyendo rechazadas)
 function loadUserTools() {
   if (!currentUser) {
-    console.error("No hay usuario autenticado");
+    showError('Usuario no autenticado.', 'error');
     return;
   }
 
