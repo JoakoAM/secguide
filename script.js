@@ -6,9 +6,6 @@ function eliminarHtml(id) {
 
 // Renderizar categorías
 function renderCategories() {
-  const categoriesView = document.getElementById('categoriesView');
-  categoriesView.innerHTML = `<div class="loading">Cargando categorías...</div>`
-
   if (categories.length === 0) {
     categoriesView.innerHTML = '<p style="color:white; text-align:center; grid-column:1/-1;">No hay categorías disponibles</p>';
     return;
@@ -27,6 +24,8 @@ function renderCategories() {
 
 // Cargar datos públicos (categorías y herramientas aprobadas)
 function loadPublicData() {
+  const categoriesView = document.getElementById('categoriesView');
+  categoriesView.innerHTML = `<div class="loading">Cargando categorías...</div>`
   // Cargar categorías aprobadas
   db.collection("categories").where("approved", "==", true)
     .get()
@@ -72,7 +71,7 @@ function showHome() {
   hideAllViews();
   loadPublicData();
   document.getElementById('categoriesView').style.display = 'grid';
-  
+
 }
 // Funciones de autenticación
 function showLogin() {
