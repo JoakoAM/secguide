@@ -3,7 +3,23 @@ function eliminarHtml(id) {
   const elemento = document.getElementById(id);
   elemento.innerHTML = ``;
 }
+// Funciones de navegación
+function hideAllViews() {
+  const views = [
+    'toolsView', 'toolDetailView',
+    'loginView', 'registerView', 'adminPanelView', 'userPanelView'
+  ];
+  views.forEach(view => {
+    eliminarHtml(view);
+  });
+}
 
+
+function showHome() {
+  hideAllViews();
+  document.getElementById('categoriesView').style.display = 'grid';
+  document.getElementById('backButton').style.display = 'none';
+}
 // Funciones de autenticación
 function showLogin() {
   hideAllViews();
@@ -22,7 +38,7 @@ function showLogin() {
           ¿No tienes cuenta? <a onclick="showRegister()">Regístrate aquí</a>
         </div>
       </div>`;
-  const loginId = document.getElementById('loginView'); 
+  const loginId = document.getElementById('loginView');
   loginId.innerHTML = `${loginHtml}`;
   loginId.style.display = 'block';
 }
@@ -227,23 +243,8 @@ function logout() {
     });
 }
 
-// Funciones de navegación
-function hideAllViews() {
-  const views = [
-    'categoriesView', 'toolsView', 'toolDetailView',
-    'loginView', 'registerView', 'adminPanelView', 'userPanelView'
-  ];
 
-  views.forEach(view => {
-    eliminarHtml(view);
-  });
-}
 
-function showHome() {
-  hideAllViews();
-  document.getElementById('categoriesView').style.display = 'grid';
-  document.getElementById('backButton').style.display = 'none';
-}
 
 function goBack() {
   if (document.getElementById('toolDetailView').style.display === 'block') {
