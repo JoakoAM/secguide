@@ -4,7 +4,7 @@ function eliminarHtml(id) {
   elemento.innerHTML = ``;
 }
 function sanitizarHtml(html) {
-  return html.replace(/[&<>"']/g, match => {
+  let htmlSanitizado = html.replace(/[&<>"']/g, match => {
     const chars = {
       '&': `&amp;`,
       '<': `&lt;`,
@@ -13,7 +13,8 @@ function sanitizarHtml(html) {
       "'": `&#039;`,
     };
     return chars[match];
-  });
+  })
+  return `${htmlSanitizado}` ;
 }
 // Renderizar categorías
 function renderCategories() {
