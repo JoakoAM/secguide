@@ -7,7 +7,7 @@ categoria y luego a las herramientas, ver que otras cosillas
 
 // Funcion que borra html de elementos 
 function eliminarHtml(id) {
-  const elemento = document.getElementById(id);
+  const elemento = document.getElementById(`${id}`);
   let div = elemento.querySelectorAll("div")
   div.forEach(divs => divs.remove());
 }
