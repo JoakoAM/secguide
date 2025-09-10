@@ -14,7 +14,7 @@ function sanitizarHtml(html) {
     };
     return chars[match];
   })
-  return `${htmlSanitizado}` ;
+  return `${htmlSanitizado}`;
 }
 // Renderizar categorías
 function renderCategories() {
@@ -32,12 +32,12 @@ function renderCategories() {
             <h3>${cat.name}</h3>
             <p>${cat.desc}</p>
             <p class='count'>${count} herramienta${count !== 1 ? 's' : ''}</p>
-          </div>`;
+          `;
   }).join('');
   categoriesHtml = sanitizarHtml(categoriesHtml);
   console.log(categoriesHtml);
   document.getElementById("loading").remove()
-  categoriesView.insertAdjacentHTML("beforeend", `<div class='category-card' ${categoriesHtml}`);
+  categoriesView.insertAdjacentHTML("beforeend", `<div class='category-card' ${categoriesHtml} </div>`);
 }
 
 // Cargar datos públicos (categorías y herramientas aprobadas)
