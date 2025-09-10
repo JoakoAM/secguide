@@ -81,7 +81,7 @@ function loadPublicData() {
     });
 }
 
-// Funciones de navegación
+// Funciones eliminar views en general
 function hideAllViews() {
   const views = [
     'categoriesView', 'toolsView', 'toolDetailView',
@@ -342,7 +342,7 @@ function showTool(toolId) {
   }
 
   document.getElementById('toolDetailView').innerHTML = `
-        <div class='tool-detail'>
+        <div id="toolDetail" class='tool-detail'>
           <h2>${tool.name}</h2>
           <div class='detail-section'><h3>📋 Descripción</h3><p>${tool.brief}</p></div>
           <div class='detail-section'><h3>⚙️ Funcionalidades</h3><p>${tool.func}</p></div>
