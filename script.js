@@ -289,7 +289,7 @@ function logout() {
 
 
 function goBack() {
-  if (document.getElementById('toolDetailView').style.display === 'block') {
+  if (document.getElementById('toolDetailView')) {
     showTools(currentCategory);
   } else if (document.getElementById('toolsView').style.display === 'grid') {
     showHome();
@@ -340,7 +340,6 @@ function showTool(toolId) {
     const ratings = Object.values(tool.ratings);
     averageRating = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
   }
-
   document.getElementById('toolDetailView').innerHTML = `
         <div id="toolDetail" class='tool-detail'>
           <h2>${tool.name}</h2>
