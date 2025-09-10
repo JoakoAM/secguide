@@ -6,11 +6,11 @@ function eliminarHtml(id) {
 function sanitizarHtml(html) {
   return html.replace(/[&<>"']/g, match => {
     const chars = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#039;',
+      '&': `&amp;`,
+      '<': `&lt;`,
+      '>': `&gt;`,
+      '"': `&quot;`,
+      "'": `&#039;`,
     };
     return chars[match];
   });
