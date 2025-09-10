@@ -22,7 +22,7 @@ function renderCategories() {
             <p class='count'>${count} herramienta${count !== 1 ? 's' : ''}</p>
           </div>`;
   }).join('');
-  document.getElementById("loading").delete
+  document.getElementById("loading").remove()
   categoriesView.insertAdjacentHTML("beforeend", `${categoriesHtml}`); 
 }
 
