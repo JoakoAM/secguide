@@ -5,10 +5,11 @@ categoria y luego a las herramientas, ver que otras cosillas
 
 
 
-// Funcion que borra html de elementos
+// Funcion que borra html de elementos 
 function eliminarHtml(id) {
   const elemento = document.getElementById(id);
-  elemento.textContent = ` `;
+  let div = elemento.querySelectorAll("div")
+  div.forEach(divs => divs.remove());
 }
 function sanitizarHtml(html) {
   let htmlSanitizado = html.replace(/[&<>"']/g, match => {
@@ -32,10 +33,10 @@ function renderCategories() {
     return;
   }
   let categoriesHtml = categories.map(cat => {
-    // Contar herramientas en esta categoría
+    // Contar herramientas en esta categoría 
     const count = tools.filter(t => t.cats && t.cats.includes(cat.id)).length;
     return `
-          <div class="category-card" onclick='showTools("${cat.id}")'>
+          <div class="category-card" onclick='showTools("${sanitizarHtml(cat.id)}")'>
             <h3>${sanitizarHtml(cat.name)}</h3>
             <p>${sanitizarHtml(cat.desc)}</p>
             <p class='count'>${count} herramienta${count !== 1 ? 's' : ''}</p>
@@ -59,7 +60,7 @@ function loadPublicData() {
         categories.push({ id: doc.id, ...doc.data() });
       });
 
-      // Cargar herramientas aprobadas
+      // Cargar herramientas aprobadas locamente
       return db.collection("tools").where("approved", "==", true).get();
     })
     .then(querySnapshot => {
@@ -73,7 +74,7 @@ function loadPublicData() {
     })
     .catch(error => {
       console.error("Error cargando datos:", error);
-      // No mostrar error de permisos al usuario general
+      // No mostrar error de permisos al usuarios general
       if (!error.message.includes("permissions")) {
         showError("Error cargando datos: " + error.message);
       }
