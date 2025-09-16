@@ -214,7 +214,6 @@ function showSuccess(message) {
 
 function showRegister() {
   hideAllViews();
-  // mostrar html de registro :D
   const registerView = document.getElementById('registerView');
   const registerHTML = `<div class="auth-form">
         <h2>Crear Cuenta</h2>
@@ -236,6 +235,7 @@ function showRegister() {
         </div>
       </div>`
   registerView.insertAdjacentHTML('beforeEnd', registerHTML); 
+  registerView.style.display = "block";
 }
 
 function login() {
