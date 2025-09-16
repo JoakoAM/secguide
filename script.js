@@ -175,15 +175,10 @@ function updateUI() {
       adminBtn.style.display = isAdmin ? 'block' : 'none';
     });
   } else {
+    // mensaje de error
     loginBtn.style.display = 'block';
     registerBtn.style.display = 'block';
-    logoutBtn.style.display = 'none';
-    adminBtn.style.display = 'none';
-    userPanelBtn.style.display = 'none';
-
     // Ocultar paneles de admin/usuario si están visibles
-    document.getElementById('adminPanelView').style.display = 'none';
-    document.getElementById('userPanelView').style.display = 'none';
   }
 }
 
