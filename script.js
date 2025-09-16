@@ -3,8 +3,11 @@ es necesario el boton home?, volver boton back para que no sea necesario entrar 
 categoria y luego a las herramientas, ver que otras cosillas
 */
 
+const navBtnClass = document.getElementsByClassName('nav-button');
 
 function showRegister() {
+  const registerBtn = navBtnClass.registerButton
+  registerBtn.remove
   if (document.getElementsById("registerForm")){
     return;
   }
