@@ -5,8 +5,10 @@ categoria y luego a las herramientas, ver que otras cosillas
 
 
 function showRegister() {
+  if (document.getElementsById("registerForm")){
+    return;
+  }
   hideAllViews();
-  if (document.getElementsByClassName("registerForm")) return;
   const registerView = document.getElementById('registerView');
   const registerHTML = `<div id="registerForm" class="auth-form">
         <h2>Crear Cuenta</h2>
@@ -127,8 +129,8 @@ function showHome() {
 }
 // Funciones de autenticación
 function showLogin() {
-  hideAllViews();
   if (document.getElementById("loginForm")) return;
+  hideAllViews();
   const loginHtml = `<div id="loginForm" class="auth-form">
         <h2>Iniciar Sesión</h2>
         <div class="form-group">
@@ -171,7 +173,6 @@ let tools = [];
 function initApp() {
   // Cargar datos públicos incluso si no hay usuario autenticado
   loadPublicData();
-
   // Escuchar cambios de autenticación
   auth.onAuthStateChanged(user => {
     currentUser = user;
