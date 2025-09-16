@@ -6,9 +6,9 @@ categoria y luego a las herramientas, ver que otras cosillas
 
 function showRegister() {
   hideAllViews();
-  if (document.getElementsByClassName("auth-form")) return;
+  if (document.getElementsByClassName("registerForm")) return;
   const registerView = document.getElementById('registerView');
-  const registerHTML = `<div class="auth-form">
+  const registerHTML = `<div id="registerForm" class="auth-form">
         <h2>Crear Cuenta</h2>
         <div class="form-group">
           <label for="registerEmail">Correo electrónico</label>
@@ -128,7 +128,8 @@ function showHome() {
 // Funciones de autenticación
 function showLogin() {
   hideAllViews();
-  const loginHtml = `<div class="auth-form">
+  if (document.getElementById("loginForm")) return;
+  const loginHtml = `<div id="loginForm" class="auth-form">
         <h2>Iniciar Sesión</h2>
         <div class="form-group">
           <label for="loginEmail">Correo electrónico</label>
