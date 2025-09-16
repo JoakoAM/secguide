@@ -148,7 +148,6 @@ function initApp() {
   auth.onAuthStateChanged(user => {
     currentUser = user;
     updateUI();
-
     if (user) {
       // Recargar datos para usuarios autenticados
       loadPublicData();
@@ -215,7 +214,28 @@ function showSuccess(message) {
 
 function showRegister() {
   hideAllViews();
-  document.getElementById('registerView').style.display = 'block';
+  // mostrar html de registro :D
+  const registerView = document.getElementById('registerView');
+  const registerHTML = `<div class="auth-form">
+        <h2>Crear Cuenta</h2>
+        <div class="form-group">
+          <label for="registerEmail">Correo electrónico</label>
+          <input type="email" id="registerEmail" placeholder="Tu correo electrónico">
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Contraseña</label>
+          <input type="password" id="registerPassword" placeholder="Crea una contraseña segura">
+        </div>
+        <div class="form-group">
+          <label for="registerName">Nombre completo</label>
+          <input type="text" id="registerName" placeholder="Tu nombre completo">
+        </div>
+        <button class="form-submit" onclick="register()">Crear Cuenta</button>
+        <div class="form-toggle">
+          ¿Ya tienes cuenta? <a onclick="showLogin()">Inicia sesión aquí</a>
+        </div>
+      </div>`
+  register.insertAdjacentHTML('beforend', registerHTML); 
 }
 
 function login() {
