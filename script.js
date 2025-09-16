@@ -235,7 +235,7 @@ function showRegister() {
           ¿Ya tienes cuenta? <a onclick="showLogin()">Inicia sesión aquí</a>
         </div>
       </div>`
-  register.insertAdjacentHTML('beforend', registerHTML); 
+  registerView.insertAdjacentHTML('beforend', registerHTML); 
 }
 
 function login() {
