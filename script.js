@@ -214,6 +214,7 @@ function showSuccess(message) {
 
 function showRegister() {
   hideAllViews();
+  if (document.getElementsByClassName("auth-form")) return;
   const registerView = document.getElementById('registerView');
   const registerHTML = `<div class="auth-form">
         <h2>Crear Cuenta</h2>
