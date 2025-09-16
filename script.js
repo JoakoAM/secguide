@@ -1,7 +1,7 @@
 /*
 es necesario el boton home?, volver boton back para que no sea necesario entrar nuevamente a las
 categoria y luego a las herramientas, ver que otras cosillas
-*/ 
+*/
 
 
 
@@ -117,7 +117,7 @@ function showLogin() {
         </div>
       </div>`;
   const loginView = document.getElementById('loginView');
-  loginView.insertAdjacentHTML("beforeend",`${loginHtml}`);
+  loginView.insertAdjacentHTML("beforeend", `${loginHtml}`);
   loginView.style.display = 'block';
 }
 // Configuración de Firebase
@@ -289,14 +289,20 @@ function logout() {
 
 
 function goBack() {
-  if (document.getElementById('toolDetailView')) {
-    showTools(currentCategory);
-  } else if (document.getElementById('toolsView').style.display === 'grid') {
-    showHome();
-  } else if (document.getElementById('adminPanelView').style.display === 'block' ||
-    document.getElementById('userPanelView').style.display === 'block') {
-    showHome();
+  try {
+    if (document.getElementById('toolDetailView')) {
+      showTools(currentCategory);
+
+    } else if (document.getElementById('toolsView').style.display === 'grid') {
+      showHome();
+    } else if (document.getElementById('adminPanelView').style.display === 'block' ||
+      document.getElementById('userPanelView').style.display === 'block') {
+      showHome();
+    }
+  } catch (e) {
+
   }
+
 }
 
 // Mostrar herramientas de una categoría
