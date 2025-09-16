@@ -144,7 +144,7 @@ function showLogin() {
         </div>
       </div>`;
   const loginView = document.getElementById('loginView');
-  loginView.insertAdjacentHTML("beforeend", `${loginHtml}`);
+  loginView.insertAdjacentHTML("beforeend", loginHtml);
   loginView.style.display = 'block';
 }
 // Configuración de Firebase
