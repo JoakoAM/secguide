@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Herramientas de Ciberseguridad</title>
+    <!-- Firebase App (core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🔐 Cybersecurity Tools Hub - SecGuide</h1>
+        <p>Explora las mejores herramientas y aprende cómo funcionan</p>
+      </div>
+      <div class="nav-buttons">
+        <button id="homeButton" class="nav-button" onclick="showHome()">
+          🏠 Inicio
+        </button>
+        <button id="loginButton" class="nav-button" onclick="showLogin()">
+          🔐 Iniciar Sesión
+        </button>
+        <button id="registerButton" class="nav-button" onclick="showRegister()">
+          📝 Registrarse
+        </button>
+        <button
+          id="adminButton"
+          class="nav-button"
+          style="display: none"
+          onclick="showAdminPanel()"
+        >
+          ⚙️ Administración
+        </button>
+        <button
+          id="userPanelButton"
+          class="nav-button"
+          style="display: none"
+          onclick="showUserPanel()"
+        >
+          👤 Mi Panel
+        </button>
+        <button
+          id="logoutButton"
+          class="nav-button"
+          style="display: none"
+          onclick="logout()"
+        >
+          🚪 Cerrar Sesión
+        </button>
+      </div>
+
+      <div id="statusMessage"></div>
+
+      <!-- Vista principal -->
+      <div id="categoriesView" class="categories-grid"></div>
+      <div id="toolsView" class="tools-grid" style="display: none"></div>
+      <div id="toolDetailView" style="display: none"></div>
+
+      <!-- Formularios de autenticación -->
+      <div id="loginView" style="display: none"></div>
+      <div id="registerView" style="display: none">
+        <div class="auth-form">
+          <h2>Crear Cuenta</h2>
+          <div class="form-group">
+            <label for="registerEmail">Correo electrónico</label>
+            <input
+              type="email"
+              id="registerEmail"
+              placeholder="Tu correo electrónico"
+            />
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">Contraseña</label>
+            <input
+              type="password"
+              id="registerPassword"
+              placeholder="Crea una contraseña segura"
+            />
+          </div>
+          <div class="form-group">
+            <label for="registerName">Nombre completo</label>
+            <input
+              type="text"
+              id="registerName"
+              placeholder="Tu nombre completo"
+            />
+          </div>
+          <button class="form-submit" onclick="register()">Crear Cuenta</button>
+          <div class="form-toggle">
+            ¿Ya tienes cuenta? <a onclick="showLogin()">Inicia sesión aquí</a>
+          </div>
+        </div>
+      </div>
+      <!-- Panel de administración -->
+      <div>
+        <button
+          onclick="eliminarHtml('loginView')"
+          style="width: 100px; height: 100px"
+          aria-label="Abrir panel"
+        >
+          Pruebas
+        </button>
+      </div>
+      <div id="adminPanelView" style="display: none"></div>
+
+      <!-- Panel de usuario -->
+      <div id="userPanelView" style="display: none">
+        <div class="user-panel">
+          <h2>Mi Panel de Usuario</h2>
+
+          <div class="admin-actions">
+            <button class="admin-action-btn" onclick="showUserAddToolForm()">
+              ➕ Sugerir Herramienta
+            </button>
+          </div>
+
+          <div id="userAddToolForm" class="admin-form" style="display: none">
+            <h3>Sugerir Nueva Herramienta</h3>
+            <div class="form-row">
+              <input
+                type="text"
+                id="userToolName"
+                placeholder="Nombre de la herramienta"
+              />
+            </div>
+            <div class="form-row">
+              <input
+                type="text"
+                id="userToolBrief"
+                placeholder="Descripción breve"
+              />
+            </div>
+            <div class="form-row">
+              <select id="userToolCategory">
+                <option value="">Selecciona una categoría</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <input
+                type="text"
+                id="userToolFunc"
+                placeholder="Funcionalidades"
+              />
+            </div>
+            <div class="form-row">
+              <input
+                type="text"
+                id="userToolPlatform"
+                placeholder="Plataformas (Win/Linux/macOS)"
+              />
+            </div>
+            <div class="form-row">
+              <input type="text" id="userToolLicense" placeholder="Licencia" />
+            </div>
+            <div class="form-row">
+              <input
+                type="text"
+                id="userToolLink"
+                placeholder="Enlace oficial"
+              />
+            </div>
+            <div class="form-row">
+              <textarea
+                id="userToolArticle"
+                placeholder="Artículo descriptivo"
+              ></textarea>
+            </div>
+            <button class="form-submit" onclick="suggestTool()">
+              Enviar Sugerencia
+            </button>
+          </div>
+
+          <h3>Mis herramientas sugeridas</h3>
+          <div id="userToolsList" class="admin-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
