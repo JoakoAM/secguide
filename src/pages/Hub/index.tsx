@@ -1,11 +1,15 @@
+import CategoriesView from "../../components/CategoriesView";
 
-
-type Props = {}
+type Props = {};
 
 const Hub = ({}: Props) => {
   return (
-    <div>Hub</div>
-  )
-}
+    <>
+      <CategoriesView>
+        
+      </CategoriesView>
+    </>
+  );
+};
 
-export default Hub
+export default Hub;
