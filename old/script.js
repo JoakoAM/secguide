@@ -494,7 +494,6 @@ async function showAdminPanel() {
     showError("No tienes permisos de administrador");
     return;
   }
-
   hideAllViews();
   function adminPanelHtml() {
     const html = `<div id="adminContainer" class="admin-panel">

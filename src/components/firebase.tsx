@@ -6,6 +6,7 @@ import {
   collection,
   where,
   query,
+  getDoc,
   getDocs,
   serverTimestamp,
   setDoc,
@@ -16,7 +17,9 @@ import {
 import {
   getAuth,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
+
 type Props = {};
 export type Categories = {
   id: string;
@@ -62,7 +65,7 @@ export const db = initializeFirestore(app, {
 });
 
 const auth = getAuth();
-
+export let currentUser: userProp | null = null;
 export const register = async () => {
   // const auth = getAuth();
   try {
@@ -71,8 +74,9 @@ export const register = async () => {
     const name = "JoakoAm";
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        currentUser = { uid: userCredential.user.uid };
         // Guardar información adicional del usuario
-        return setDoc(doc(db,"users", userCredential.user.uid), {
+        return setDoc(doc(db, "users", userCredential.user.uid), {
           name: name,
           email: email,
           isAdmin: true,
@@ -84,6 +88,48 @@ export const register = async () => {
       });
   } catch (e) {
     console.log("error", e);
+  }
+};
+
+export const login = async (email: string, password: string) => {
+  try {
+
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    currentUser = { uid: userCredential.user.uid };
+    // const userRef = await collection(db, "users");
+    // console.log(getDocs(userRef));
+    const isAdmin = await checkAdminStatus();
+    return isAdmin;
+  } catch (error) {
+    console.error("Login error:", error);
+  }
+};
+
+type userProp = {
+  uid: string;
+};
+
+export const checkAdminStatus = async (): Promise<boolean> => {
+  if (!currentUser) return false;
+
+  try {
+    const userRef = doc(db, "users", currentUser.uid);
+    const userDoc = await getDoc(userRef);
+
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      return userData.isAdmin === true;
+    }
+
+    return false;
+  } catch (error) {
+    console.error("Error verificando admin:", error);
+    return false;
   }
 };
 // const showTools = (cat : Categories) => {

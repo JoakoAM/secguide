@@ -1,23 +1,40 @@
-type Props = {};
+import type { FormEvent } from "react";
 
-const Login = ({}: Props) => {
+import { useNavigate } from "react-router";
+
+type Props = {
+  onSubmit: (e: FormEvent) => void;
+};
+
+const Login = ({ onSubmit }: Props) => {
+  const nav = useNavigate();
   return (
     <>
       <div className="container">
-        <form>
+        <form
+          onSubmit={(e: FormEvent) => {
+            onSubmit(e);
+          }}
+        >
           <div className="mb-3">
-            <label className="form-label">Nombre</label>
-            <input type="text" className="form-control"></input>
+            <label className="form-label">Email</label>
+            <input name="email" type="email" className="form-control"></input>
             <div className="form-text" id="emailHelp">
               Nunca compartiremos tus datos con terceros :D
             </div>
           </div>
           <div className="mb-3">
             <label className="form-label">Contraseña</label>
-            <input type="text" className="form-control"></input>
+            <input
+              name="password"
+              type="password"
+              className="form-control"
+            ></input>
             <div className="form-text" id="emailHelp"></div>
           </div>
-          <button className="btn btn-primary">ingresar</button>
+          <button type="submit" className="btn btn-primary">
+            ingresar
+          </button>
         </form>
       </div>
     </>
