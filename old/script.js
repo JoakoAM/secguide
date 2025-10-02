@@ -294,7 +294,7 @@ function register() {
     .then((userCredential) => {
       // Guardar información adicional del usuario
       return db.collection("users").doc(userCredential.user.uid).set({
-        name: name,
+        name: name, 
         email: email,
         isAdmin: false,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),

@@ -1,3 +1,5 @@
+import { register } from "../../components/firebase";
+
 type Props = {};
 
 const Register = ({}: Props) => {
@@ -24,7 +26,7 @@ const Register = ({}: Props) => {
         <button
           type="button"
           onClick={() => {
-            registrar(); 
+            register(); 
           }}
           className="btn btn-primary"
         >

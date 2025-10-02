@@ -7,8 +7,17 @@ import {
   where,
   query,
   getDocs,
+  serverTimestamp,
+  setDoc,
+  doc,
+  // setDoc,
 } from "firebase/firestore";
 
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 type Props = {};
 export type Categories = {
   id: string;
@@ -53,8 +62,33 @@ export const db = initializeFirestore(app, {
   // useFetchStreams: false
 });
 
+const auth = getAuth();
+
+export const register = async () => {
+  // const auth = getAuth();
+  try {
+    const email = "prueba@gmail.com";
+    const password = "clave1313";
+    const name = "JoakoAm";
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Guardar información adicional del usuario
+        return setDoc(doc(db,"users", userCredential.user.uid), {
+          name: name,
+          email: email,
+          isAdmin: true,
+          createdAt: serverTimestamp(),
+        });
+      })
+      .then(() => {
+        console.log("Cuenta creada");
+      });
+  } catch (e) {
+    console.log("error", e);
+  }
+};
 // const showTools = (cat : Categories) => {
-  // hacer codigo necesario para el hub de tools (crear router etc...)
+// hacer codigo necesario para el hub de tools (crear router etc...)
 // }
 
 export const renderCategories = (c: Categories[], t: Tools[]) => {
@@ -65,9 +99,13 @@ export const renderCategories = (c: Categories[], t: Tools[]) => {
   const render = c.map((cat) => {
     const count = t.filter((t) => t.cats && t.cats.includes(cat.id)).length;
     return (
-      <div key={cat.id} onClick={() => {
-        // showTools(cat.id)
-      }}className="category-card">
+      <div
+        key={cat.id}
+        onClick={() => {
+          // showTools(cat.id)
+        }}
+        className="category-card"
+      >
         <h3>{cat.name}</h3>
         <p>{cat.desc}</p>
         <p className="count">
