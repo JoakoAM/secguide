@@ -1,10 +1,8 @@
-type Props = {};
-
 // firebase.ts
 import { initializeApp } from "firebase/app";
 import { initializeFirestore, Timestamp } from "firebase/firestore";
 
-
+type Props = {};
 export type Categories = {
   id: string;
   desc: string;
@@ -14,11 +12,19 @@ export type Categories = {
 };
 
 export type Tools = {
-  id: string;
-  desc: string;
-  name: string;
-  createdAt: Timestamp;
   approved: boolean;
+  article: string;
+  brief: string;
+  cats: string[];
+  createdAt: Timestamp;
+  createdBy: string;
+  func: string;
+  id: string;
+  license: string;
+  link: string;
+  name: string;
+  platform: string;
+  ratings: object;
 };
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
