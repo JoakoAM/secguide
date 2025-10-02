@@ -111,7 +111,6 @@ function loadPublicData() {
       querySnapshot.forEach((doc) => {
         tools.push({ id: doc.id, ...doc.data() });
       });
-
       // Renderizar categorías con el conteo correcto
       renderCategories();
     })
@@ -601,7 +600,7 @@ function addCategory() {
       name: name,
       desc: desc,
       approved: true,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: firebase. firestore.FieldValue.serverTimestamp(),
     })
     .then(() => {
       showSuccess("Categoría añadida correctamente");
