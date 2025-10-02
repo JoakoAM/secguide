@@ -16,7 +16,6 @@ import {
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
 } from "firebase/auth";
 type Props = {};
 export type Categories = {
