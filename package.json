@@ -1,6 +1,7 @@
 {
   "name": "secguide",
   "private": true,
+  "homepage": "joakoam.github.io/secguide/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
