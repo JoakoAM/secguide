@@ -342,7 +342,6 @@ function goBack() {
 function showTools(catId) {
   currentCategory = catId;
   const category = categories.find((c) => c.id === catId);
-
   hideAllViews();
   document.getElementById("toolsView").style.display = "grid";
 

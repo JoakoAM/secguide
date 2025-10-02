@@ -5,8 +5,8 @@ type Props = {};
 const Hub = ({}: Props) => {
   return (
     <>
+    
       <CategoriesView>
-        
       </CategoriesView>
     </>
   );

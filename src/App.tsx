@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Hub from "./pages/Hub";
 import Login from "./pages/Login";
 // import { useState, type FormEvent } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Register from "./pages/Register";
 
 function App() {
   const router = createBrowserRouter([
@@ -11,8 +13,12 @@ function App() {
       element: <Hub />,
     },
     {
-      path: "/formulario",
+      path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
     },
   ]);
   return (
