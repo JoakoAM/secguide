@@ -19,6 +19,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { Card, Image, Text } from "@chakra-ui/react";
 
 type Props = {};
 export type Categories = {
@@ -59,41 +60,36 @@ const app = initializeApp(firebaseConfig);
 // Inicializa Firestore con long polling forzado
 export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
-  // Opcional:
-  // experimentalAutoDetectLongPolling: true,
-  // useFetchStreams: false
 });
 
 const auth = getAuth();
 export let currentUser: userProp | null = null;
-export const register = async () => {
-  // const auth = getAuth();
+export const register = async (
+  email: string,
+  password: string,
+  name: string
+) => {
   try {
-    const email = "prueba@gmail.com";
-    const password = "clave1313";
-    const name = "JoakoAm";
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        currentUser = { uid: userCredential.user.uid };
-        // Guardar información adicional del usuario
-        return setDoc(doc(db, "users", userCredential.user.uid), {
-          name: name,
-          email: email,
-          isAdmin: true,
-          createdAt: serverTimestamp(),
-        });
-      })
-      .then(() => {
-        console.log("Cuenta creada");
-      });
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    currentUser = { uid: userCredential.user.uid };
+    await setDoc(doc(db, "users", userCredential.user.uid), {
+      name: name,
+      email: email,
+      createdAt: serverTimestamp(),
+    });
+    return true;
   } catch (e) {
     console.log("error", e);
+    return false;
   }
 };
 
 export const login = async (email: string, password: string) => {
   try {
-
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
@@ -138,25 +134,39 @@ export const checkAdminStatus = async (): Promise<boolean> => {
 
 export const renderCategories = (c: Categories[], t: Tools[]) => {
   if (c.length === 0) {
+    //Mensaje de er
     <p style={{ color: "white" }}>No hay categorías disponibles</p>;
     return;
   }
   const render = c.map((cat) => {
     const count = t.filter((t) => t.cats && t.cats.includes(cat.id)).length;
     return (
-      <div
-        key={cat.id}
-        onClick={() => {
-          // showTools(cat.id)
-        }}
-        className="category-card"
-      >
-        <h3>{cat.name}</h3>
-        <p>{cat.desc}</p>
-        <p className="count">
-          {count}herramienta{count !== 1 ? "s" : ""}
-        </p>
-      </div>
+      <>
+        <Card.Root
+          key={cat.id}
+          boxShadow={"0px 0px 11px 4px"}
+          color={"gray.300"}
+          borderRadius="10px"
+          marginTop="10px"
+          w="486px"
+          h="200px"
+          overflow="hidden"
+          margin={"14px"}
+        >
+          <Card.Body gap="2">
+            <Card.Title maxH={"62px"} fontSize={30} color="blue.500">
+              {cat.name}
+            </Card.Title>
+
+            <Card.Description>
+              <Text color={"black"}> {cat.desc}</Text>
+               {count} herramienta{count !== 1 ? "s" : ""}
+            </Card.Description>
+          </Card.Body>
+
+          <Card.Footer gap="2"></Card.Footer>
+        </Card.Root>
+      </>
     );
   });
   return render;

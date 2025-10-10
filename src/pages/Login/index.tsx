@@ -1,13 +1,10 @@
 import type { FormEvent } from "react";
 
-import { useNavigate } from "react-router";
-
 type Props = {
   onSubmit: (e: FormEvent) => void;
 };
 
 const Login = ({ onSubmit }: Props) => {
-  const nav = useNavigate();
   return (
     <>
       <div className="container">

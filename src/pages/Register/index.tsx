@@ -1,8 +1,13 @@
+import type { FormEvent } from "react";
 import { register } from "../../components/firebase";
 
-type Props = {};
+type Props = {
+  onSubmit: (e: FormEvent) => void;
+  success: boolean;
+  error: boolean;
+};
 
-const Register = ({}: Props) => {
+const Register = ({ onSubmit, success, error }: Props) => {
   return (
     <div className="container">
       <form>
@@ -23,10 +28,24 @@ const Register = ({}: Props) => {
           <input type="text" className="form-control"></input>
           <div className="form-text" id="emailHelp"></div>
         </div>
+        {success ? (
+          <>
+            <span>{`Registrado con exito :D`}</span>
+          </>
+        ) : (
+          ""
+        )}
+        {error ? (
+          <>
+            <span>{"Ha ocurrido un error :("}</span>
+          </>
+        ) : (
+          ""
+        )}
         <button
           type="button"
-          onClick={() => {
-            register(); 
+          onClick={(e: FormEvent) => {
+            onSubmit(e);
           }}
           className="btn btn-primary"
         >

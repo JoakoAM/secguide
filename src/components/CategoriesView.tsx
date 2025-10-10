@@ -7,6 +7,7 @@ import {
   fetchTools,
   renderCategories,
 } from "./firebase.tsx";
+import { Stack } from "@chakra-ui/react";
 
 const CategoriesView = ({}: Props) => {
   const [categories, setCategories] = useState<Categories[]>([]);
@@ -15,16 +16,16 @@ const CategoriesView = ({}: Props) => {
 
   const loadPublicData = () => {
     fetchTools(setTools);
-    fetchCategories(setCategories,setLoading);
+    fetchCategories(setCategories, setLoading);
   };
   return (
     <>
-    {loadPublicData()}
-      <button
-        style={{ width: "300px", height: "200px" }}
-        onClick={() => {}}
-      ></button>
-      <div id="categoriesView" className="categories-grid">
+      {loadPublicData()}
+      <Stack gap="2" direction="row" wrap="wrap">
+        <button style={{ width: "300px", height: "200px" }} onClick={() => {}}>
+          {" "}
+          Hola
+        </button>
         {loading ? (
           <div key="loading" className="loading">
             Cargando categorías...
@@ -32,9 +33,9 @@ const CategoriesView = ({}: Props) => {
         ) : (
           <>{renderCategories(categories, tools)}</>
         )}
-      </div>
-      <div id="toolsView" className="tools-grid"></div>
-      <div id="toolDetailView"></div>
+        <div id="toolsView" className="tools-grid"></div>
+        <div id="toolDetailView"></div>
+      </Stack>
     </>
   );
 };
