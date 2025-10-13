@@ -1,26 +1,13 @@
-import { Center, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import CategoriesView from "../../components/CategoriesView";
 import DrawerPanel from "../../components/DrawerPanel";
 import DrawerLogin from "../../components/DrawerLogin";
-import type { FormEvent } from "react";
 import DrawerRegister from "../../components/DrawerRegister";
 import DrawerPanelAdmin from "../../components/DrawerPanelAdmin";
 
-type Props = {
-  handleLogin: (e: FormEvent) => void;
-  handleRegister: (e: FormEvent) => void;
-  success: boolean;
-  error: boolean;
-  isAdmin: boolean;
-};
+type Props = {};
 
-const Hub = ({
-  handleLogin,
-  handleRegister,
-  error,
-  success,
-  isAdmin,
-}: Props) => {
+const Hub = ({}: Props) => {
   return (
     <>
       <Grid
@@ -72,13 +59,9 @@ const Hub = ({
               🚪 Cerrar Sesión
             </button>
             <DrawerPanel></DrawerPanel>
-            <DrawerPanelAdmin isAdmin={isAdmin}></DrawerPanelAdmin>
-            <DrawerLogin onSubmit={handleLogin}></DrawerLogin>
-            <DrawerRegister
-              error={error}
-              success={success}
-              onSubmit={handleRegister}
-            ></DrawerRegister>
+            <DrawerPanelAdmin></DrawerPanelAdmin>
+            <DrawerLogin></DrawerLogin>
+            <DrawerRegister></DrawerRegister>
           </div>
         </GridItem>
         <GridItem

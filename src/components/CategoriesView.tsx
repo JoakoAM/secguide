@@ -1,13 +1,8 @@
 type Props = {};
 import { useState } from "react";
-import {
-  type Categories,
-  type Tools,
-  fetchCategories,
-  fetchTools,
-  renderCategories,
-} from "./firebase.tsx";
+import { fetchCategories, fetchTools, renderCategories } from "./firebase.tsx";
 import { Stack } from "@chakra-ui/react";
+import type { Categories, Tools } from "../types/index.ts";
 
 const CategoriesView = ({}: Props) => {
   const [categories, setCategories] = useState<Categories[]>([]);

@@ -1,56 +1,15 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Hub from "./pages/Hub";
-import Login from "./components/Login";
 // import { useState, type FormEvent } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AdminPanel from "./pages/AdminPanel";
-import { useState, type FormEvent } from "react";
-import { login, register } from "./components/firebase";
+import UserFormProvider from "./providers/UserFormProvider";
+
 function App() {
-  const [IsAdmin, setAdmin] = useState<boolean>(false);
-  const [success, setSuccess] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
-
-  const handleLogin = async (e: FormEvent) => {
-    e.preventDefault();
-    const { email, password } = e.target as HTMLFormElement;
-    const isAdmin = await login(email.value, password.value);
-    console.log(IsAdmin);
-    isAdmin ? setAdmin(isAdmin) : setAdmin(false);
-  };
-  const handleRegister = async (e: FormEvent) => {
-    e.preventDefault();
-    const { email, password, firstName } = e.target as HTMLFormElement;
-    const success = await register(
-      email.value,
-      password.value,
-      firstName.value
-    );
-    success ? setSuccess(success) : setError(success);
-  };
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <Hub
-          success={success}
-          error={error}
-          handleLogin={handleLogin}
-          handleRegister={handleRegister}
-          isAdmin={IsAdmin}
-        />
-      ),
-    },
-    {
-      path: "/adminpanel",
-      element: <AdminPanel isAdmin={IsAdmin} />,
-    },
-  ]);
   return (
     <>
-      <RouterProvider router={router} />
+      <UserFormProvider>
+        <Hub />
+      </UserFormProvider>
     </>
   );
 }

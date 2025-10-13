@@ -1,19 +1,11 @@
-import {
-  Text,
-  Drawer,
-  Button,
-  Portal,
-  Kbd,
-  CloseButton,
-} from "@chakra-ui/react";
+import { Drawer, Button, Portal, CloseButton } from "@chakra-ui/react";
 import type { FormEvent } from "react";
-import Login from "./Login";
+import useUser from "../hooks/useUser";
 
-type Props = {
-  onSubmit: (e: FormEvent) => void;
-};
+type Props = {};
 
-export default function DrawerLogin({ onSubmit }: Props) {
+export default function DrawerLogin({}: Props) {
+  const { handleLogin } = useUser();
   return (
     <>
       <Drawer.Root placement={{ mdDown: "bottom", md: "start" }}>
@@ -31,7 +23,37 @@ export default function DrawerLogin({ onSubmit }: Props) {
                 <Drawer.Title>Iniciar Sesion</Drawer.Title>
               </Drawer.Header>
               <Drawer.Body>
-                <Login onSubmit={onSubmit}></Login>
+                <div className="container">
+                  <form
+                    onSubmit={(e: FormEvent) => {
+                      handleLogin(e);
+                    }}
+                  >
+                    <div className="mb-3">
+                      <label className="form-label">Email</label>
+                      <input
+                        name="email"
+                        type="email"
+                        className="form-control"
+                      ></input>
+                      <div className="form-text" id="emailHelp">
+                        Nunca compartiremos tus datos con terceros :D
+                      </div>
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label">Contraseña</label>
+                      <input
+                        name="password"
+                        type="password"
+                        className="form-control"
+                      ></input>
+                      <div className="form-text" id="emailHelp"></div>
+                    </div>
+                    <button type="submit" className="btn btn-primary">
+                      ingresar
+                    </button>
+                  </form>
+                </div>
                 <Button type={"submit"}>ingresar</Button>
               </Drawer.Body>
               <Drawer.Footer></Drawer.Footer>

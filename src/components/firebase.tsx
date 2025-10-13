@@ -2,7 +2,6 @@
 import { initializeApp } from "firebase/app";
 import {
   initializeFirestore,
-  Timestamp,
   collection,
   where,
   query,
@@ -19,32 +18,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { Card, Image, Text } from "@chakra-ui/react";
+import { Card, Text } from "@chakra-ui/react";
+import type { Categories, PropUserUid, Tools, UserForm } from "../types";
 
 type Props = {};
-export type Categories = {
-  id: string;
-  desc: string;
-  name: string;
-  createdAt: Timestamp;
-  approved: boolean;
-};
 
-export type Tools = {
-  approved: boolean;
-  article: string;
-  brief: string;
-  cats: string[];
-  createdAt: Timestamp;
-  createdBy: string;
-  func: string;
-  id: string;
-  license: string;
-  link: string;
-  name: string;
-  platform: string;
-  ratings: object;
-};
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -63,12 +41,8 @@ export const db = initializeFirestore(app, {
 });
 
 const auth = getAuth();
-export let currentUser: userProp | null = null;
-export const register = async (
-  email: string,
-  password: string,
-  name: string
-) => {
+export let currentUser: PropUserUid;
+export const register = async ({ name, email, password }: UserForm) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -88,7 +62,7 @@ export const register = async (
   }
 };
 
-export const login = async (email: string, password: string) => {
+export const login = async ({ email, password }: UserForm) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -102,10 +76,6 @@ export const login = async (email: string, password: string) => {
   } catch (error) {
     console.error("Login error:", error);
   }
-};
-
-type userProp = {
-  uid: string;
 };
 
 export const checkAdminStatus = async (): Promise<boolean> => {
@@ -208,7 +178,7 @@ export const fetchTools = async (
   }
 };
 const firebase = ({}: Props) => {
-  return <></>;
+  return;
 };
 
 export default firebase;

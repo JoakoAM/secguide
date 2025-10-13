@@ -1,10 +1,8 @@
 
-type Props = {
-  isAdmin: boolean;
-};
+type Props = {};
 
-const AdminPanel = ({ isAdmin }: Props) => {
-  isAdmin ? "" : "";
+const AdminPanel = ({}: Props) => {
+  
   return <>{/* mostrar panel de administracion */}</>;
 };
 

@@ -1,11 +1,11 @@
 import { Drawer, Button, Portal, CloseButton, Stack } from "@chakra-ui/react";
 import { useState } from "react";
+import useUser from "../hooks/useUser";
 
-type Props = {
-  isAdmin: boolean;
-};
+type Props = {};
 
-export default function DrawerPanelAdmin({ isAdmin }: Props) {
+export default function DrawerPanelAdmin({}: Props) {
+  const { isAdmin } = useUser();
   const [addCategory, setAddCategory] = useState<boolean>(false);
   const [addTool, setAddTool] = useState<boolean>(false);
   if (!isAdmin) {
@@ -92,9 +92,7 @@ export default function DrawerPanelAdmin({ isAdmin }: Props) {
                       />
                     </div>
                     <div className="form-row">
-                      <select id="toolCategory">
-                        <option value="">Selecciona una categoría</option>
-                      </select>
+                      <select id="toolCategory"></select>
                     </div>
                     <div className="form-row">
                       <input
@@ -137,12 +135,6 @@ export default function DrawerPanelAdmin({ isAdmin }: Props) {
                 <div id="adminToolsList" className="admin-list"></div>
                 <div id="pendingToolsList" className="admin-list"></div>
               </Drawer.Body>
-              <Drawer.Footer>
-                <Drawer.ActionTrigger asChild>
-                  <Button variant="outline">Cancel</Button>
-                </Drawer.ActionTrigger>
-                <Button>Save</Button>
-              </Drawer.Footer>
               <Drawer.CloseTrigger asChild>
                 <CloseButton borderRadius={"10px"} size="sm" />
               </Drawer.CloseTrigger>
