@@ -95,11 +95,9 @@ export const login = async (email: string, password: string) => {
       email,
       password
     );
-
     currentUser = { uid: userCredential.user.uid };
-    // const userRef = await collection(db, "users");
-    // console.log(getDocs(userRef));
     const isAdmin = await checkAdminStatus();
+    console.log(isAdmin);
     return isAdmin;
   } catch (error) {
     console.error("Login error:", error);
@@ -112,11 +110,9 @@ type userProp = {
 
 export const checkAdminStatus = async (): Promise<boolean> => {
   if (!currentUser) return false;
-
   try {
     const userRef = doc(db, "users", currentUser.uid);
     const userDoc = await getDoc(userRef);
-
     if (userDoc.exists()) {
       const userData = userDoc.data();
       return userData.isAdmin === true;
@@ -144,7 +140,7 @@ export const renderCategories = (c: Categories[], t: Tools[]) => {
       <>
         <Card.Root
           key={cat.id}
-          boxShadow={"0px 0px 11px 4px"}
+          boxShadow={"0 10px 30px rgba(0, 0, 0, 0.2)"}
           color={"gray.300"}
           borderRadius="10px"
           marginTop="10px"
@@ -152,6 +148,12 @@ export const renderCategories = (c: Categories[], t: Tools[]) => {
           h="200px"
           overflow="hidden"
           margin={"14px"}
+          transition=".3s"
+          cursor={"pointer"}
+          _hover={{
+            transform: "translateY(-8px)",
+            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+          }}
         >
           <Card.Body gap="2">
             <Card.Title maxH={"62px"} fontSize={30} color="blue.500">
@@ -160,11 +162,9 @@ export const renderCategories = (c: Categories[], t: Tools[]) => {
 
             <Card.Description>
               <Text color={"black"}> {cat.desc}</Text>
-               {count} herramienta{count !== 1 ? "s" : ""}
+              {count} herramienta{count !== 1 ? "s" : ""}
             </Card.Description>
           </Card.Body>
-
-          <Card.Footer gap="2"></Card.Footer>
         </Card.Root>
       </>
     );

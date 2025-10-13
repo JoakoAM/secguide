@@ -501,7 +501,7 @@ async function showAdminPanel() {
 
         <div class="admin-actions">
           <button class="admin-action-btn" onclick="showAddCategoryForm()">➕ Añadir Categoría</button>
-          <button class="admin-action-btn" onclick="showAddToolForm()">🛠️ Añadir Herramienta</button>
+          <button class="admin-action-btn" onclick="showAdminPanel()">🛠️ Añadir Herramienta</button>
           <button class="admin-action-btn" onclick="loadPendingTools()">⏳ Herramientas Pendientes</button>
         </div>
 

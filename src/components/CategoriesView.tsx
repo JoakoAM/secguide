@@ -18,21 +18,23 @@ const CategoriesView = ({}: Props) => {
     fetchTools(setTools);
     fetchCategories(setCategories, setLoading);
   };
+
+  if (loading) {
+    loadPublicData();
+    return (
+      <Stack justifyContent={"center"} gap="2" direction="row" wrap="wrap">
+        <div key="loading" className="loading">
+          Cargando categorías...
+        </div>
+        <div id="toolsView" className="tools-grid"></div>
+        <div id="toolDetailView"></div>
+      </Stack>
+    );
+  }
   return (
     <>
-      {loadPublicData()}
-      <Stack gap="2" direction="row" wrap="wrap">
-        <button style={{ width: "300px", height: "200px" }} onClick={() => {}}>
-          {" "}
-          Hola
-        </button>
-        {loading ? (
-          <div key="loading" className="loading">
-            Cargando categorías...
-          </div>
-        ) : (
-          <>{renderCategories(categories, tools)}</>
-        )}
+      <Stack justifyContent={"center"} gap="2" direction="row" wrap="wrap">
+        <>{renderCategories(categories, tools)}</>
         <div id="toolsView" className="tools-grid"></div>
         <div id="toolDetailView"></div>
       </Stack>

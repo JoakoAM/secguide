@@ -1,5 +1,5 @@
 import type { FormEvent } from "react";
-import { register } from "../../components/firebase";
+import { register } from "./firebase";
 
 type Props = {
   onSubmit: (e: FormEvent) => void;
@@ -10,22 +10,26 @@ type Props = {
 const Register = ({ onSubmit, success, error }: Props) => {
   return (
     <div className="container">
-      <form>
+      <form
+        onSubmit={(e: FormEvent) => {
+          onSubmit(e);
+        }}
+      >
         <div className="mb-3">
           <label className="form-label">Nombre</label>
-          <input type="text" className="form-control"></input>
+          <input name="firstName" type="text" className="form-control"></input>
           <div className="form-text" id="emailHelp">
             Nunca compartiremos tus datos con terceros :D
           </div>
         </div>
         <div className="mb-3">
           <label className="form-label">Contraseña</label>
-          <input type="text" className="form-control"></input>
+          <input name="password" type="text" className="form-control"></input>
           <div className="form-text" id="emailHelp"></div>
         </div>
         <div className="mb-3">
           <label className="form-label">Correos</label>
-          <input type="text" className="form-control"></input>
+          <input name="email" type="text" className="form-control"></input>
           <div className="form-text" id="emailHelp"></div>
         </div>
         {success ? (
@@ -42,13 +46,7 @@ const Register = ({ onSubmit, success, error }: Props) => {
         ) : (
           ""
         )}
-        <button
-          type="button"
-          onClick={(e: FormEvent) => {
-            onSubmit(e);
-          }}
-          className="btn btn-primary"
-        >
+        <button type="submit" className="btn btn-primary">
           ingresar
         </button>
       </form>
