@@ -1,6 +1,15 @@
-import { Drawer, Button, Portal, CloseButton, Stack } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  Drawer,
+  Button,
+  Portal,
+  CloseButton,
+  Stack,
+  Dialog,
+  DialogCloseTrigger,
+} from "@chakra-ui/react";
+import { useState, type FormEvent } from "react";
 import useUser from "../hooks/useUser";
+import CategorySelect from "./CategorySelect";
 
 type Props = {};
 
@@ -13,135 +22,205 @@ export default function DrawerPanelAdmin({}: Props) {
   }
   return (
     <>
-      <Drawer.Root placement={{ mdDown: "bottom", md: "start" }}>
-        <Drawer.Trigger asChild>
-          <Button variant={"plain"}>🖥️ Panel de administracion </Button>
-        </Drawer.Trigger>
+      <Dialog.Root
+        closeOnInteractOutside={false}
+        placement={{ sm: "bottom", md: "center" }}
+      >
+        <Dialog.Trigger asChild>
+          <Button
+            variant={"plain"}
+            borderRadius={"10px"}
+            _hover={{
+              bg: "rgba(255, 255, 255, 0.2)",
+            }}
+          >
+            🖥️ Panel de administracion
+          </Button>
+        </Dialog.Trigger>
         <Portal>
-          <Drawer.Positioner top={"120px"}>
-            <Drawer.Content
-              boxShadow={"0 10px 30px rgba(0, 0, 0, 0.2)"}
-              borderRadius={"10px"}
-              borderTopLeftRadius={"0PX"}
+          <Dialog.Backdrop />
+          <Dialog.Positioner>
+            <Dialog.Content
+              bg={"rgba(255, 255, 255, 0.2)"}
+              backdropFilter={"blur(10px)"}
+              border={"1px solid rgba(255, 255, 255, 0.3)"}
+              alignItems={"center"}
+              justifyContent={"space-between"}
             >
-              <Drawer.Header>
-                <Drawer.Title>Panel de Administración</Drawer.Title>
-              </Drawer.Header>
-              <Drawer.Body>
+              <Dialog.Header alignSelf={"center"}>
+                <Dialog.Title>Panel de Administración</Dialog.Title>
+              </Dialog.Header>
+              <Dialog.Body pb="4">
                 <div id="adminContainer" className="admin-panel">
-                  <Stack>
+                  <Stack alignItems={"start"}>
                     <>
-                      <button
+                      <Button
                         onClick={() => {
                           setAddCategory(true);
+                          setAddTool(false);
                         }}
-                        className="admin-action-btn"
+                        variant={"plain"}
+                        borderRadius={"10px"}
+                        _hover={{
+                          bg: "rgba(255, 255, 255, 0.2)",
+                        }}
                       >
                         ➕ Añadir Categoría
-                      </button>
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setAddTool(true);
+                          setAddCategory(false);
+                        }}
+                        variant={"plain"}
+                        borderRadius={"10px"}
+                        _hover={{
+                          bg: "rgba(255, 255, 255, 0.2)",
+                        }}
+                      >
+                        🛠️ Añadir Herramienta
+                      </Button>
                     </>
-                    <button
+                    <Button
                       onClick={() => {
                         setAddTool(true);
                       }}
-                      className="admin-action-btn"
+                      variant={"plain"}
+                      borderRadius={"10px"}
+                      _hover={{
+                        bg: "rgba(255, 255, 255, 0.2)",
+                      }}
                     >
-                      🛠️ Añadir Herramienta
-                    </button>
-                    <button className="admin-action-btn">
                       ⏳ Herramientas Pendientes
-                    </button>
+                    </Button>
                   </Stack>
                 </div>
-                {addCategory ? (
-                  <div id="addCategoryForm" className="admin-form">
-                    <h3>Añadir Nueva Categoría</h3>
-                    <div className="form-row">
-                      <input
-                        type="text"
-                        id="categoryName"
-                        placeholder="Nombre de la categoría"
-                      />
+                <Stack>
+                  {addCategory ? (
+                    <div id="addCategoryForm" className="admin-form">
+                      <h3>Añadir Nueva Categoría</h3>
+                      <div className="mb-3">
+                        <label className="form-label">
+                          Nombre de la categoría
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="categoryName"
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">
+                          Descripción de la categoría
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="categoryDescription"
+                        />
+                      </div>
+                      <button className="btn btn-primary">
+                        Guardar Categoría
+                      </button>
                     </div>
-                    <div className="form-row">
-                      <input
-                        type="text"
-                        id="categoryDesc"
-                        placeholder="Descripción de la categoría"
-                      />
-                    </div>
-                    <button className="form-submit">Guardar Categoría</button>
-                  </div>
-                ) : null}
+                  ) : null}
 
-                {addTool ? (
-                  <div id="addToolForm" className="admin-form">
-                    <h3>Añadir Nueva Herramienta</h3>
-                    <div className="form-row">
-                      <input
-                        type="text"
-                        id="toolName"
-                        placeholder="Nombre de la herramienta"
-                      />
-                    </div>
-                    <div className="form-row">
-                      <input
-                        type="text"
-                        id="toolBrief"
-                        placeholder="Descripción breve"
-                      />
-                    </div>
-                    <div className="form-row">
-                      <select id="toolCategory"></select>
-                    </div>
-                    <div className="form-row">
-                      <input
-                        type="text"
-                        id="toolFunc"
-                        placeholder="Funcionalidades"
-                      />
-                    </div>
-                    <div className="form-row">
-                      <input
-                        type="text"
-                        id="toolPlatform"
-                        placeholder="Plataformas (Win/Linux/macOS)"
-                      />
-                    </div>
-                    <div className="form-row">
-                      <input
-                        type="text"
-                        id="toolLicense"
-                        placeholder="Licencia"
-                      />
-                    </div>
-                    <div className="form-row">
-                      <input
-                        type="text"
-                        id="toolLink"
-                        placeholder="Enlace oficial"
-                      />
-                    </div>
-                    <div className=" form-row">
-                      <textarea
-                        id="toolArticle"
-                        placeholder="Artículo descriptivo"
-                      ></textarea>
-                    </div>
-                    <button className="form-submit">Guardar Herramienta</button>
-                  </div>
-                ) : null}
+                  {addTool ? (
+                    <Stack
+                      h={"100%"}
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      gap="1"
+                      wrap="wrap"
+                    >
+                      <div id="addToolForm" className="admin-form">
+                        <h3>Añadir Nueva Herramienta</h3>
+                        <div className="mb-3">
+                          <label className="form-label">
+                            Nombre de la herramienta
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="toolName"
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label className="form-label">
+                            Descripción breve
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="toolBrief"
+                          />
+                        </div>
+                        <CategorySelect></CategorySelect>
+                        <div className="mb-3">
+                          <label className="form-label">Funcionalidades</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="toolFunc"
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label className="form-label">Plataformas</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="toolPlatform"
+                            placeholder="Win/Linux/macOS"
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label className="form-label">Licencia</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="toolLicense"
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label className="form-label">Enlace oficial</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="toolLink"
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label className="form-label">
+                            Artículo descriptivo
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="toolArticle"
+                          />
+                        </div>
+
+                        <button className="form-submit">
+                          Guardar Herramienta
+                        </button>
+                      </div>
+                    </Stack>
+                  ) : null}
+                </Stack>
                 <div id="adminCategoriesList" className="admin-list"></div>
                 <div id="adminToolsList" className="admin-list"></div>
                 <div id="pendingToolsList" className="admin-list"></div>
-              </Drawer.Body>
-              <Drawer.CloseTrigger asChild>
-                <CloseButton borderRadius={"10px"} size="sm" />
-              </Drawer.CloseTrigger>
-            </Drawer.Content>
-          </Drawer.Positioner>
+              </Dialog.Body>
+              <DialogCloseTrigger>
+                <CloseButton
+                  _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
+                  borderRadius={"20px"}
+                />
+              </DialogCloseTrigger>
+            </Dialog.Content>
+          </Dialog.Positioner>
         </Portal>
-      </Drawer.Root>
+      </Dialog.Root>
     </>
   );
 }

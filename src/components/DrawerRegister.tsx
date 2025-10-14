@@ -1,4 +1,4 @@
-import { Drawer, Button, Portal, CloseButton } from "@chakra-ui/react";
+import { Drawer, Button, Portal, CloseButton, Dialog, DialogCloseTrigger } from "@chakra-ui/react";
 import type { FormEvent } from "react";
 import useUser from "../hooks/useUser";
 
@@ -9,21 +9,34 @@ export default function DrawerLogin({}: Props) {
   if (!logged) {
     return (
       <>
-        <Drawer.Root placement={{ mdDown: "bottom", md: "start" }}>
-          <Drawer.Trigger asChild>
-            <Button variant={"plain"}>📝 Registrarse</Button>
-          </Drawer.Trigger>
+        <Dialog.Root
+          closeOnInteractOutside={false}
+          placement={{ sm: "bottom", md: "center" }}
+        >
+          <Dialog.Trigger asChild>
+            <Button
+              variant={"plain"}
+              borderRadius={"10px"}
+              _hover={{
+                bg: "rgba(255, 255, 255, 0.2)",
+              }}
+            >
+              📝 Crear Cuenta
+            </Button>
+          </Dialog.Trigger>
           <Portal>
-            <Drawer.Positioner md={{ top: "120px" }}>
-              <Drawer.Content
-                boxShadow={"0 10px 30px rgba(0, 0, 0, 0.2)"}
-                borderRadius={"10px"}
-                borderTopLeftRadius={"0PX"}
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+              <Dialog.Content
+                bg={"rgba(255, 255, 255, 0.2)"}
+                backdropFilter={"blur(10px)"}
+                border={"1px solid rgba(255, 255, 255, 0.3)"}
+                alignItems={"center"}
               >
-                <Drawer.Header>
-                  <Drawer.Title>Registrarse</Drawer.Title>
-                </Drawer.Header>
-                <Drawer.Body>
+                <Dialog.Header alignSelf={"center"}>
+                  <Dialog.Title>Crear Cuenta</Dialog.Title>
+                </Dialog.Header>
+                <Dialog.Body pb="4">
                   <div className="container">
                     <form
                       onSubmit={(e: FormEvent) => {
@@ -75,15 +88,17 @@ export default function DrawerLogin({}: Props) {
                       </button>
                     </form>
                   </div>
-                </Drawer.Body>
-                <Drawer.Footer></Drawer.Footer>
-                <Drawer.CloseTrigger asChild>
-                  <CloseButton borderRadius={"10px"} size="sm" />
-                </Drawer.CloseTrigger>
-              </Drawer.Content>
-            </Drawer.Positioner>
+                </Dialog.Body>
+                <DialogCloseTrigger>
+                  <CloseButton
+                    _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
+                    borderRadius={"20"}
+                  />
+                </DialogCloseTrigger>
+              </Dialog.Content>
+            </Dialog.Positioner>
           </Portal>
-        </Drawer.Root>
+        </Dialog.Root>
       </>
     );
   }

@@ -17,8 +17,11 @@ function UserFormProvider({ children }: Props) {
       email: email.value,
       password: password.value,
     });
-    isAdmin ? setAdmin(isAdmin) : setAdmin(false);
-    setLogged(true);
+    if (isAdmin) {
+      setAdmin(isAdmin);
+      setLogged(isAdmin);
+      return;
+    }
   };
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();

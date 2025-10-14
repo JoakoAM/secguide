@@ -8,6 +8,8 @@ import {
   Separator,
   Stack,
   HStack,
+  Text,
+  Menu,
 } from "@chakra-ui/react";
 import CategoriesView from "../../components/CategoriesView";
 import DrawerPanel from "../../components/DrawerPanel";
@@ -53,13 +55,36 @@ const Hub = ({}: Props) => {
               position={"relative"}
               left={"155px"}
             >
-              <h1>Cybersecurity Tools Hub</h1>
-              <h2>SecGuide</h2>
-              <p>Explora las mejores herramientas y aprende cómo funcionan</p>
+              <h1
+                style={{
+                  fontWeight: "bold",
+                  textShadow: "2px 2px 4px rgba(0,0,0,.3)",
+                  color: "white",
+                }}
+              >
+                Cybersecurity Tools Hub
+              </h1>
+              <h2
+                style={{
+                  fontWeight: "bold",
+                  textShadow: "2px 2px 4px rgba(0,0,0,.3)",
+                  color: "white",
+                }}
+              >
+                SecGuide 🔏
+              </h2>
+              <p
+                style={{
+                  textShadow: "2px 2px 4px rgba(0,0,0,.3)",
+                  color: "white",
+                }}
+              >
+                Explora las mejores herramientas y aprende cómo funcionan
+              </p>
             </Stack>
             <Stack justifySelf={"center"} justifyContent={"end"}>
-              <Drawer.Root placement={{ sm: "bottom", md: "top" }}>
-                <Drawer.Trigger asChild>
+              <Menu.Root positioning={{ placement: "right" }}>
+                <Menu.Trigger asChild>
                   <Button
                     h={"160px"}
                     borderTopRightRadius={"10px"}
@@ -74,20 +99,15 @@ const Hub = ({}: Props) => {
                   >
                     <VscThreeBars />
                   </Button>
-                </Drawer.Trigger>
+                </Menu.Trigger>
                 <Portal>
-                  <Drawer.Positioner
-                    h={"auto"}
-                    w={"auto"}
-                    top={"30px"}
-                    left={"1350px"}
-                  >
-                    <Drawer.Content
+                  <Menu.Positioner>
+                    <Menu.Content
                       bg={"rgba(255, 255, 255, 0.2)"}
                       backdropFilter={"blur(10px)"}
                       border={"1px solid rgba(255, 255, 255, 0.3)"}
                       borderRadius={"10px"}
-                      height={"90px"}
+                      height={"160px"}
                       width={"auto"}
                     >
                       <Stack
@@ -97,45 +117,15 @@ const Hub = ({}: Props) => {
                         gap="1"
                         wrap="wrap"
                       >
-                        {/* <button
-                              id="backButton"
-                              className="nav-button"
-                              onClick={() => {
-                                "goBack()";
-                              }}
-                            >
-                              ← Volver
-                            </button>
-                            <button
-                              id="homeButton"
-                              className="nav-button"
-                              onClick={() => {
-                                "goHome()";
-                              }}
-                            >
-                              🏠 Inicio
-                            </button>
-                            <button
-                              id="logoutButton"
-                              className="nav-button"
-                              onClick={() => {
-                                "logOut";
-                              }}
-                            >
-                              🚪 Cerrar Sesión
-                            </button> */}
-
                         {/* <DrawerPanel></DrawerPanel> */}
                         <DrawerPanelAdmin></DrawerPanelAdmin>
                         <DrawerLogin></DrawerLogin>
                         <DrawerRegister></DrawerRegister>
                       </Stack>
-
-                      <Drawer.Footer></Drawer.Footer>
-                    </Drawer.Content>
-                  </Drawer.Positioner>
+                    </Menu.Content>
+                  </Menu.Positioner>
                 </Portal>
-              </Drawer.Root>
+              </Menu.Root>
             </Stack>
           </HStack>
         </GridItem>

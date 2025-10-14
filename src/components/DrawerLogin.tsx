@@ -14,7 +14,15 @@ export default function DrawerLogin({}: Props) {
           placement={{ sm: "bottom", md: "center" }}
         >
           <Dialog.Trigger asChild>
-            <Button variant={"plain"}>🔐 Iniciar Sesión</Button>
+            <Button
+              variant={"plain"}
+              borderRadius={"10px"}
+              _hover={{
+                bg: "rgba(255, 255, 255, 0.2)",
+              }}
+            >
+              🔐 Iniciar Sesión
+            </Button>
           </Dialog.Trigger>
           <Portal>
             <Dialog.Backdrop />
@@ -62,7 +70,10 @@ export default function DrawerLogin({}: Props) {
                   </div>
                 </Dialog.Body>
                 <Dialog.CloseTrigger>
-                  <CloseButton _hover={{ bg: "rgba(255, 255, 255, 0.2)" }} borderRadius={"20"} />
+                  <CloseButton
+                    _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
+                    borderRadius={"10px"}
+                  />
                 </Dialog.CloseTrigger>
               </Dialog.Content>
             </Dialog.Positioner>

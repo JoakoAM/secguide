@@ -107,36 +107,33 @@ export const renderCategories = (c: Categories[], t: Tools[]) => {
   const render = c.map((cat) => {
     const count = t.filter((t) => t.cats && t.cats.includes(cat.id)).length;
     return (
-      <>
-        <Card.Root
-          key={cat.id}
-          boxShadow={"0 10px 30px rgba(0, 0, 0, 0.2)"}
-          color={"gray.300"}
-          borderRadius="10px"
-          marginTop="10px"
-          w="486px"
-          h="200px"
-          overflow="hidden"
-          margin={"14px"}
-          transition=".3s"
-          cursor={"pointer"}
-          _hover={{
-            transform: "translateY(-8px)",
-            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
-          }}
-        >
-          <Card.Body gap="2">
-            <Card.Title maxH={"62px"} fontSize={30} color="blue.500">
-              {cat.name}
-            </Card.Title>
-
-            <Card.Description>
-              <Text color={"black"}> {cat.desc}</Text>
-              {count} herramienta{count !== 1 ? "s" : ""}
-            </Card.Description>
-          </Card.Body>
-        </Card.Root>
-      </>
+      <Card.Root
+        key={cat.id}
+        boxShadow={"0 10px 30px rgba(0, 0, 0, 0.2)"}
+        color={"gray.300"}
+        borderRadius="10px"
+        marginTop="10px"
+        w="486px"
+        h="200px"
+        overflow="hidden"
+        margin={"14px"}
+        transition=".3s"
+        cursor={"pointer"}
+        _hover={{
+          transform: "translateY(-8px)",
+          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+        }}
+      >
+        <Card.Body  gap="2">
+          <Card.Title maxH={"62px"} fontWeight={"bold"} fontSize={30} color="#333">
+            {cat.name}
+          </Card.Title>
+          <Card.Description fontWeight={"lighter"} color={"#555"}>{cat.desc}</Card.Description>
+          <Card.Description fontSize={"15px"} fontWeight={"bold"} color="#667eea">
+            {count} herramienta{count !== 1 ? "s" : ""}
+          </Card.Description>
+        </Card.Body>
+      </Card.Root>
     );
   });
   return render;
