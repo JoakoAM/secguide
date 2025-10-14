@@ -5,10 +5,10 @@ import useUser from "../hooks/useUser";
 type Props = {};
 
 export default function DrawerPanelAdmin({}: Props) {
-  const { isAdmin } = useUser();
+  const { isAdmin, logged } = useUser();
   const [addCategory, setAddCategory] = useState<boolean>(false);
   const [addTool, setAddTool] = useState<boolean>(false);
-  if (!isAdmin) {
+  if (!isAdmin && !logged) {
     return;
   }
   return (
