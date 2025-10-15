@@ -1,13 +1,14 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { auth, login, register } from "../firebase/firebase";
 import UserContext from "../contexts/UserContext";
+import type { User } from "firebase/auth";
 type Props = {
   children: ReactNode;
 };
 
 function UserFormProvider({ children }: Props) {
   const fetchUserData = async () => {
-    await auth.onAuthStateChanged(async (user) => {
+    await auth.onAuthStateChanged(async (user: User) => {
       console.log(user);
     });
   };
