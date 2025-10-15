@@ -7,7 +7,7 @@ import {
 } from "../firebase/firebase.tsx";
 import { Card, Skeleton, SkeletonText, Stack } from "@chakra-ui/react";
 import type { Categories, Tools } from "../types/index.ts";
-
+//jsaKJLakjlaSJLK
 const CategoriesView = ({}: Props) => {
   const [categories, setCategories] = useState<Categories[]>([]);
   const [tools, setTools] = useState<Tools[]>([]);
