@@ -4,7 +4,7 @@ type UserFormContext = {
   handleLogin: (e: FormEvent) => void;
   handleRegister: (e: FormEvent) => void;
   handleLogOut: (a: boolean) => void;
-  error: boolean;
+  error: string;
   success: boolean;
   isAdmin: boolean;
   logged: boolean;

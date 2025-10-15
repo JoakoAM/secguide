@@ -1,4 +1,11 @@
-import { Drawer, Button, Portal, CloseButton, Dialog, DialogCloseTrigger } from "@chakra-ui/react";
+import {
+  Drawer,
+  Button,
+  Portal,
+  CloseButton,
+  Dialog,
+  DialogCloseTrigger,
+} from "@chakra-ui/react";
 import type { FormEvent } from "react";
 import useUser from "../hooks/useUser";
 
@@ -55,7 +62,7 @@ export default function DrawerLogin({}: Props) {
                         <label className="form-label">Contraseña</label>
                         <input
                           name="password"
-                          type="text"
+                          type="password"
                           className="form-control"
                         ></input>
                         <div className="form-text" id="emailHelp"></div>

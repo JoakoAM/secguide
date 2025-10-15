@@ -1,14 +1,10 @@
 import {
   Button,
-  CloseButton,
-  Drawer,
   Grid,
   GridItem,
   Portal,
-  Separator,
   Stack,
   HStack,
-  Text,
   Menu,
 } from "@chakra-ui/react";
 import CategoriesView from "../../components/CategoriesView";
@@ -58,7 +54,7 @@ const Hub = ({}: Props) => {
               <h1
                 style={{
                   fontWeight: "bold",
-                  textShadow: "2px 2px 4px rgba(0,0,0,.3)",
+                  textShadow: "rgb(0 0 0 / 79%) 2px 2px 4px",
                   color: "white",
                 }}
               >
@@ -67,7 +63,7 @@ const Hub = ({}: Props) => {
               <h2
                 style={{
                   fontWeight: "bold",
-                  textShadow: "2px 2px 4px rgba(0,0,0,.3)",
+                  textShadow: "rgb(0 0 0 / 79%) 2px 2px 4px",
                   color: "white",
                 }}
               >
@@ -75,7 +71,7 @@ const Hub = ({}: Props) => {
               </h2>
               <p
                 style={{
-                  textShadow: "2px 2px 4px rgba(0,0,0,.3)",
+                  textShadow: "rgb(0 0 0 / 79%) 2px 2px 4px",
                   color: "white",
                 }}
               >
@@ -117,7 +113,7 @@ const Hub = ({}: Props) => {
                         gap="1"
                         wrap="wrap"
                       >
-                        {/* <DrawerPanel></DrawerPanel> */}
+                        <DrawerPanel></DrawerPanel>
                         <DrawerPanelAdmin></DrawerPanelAdmin>
                         <DrawerLogin></DrawerLogin>
                         <DrawerRegister></DrawerRegister>

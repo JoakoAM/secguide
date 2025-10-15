@@ -1,6 +1,10 @@
 type Props = {};
 import { useState } from "react";
-import { fetchCategories, fetchTools, renderCategories } from "./firebase.tsx";
+import {
+  fetchCategories,
+  fetchTools,
+  renderCategories,
+} from "../firebase/firebase.tsx";
 import { Card, Skeleton, SkeletonText, Stack } from "@chakra-ui/react";
 import type { Categories, Tools } from "../types/index.ts";
 
@@ -23,21 +27,21 @@ const CategoriesView = ({}: Props) => {
       >
         {skeletons.map((m) => (
           <Card.Root
-          key={m}
-          boxShadow={"0 10px 30px rgba(0, 0, 0, 0.2)"}
-          color={"gray.300"}
-          borderRadius="10px"
-          marginTop="10px"
-          w="486px"
-          h="200px"
-          overflow="hidden"
-          margin={"14px"}
-          transition=".3s"
-          cursor={"pointer"}
-          _hover={{
-            transform: "translateY(-8px)",
-            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
-          }}
+            key={m}
+            boxShadow={"0 10px 30px rgba(0, 0, 0, 0.2)"}
+            color={"gray.300"}
+            borderRadius="10px"
+            marginTop="10px"
+            w="486px"
+            h="200px"
+            overflow="hidden"
+            margin={"14px"}
+            transition=".3s"
+            cursor={"pointer"}
+            _hover={{
+              transform: "translateY(-8px)",
+              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+            }}
           >
             <Card.Body marginTop={"10px"} gap="2">
               <SkeletonText bg={"gray.600"} w="200px" noOfLines={1} />

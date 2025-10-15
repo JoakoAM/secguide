@@ -88,7 +88,6 @@ export default function DrawerLogin({}: Props) {
       color={"black"}
       onClick={() => {
         handleLogOut(false);
-        console.log(logged);
       }}
     >
       🚪 Cerrar Sesion
