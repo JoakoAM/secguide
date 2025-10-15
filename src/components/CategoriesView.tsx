@@ -4,7 +4,7 @@ import {
   fetchCategories,
   fetchTools,
   renderCategories,
-} from "../firebase/firebase.tsx";
+} from "../firebasePath/firebase.tsx";
 import { Card, Skeleton, SkeletonText, Stack } from "@chakra-ui/react";
 import type { Categories, Tools } from "../types/index.ts";
 //jsaKJLakjlaSJLK

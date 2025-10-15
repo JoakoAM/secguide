@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
-import { auth, login, register } from "../firebase/firebase";
+import { auth, login, register } from "../firebasePath/firebase";
 import UserContext from "../contexts/UserContext";
 import type { User } from "firebase/auth";
 type Props = {
