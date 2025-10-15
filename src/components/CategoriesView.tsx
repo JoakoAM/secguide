@@ -5,7 +5,7 @@ import {
   fetchTools,
   renderCategories,
 } from "../firebasePath/firebase.tsx";
-import { Card, Skeleton, SkeletonText, Stack } from "@chakra-ui/react";
+import { Card, SkeletonText, Stack } from "@chakra-ui/react";
 import type { Categories, Tools } from "../types/index.ts";
 //jsaKJLakjlaSJLK
 const CategoriesView = ({}: Props) => {

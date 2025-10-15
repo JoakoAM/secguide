@@ -1,11 +1,4 @@
-import {
-  Text,
-  Drawer,
-  Button,
-  Portal,
-  Kbd,
-  CloseButton,
-} from "@chakra-ui/react";
+import { Drawer, Button, Portal, Kbd, CloseButton } from "@chakra-ui/react";
 import useUser from "../hooks/useUser";
 
 type Props = {};

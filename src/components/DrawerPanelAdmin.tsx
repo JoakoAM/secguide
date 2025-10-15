@@ -1,5 +1,4 @@
 import {
-  Drawer,
   Button,
   Portal,
   CloseButton,
@@ -7,7 +6,7 @@ import {
   Dialog,
   DialogCloseTrigger,
 } from "@chakra-ui/react";
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import useUser from "../hooks/useUser";
 import CategorySelect from "./CategorySelect";
 

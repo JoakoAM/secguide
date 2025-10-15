@@ -22,7 +22,7 @@ import { Card } from "@chakra-ui/react";
 import type { Categories, Tools } from "../types";
 
 type Props = {};
-
+//Hola
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
