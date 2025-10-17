@@ -13,6 +13,8 @@ import DrawerLogin from "../../components/DrawerLogin";
 import DrawerRegister from "../../components/DrawerRegister";
 import DrawerPanelAdmin from "../../components/DrawerPanelAdmin";
 import { VscThreeBars } from "react-icons/vsc";
+import UserFormProvider from "../../providers/UserFormProvider";
+import { auth } from "../../firebasePath/firebase";
 type Props = {};
 
 const Hub = ({}: Props) => {
@@ -113,10 +115,30 @@ const Hub = ({}: Props) => {
                         gap="1"
                         wrap="wrap"
                       >
-                        <DrawerPanel></DrawerPanel>
-                        <DrawerPanelAdmin></DrawerPanelAdmin>
-                        <DrawerLogin></DrawerLogin>
-                        <DrawerRegister></DrawerRegister>
+                        <>
+                          <Button
+                            bg={"transparent"}
+                            color={"black"}
+                            variant={"plain"}
+                            onClick={() => {
+                              auth.signOut();
+                              location.reload();
+                            }}
+                            _hover={{
+                              bg: "rgba(255, 255, 255, 0.2)",
+                            }}
+                          >
+                            🚪 Cerrar Sesion
+                          </Button>
+
+                          <DrawerPanel></DrawerPanel>
+                          <DrawerPanelAdmin></DrawerPanelAdmin>
+
+                          <UserFormProvider>
+                            <DrawerLogin></DrawerLogin>
+                            <DrawerRegister></DrawerRegister>
+                          </UserFormProvider>
+                        </>
                       </Stack>
                     </Menu.Content>
                   </Menu.Positioner>

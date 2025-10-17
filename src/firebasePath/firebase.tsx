@@ -20,6 +20,7 @@ import {
 } from "firebase/auth";
 import { Card } from "@chakra-ui/react";
 import type { Categories, Tools } from "../types";
+import { useEffect, useState } from "react";
 
 type Props = {};
 //Hola
@@ -41,44 +42,12 @@ export const db = initializeFirestore(app, {
 });
 
 export const auth = getAuth();
-export const register = async (
-  name: string,
-  email: string,
-  password: string,
-  setError: (e: string) => void
-) => {
-  try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    const user = auth.currentUser;
-    if (!user?.uid) {
-      throw new Error("No se pudo crear usuario.");
-    }
-    await setDoc(doc(db, "users", user?.uid), {
-      name: name,
-      email: email,
-      createdAt: serverTimestamp(),
-    });
-  } catch (e) {
-    setError("Error creando su usuario.");
-    return false;
-  }
-};
-
-export const login = async (email: string, password: string) => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    const user = auth.currentUser;
-    console.log(user);
-  } catch (error) {
-    console.error("Login error:", error);
-  }
-};
+export const { currentUser } = auth;
 
 export const checkAdminStatus = async (): Promise<boolean> => {
-  const user = auth.currentUser;
-  if (!user) return false;
+  if (!currentUser) throw new Error("Usuario no ha iniciado sesion.");
   try {
-    const userRef = doc(db, "users", user.uid);
+    const userRef = doc(db, "users", currentUser.uid);
     const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
       const userData = userDoc.data();

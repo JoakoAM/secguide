@@ -1,13 +1,11 @@
-import { createContext, type FormEvent } from "react";
+import { createContext } from "react";
 
 type UserFormContext = {
-  handleLogin: (e: FormEvent) => void;
-  handleRegister: (e: FormEvent) => void;
-  handleLogOut: (a: boolean) => void;
-  error: string;
-  success: boolean;
-  isAdmin: boolean;
-  logged: boolean;
+  handleLogin: (email: string, password: string) => void;
+  handleRegister: (email: string, password: string, name: string) => void;
+  loading: boolean;
+  success?: string;
+  error?: string;
 };
 
 export default createContext<UserFormContext>({} as UserFormContext);

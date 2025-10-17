@@ -24,5 +24,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "src/firebasePath/firebase.tsx"]
+  "include": ["src", "src/firebasePath/firebase.ts"]
 }

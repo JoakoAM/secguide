@@ -1,4 +1,4 @@
-import { Select, Portal, createListCollection } from "@chakra-ui/react";
+import { Select,  createListCollection } from "@chakra-ui/react";
 import { useState } from "react";
 
 type Props = {};
