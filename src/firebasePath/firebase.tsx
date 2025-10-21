@@ -7,21 +7,13 @@ import {
   query,
   getDoc,
   getDocs,
-  serverTimestamp,
-  setDoc,
   doc,
   // setDoc,
 } from "firebase/firestore";
 
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { Card } from "@chakra-ui/react";
 import type { Categories, Tools } from "../types";
-import { useEffect, useState } from "react";
-
 type Props = {};
 //Hola
 const firebaseConfig = {
