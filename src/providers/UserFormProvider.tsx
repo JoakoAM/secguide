@@ -6,12 +6,14 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { setDoc, doc, serverTimestamp, getDoc } from "firebase/firestore";
+import { Navigate } from "react-router-dom";
 type Props = {
   children: ReactNode;
 };
 
 function UserFormProvider({ children }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
+  const [admin, setIsAdmin] = useState<boolean>(false);
   const [success, setSuccess] = useState<string>();
   const [error, setError] = useState<string>();
   const fetchUserData = async () => {
@@ -31,7 +33,9 @@ function UserFormProvider({ children }: Props) {
           const userRef = doc(db, "users", auth.currentUser.uid);
           const userDoc = await getDoc(userRef);
           const user = userDoc.get("name");
+          const isAdmin = userDoc.get("isAdmin");
           setSuccess("Hola " + user + "!!");
+          setIsAdmin(isAdmin);
         }
       } catch (e) {
         setError("Correo/Contraseña invalido(s)");
@@ -72,6 +76,7 @@ function UserFormProvider({ children }: Props) {
         loading,
         success,
         error,
+        admin,
       }}
     >
       {children}

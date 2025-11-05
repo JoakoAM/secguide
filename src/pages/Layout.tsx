@@ -1,17 +1,14 @@
 import { Grid } from "@chakra-ui/react";
-import type { ReactNode } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { auth } from "../../firebasePath/firebase";
+import { type ReactNode } from "react";
+import { Outlet } from "react-router-dom";
+
 type Props = {
   children?: ReactNode;
 };
 
-const AdminPanel = ({ children }: Props) => {
-  if (!auth.currentUser) {
-    return <Navigate to="/" />;
-  }
+function Layout({ children }: Props) {
   return (
-    <>
+    <div>
       <Grid
         font={"caption"}
         bg={"linear-gradient(135deg, #667eea 0%, #764ba2 100%)"}
@@ -21,8 +18,8 @@ const AdminPanel = ({ children }: Props) => {
       >
         {children ?? <Outlet />}
       </Grid>
-    </>
+    </div>
   );
-};
+}
 
-export default AdminPanel;
+export default Layout;

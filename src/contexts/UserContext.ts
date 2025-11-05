@@ -6,6 +6,7 @@ type UserFormContext = {
   loading: boolean;
   success?: string;
   error?: string;
+  admin?: boolean;
 };
 
 export default createContext<UserFormContext>({} as UserFormContext);

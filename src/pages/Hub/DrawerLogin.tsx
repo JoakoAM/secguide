@@ -1,24 +1,25 @@
 import { Button, Portal, CloseButton, Dialog } from "@chakra-ui/react";
 import { useEffect, useState, type FormEvent } from "react";
-import useUser from "../hooks/useUser";
+import useUser from "../../hooks/useUser";
 import { useForm } from "react-hook-form";
-import type { UserForm } from "../types";
+import type { UserForm } from "../../types";
 import { OrbitProgress } from "react-loading-indicators";
-import { auth } from "../firebasePath/firebase";
+import { auth } from "../../firebasePath/firebase";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 export default function DrawerLogin({}: Props) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState( false);
   const [mostrar, setMostrar] = useState(false);
-  const { handleLogin, loading, error, success } = useUser();
+  const { handleLogin, loading, error, success, admin } = useUser();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
   } = useForm<UserForm>();
-
+  const nav = useNavigate();
   useEffect(() => {
     let timeout: number;
 
@@ -28,7 +29,11 @@ export default function DrawerLogin({}: Props) {
       timeout = setTimeout(() => {
         setMostrar(false); // Ocultar después de X tiempo
         setOpen(false);
-        location.reload();
+        if (admin) {
+          nav("/adminpanel");
+        } else {
+          nav("/userpanel");
+        }
       }, 3000); // 3000 ms = 3 segundos
     }
     () => {

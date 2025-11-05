@@ -6,7 +6,7 @@ import {
   DialogCloseTrigger,
 } from "@chakra-ui/react";
 import type { FormEvent } from "react";
-import useUser from "../hooks/useUser";
+import useUser from "../../hooks/useUser";
 
 type Props = {};
 
@@ -67,7 +67,7 @@ export default function DrawerLogin({}: Props) {
                       <div className="form-text" id="emailHelp"></div>
                     </div>
                     <div className="mb-3">
-                      <label className="form-label">Correos</label>
+                      <label className="form-label">Correo</label>
                       <input
                         name="email"
                         type="text"

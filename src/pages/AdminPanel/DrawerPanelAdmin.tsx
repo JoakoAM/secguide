@@ -7,18 +7,14 @@ import {
   DialogCloseTrigger,
 } from "@chakra-ui/react";
 import { useState } from "react";
-// import useUser from "../hooks/useUser";
-import CategorySelect from "./CategorySelect";
-import { auth } from "../firebasePath/firebase";
+
+import CategorySelect from "../../components/CategorySelect";
 
 type Props = {};
 
 export default function DrawerPanelAdmin({}: Props) {
   const [addCategory, setAddCategory] = useState<boolean>(false);
   const [addTool, setAddTool] = useState<boolean>(false);
-  if (!auth.currentUser) {
-    return;
-  }
   return (
     <>
       <Dialog.Root

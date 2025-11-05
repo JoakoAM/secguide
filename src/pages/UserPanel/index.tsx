@@ -1,12 +1,13 @@
-import { Grid } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react/grid";
 import type { ReactNode } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { auth } from "../../firebasePath/firebase";
+
 type Props = {
   children?: ReactNode;
 };
 
-const AdminPanel = ({ children }: Props) => {
+const UserPanel = ({ children }: Props) => {
   if (!auth.currentUser) {
     return <Navigate to="/" />;
   }
@@ -25,4 +26,4 @@ const AdminPanel = ({ children }: Props) => {
   );
 };
 
-export default AdminPanel;
+export default UserPanel;

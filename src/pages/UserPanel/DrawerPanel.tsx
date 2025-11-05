@@ -1,5 +1,5 @@
 import { Drawer, Button, Portal, Kbd, CloseButton } from "@chakra-ui/react";
-import { auth } from "../firebasePath/firebase";
+import { auth } from "../../firebasePath/firebase";
 // import useUser from "../hooks/useUser";
 
 type Props = {};
@@ -12,7 +12,15 @@ export default function DrawerPanel({}: Props) {
     <>
       <Drawer.Root placement={{ mdDown: "bottom", md: "start" }}>
         <Drawer.Trigger asChild>
-          <Button variant={"plain"}>👤 Mi Panel</Button>
+          <Button
+            variant={"plain"}
+            borderRadius={"10px"}
+            _hover={{
+              bg: "rgba(255, 255, 255, 0.2)",
+            }}
+          >
+            👤 Mi Panel
+          </Button>
         </Drawer.Trigger>
         <Portal>
           <Drawer.Positioner top={"120px"}>
