@@ -1,25 +1,31 @@
 import {
   Button,
-  Portal,
   CloseButton,
-  Stack,
   Dialog,
   DialogCloseTrigger,
+  Portal,
+  Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-
-import CategorySelect from "../../components/CategorySelect";
+import CategorySelect from "./CategorySelect";
+import { query } from "firebase/firestore";
+import { useQueryClient } from "@tanstack/react-query";
+import { type Categories } from "../../types";
+import ToolsList from "./ToolsList";
+import PendingTools from "./PendingTools";
 
 type Props = {};
 
-export default function DrawerPanelAdmin({}: Props) {
+export default function DialogPanelAdmin({}: Props) {
   const [addCategory, setAddCategory] = useState<boolean>(false);
   const [addTool, setAddTool] = useState<boolean>(false);
+  const [pendingTool, setPendingTool] = useState<boolean>(false);
+
   return (
     <>
       <Dialog.Root
         closeOnInteractOutside={false}
-        placement={{ sm: "bottom", md: "center" }}
+        placement={{ sm: "bottom", md: "top" }}
       >
         <Dialog.Trigger asChild>
           <Button
@@ -47,7 +53,7 @@ export default function DrawerPanelAdmin({}: Props) {
               </Dialog.Header>
               <Dialog.Body pb="4">
                 <div id="adminContainer" className="admin-panel">
-                  <Stack alignItems={"start"}>
+                  <Stack>
                     <>
                       <Button
                         onClick={() => {
@@ -78,7 +84,7 @@ export default function DrawerPanelAdmin({}: Props) {
                     </>
                     <Button
                       onClick={() => {
-                        setAddTool(true);
+                        setPendingTool(true);
                       }}
                       variant={"plain"}
                       borderRadius={"10px"}
@@ -121,89 +127,83 @@ export default function DrawerPanelAdmin({}: Props) {
                   ) : null}
 
                   {addTool ? (
-                    <Stack
-                      h={"100%"}
-                      justifyContent={"center"}
-                      alignItems={"center"}
-                      gap="1"
-                      wrap="wrap"
-                    >
+                    <Stack h={"100%"} gap="1">
                       <div id="addToolForm" className="admin-form">
                         <h3>Añadir Nueva Herramienta</h3>
                         <div className="mb-3">
-                          <label className="form-label">
-                            Nombre de la herramienta
-                          </label>
+                          <label className="form-label"></label>
                           <input
                             type="text"
                             className="form-control"
                             id="toolName"
+                            placeholder="Nombre de la herramienta"
                           />
                         </div>
                         <div className="mb-3">
-                          <label className="form-label">
-                            Descripción breve
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
+                          <textarea
+                            style={{ maxHeight: "100px" }}
+                            className={"form-control"}
+                            placeholder="Descripción breve"
                             id="toolBrief"
-                          />
+                          ></textarea>
                         </div>
-                        <CategorySelect></CategorySelect>
                         <div className="mb-3">
-                          <label className="form-label">Funcionalidades</label>
+                          <CategorySelect></CategorySelect>
+                        </div>
+                        <div className="mb-3">
                           <input
                             type="text"
                             className="form-control"
                             id="toolFunc"
+                            placeholder="Funcionalidades"
                           />
                         </div>
                         <div className="mb-3">
-                          <label className="form-label">Plataformas</label>
                           <input
                             type="text"
                             className="form-control"
                             id="toolPlatform"
-                            placeholder="Win/Linux/macOS"
+                            placeholder="Plataformas"
                           />
                         </div>
                         <div className="mb-3">
-                          <label className="form-label">Licencia</label>
                           <input
                             type="text"
                             className="form-control"
                             id="toolLicense"
+                            placeholder="Licencia"
                           />
                         </div>
                         <div className="mb-3">
-                          <label className="form-label">Enlace oficial</label>
                           <input
                             type="text"
                             className="form-control"
                             id="toolLink"
+                            placeholder="Enlace oficial"
                           />
                         </div>
                         <div className="mb-3">
-                          <label className="form-label">
-                            Artículo descriptivo
-                          </label>
                           <input
                             type="text"
                             className="form-control"
                             id="toolArticle"
+                            placeholder="Artículo descriptivo"
                           />
                         </div>
 
-                        <button className="form-submit">
+                        <button className="btn btn-primary">
                           Guardar Herramienta
                         </button>
                       </div>
                     </Stack>
                   ) : null}
+
+                  {pendingTool ? <PendingTools></PendingTools> : ""}
                 </Stack>
-                <div id="adminCategoriesList" className="admin-list"></div>
-                <div id="adminToolsList" className="admin-list"></div>
+                <h2>Herramientas existentes</h2>
+                <div id="adminToolsList" className="admin-list">
+                  <ToolsList></ToolsList>
+                </div>
                 <div id="pendingToolsList" className="admin-list"></div>
               </Dialog.Body>
               <DialogCloseTrigger>

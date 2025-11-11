@@ -1,12 +1,13 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { auth, currentUser, db } from "../firebasePath/firebase";
-import UserContext from "../contexts/UserContext";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { setDoc, doc, serverTimestamp, getDoc } from "firebase/firestore";
-import { Navigate } from "react-router-dom";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { useState, type ReactNode } from "react";
+import UserContext from "../contexts/UserContext";
+import { auth, currentUser, db } from "../firebasePath/firebase";
+import { useNavigate } from "react-router-dom";
+
 type Props = {
   children: ReactNode;
 };
@@ -16,14 +17,6 @@ function UserFormProvider({ children }: Props) {
   const [admin, setIsAdmin] = useState<boolean>(false);
   const [success, setSuccess] = useState<string>();
   const [error, setError] = useState<string>();
-  const fetchUserData = async () => {
-    auth.onAuthStateChanged(async (user) => {
-      console.log(user);
-    });
-  };
-  useEffect(() => {
-    fetchUserData();
-  }, []);
   const handleLogin = async (email: string, password: string) => {
     async function hook() {
       setLoading(true);

@@ -115,7 +115,6 @@ export const fetchCategories = async (
     const categoriesRef = collection(db, "categories");
     const categoriesQuery = query(categoriesRef, where("approved", "==", true));
     const querySnapshot = await getDocs(categoriesQuery);
-
     const categoriesData: Categories[] = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),

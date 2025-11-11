@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
-export default function DrawerLogin({}: Props) {
-  const [open, setOpen] = useState( false);
+export default function DialogLogin({}: Props) {
+  const [open, setOpen] = useState(false);
   const [mostrar, setMostrar] = useState(false);
   const { handleLogin, loading, error, success, admin } = useUser();
   const {
@@ -25,7 +25,7 @@ export default function DrawerLogin({}: Props) {
 
     if (success) {
       setMostrar(true); // Mostrar el mensaje
-
+      console.log("hola");
       timeout = setTimeout(() => {
         setMostrar(false); // Ocultar después de X tiempo
         setOpen(false);
@@ -85,7 +85,7 @@ export default function DrawerLogin({}: Props) {
             <Dialog.Header alignSelf={"center"}>
               <Dialog.Title>
                 {mostrar || loading ? "Iniciando sesión" : ""}
-                {!loading && !mostrar ? "iniciar sesion" : ""}
+                {!loading && !mostrar ? "Iniciar sesión" : ""}
               </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body pb="4">

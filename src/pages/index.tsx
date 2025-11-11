@@ -5,7 +5,7 @@ import Hub from "./Hub";
 import Layout from "./Layout";
 import UserPanel from "./UserPanel";
 import HubUser from "./UserPanel/HubUser";
-import HubAdmin from "./AdminPanel/hubAdmin";
+import HubAdmin from "./AdminPanel/HubAdmin";
 
 const router = createBrowserRouter([
   {

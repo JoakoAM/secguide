@@ -10,7 +10,7 @@ import useUser from "../../hooks/useUser";
 
 type Props = {};
 
-export default function DrawerLogin({}: Props) {
+export default function DialogRegister({}: Props) {
   const {  error, success } = useUser();
   return (
     <>

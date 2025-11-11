@@ -1,17 +1,21 @@
 type Props = {};
-import { useState } from "react";
-import {
-  fetchCategories,
-  fetchTools,
-  renderCategories,
-} from "../firebasePath/firebase.tsx";
 import { Card, SkeletonText, Stack } from "@chakra-ui/react";
-import type { Categories, Tools } from "../types/index.ts";
+import { renderCategories } from "../firebasePath/firebase.tsx";
+import useCategories from "../hooks/useCategories.ts";
+import useTools from "../hooks/useTools.ts";
 //jsaKJLakjlaSJLK
 const CategoriesView = ({}: Props) => {
-  const [categories, setCategories] = useState<Categories[]>([]);
-  const [tools, setTools] = useState<Tools[]>([]);
-  const [loading, setLoading] = useState(true);
+  const {
+    data: categories,
+    error: errorCategories,
+    isLoading: isLoadingCategories,
+  } = useCategories();
+
+  const [Tools] = useTools();
+  const { data: tools, error: errorTools, isLoading: isLoadingTools } = Tools;
+  if (errorTools || errorCategories) {
+    return;
+  }
   const loadingSkeleton = () => {
     const skeletons = [];
     for (let i = 1; i <= 12; i++) {
@@ -53,23 +57,19 @@ const CategoriesView = ({}: Props) => {
       </Stack>
     );
   };
-  const loadPublicData = () => {
-    fetchTools(setTools);
-    fetchCategories(setCategories, setLoading);
-  };
-
-  if (loading) {
-    loadPublicData();
+  if (isLoadingTools || isLoadingCategories) {
     return loadingSkeleton();
   }
-  return (
-    <>
-      <Stack justifyContent={"center"} gap="2" direction="row" wrap="wrap">
-        <>{renderCategories(categories, tools)}</>
-        <div id="toolsView" className="tools-grid"></div>
-        <div id="toolDetailView"></div>
-      </Stack>
-    </>
-  );
+  if (categories && tools) {
+    return (
+      <>
+        <Stack justifyContent={"center"} gap="2" direction="row" wrap="wrap">
+          <>{renderCategories(categories, tools)}</>
+          <div id="toolsView" className="tools-grid"></div>
+          <div id="toolDetailView"></div>
+        </Stack>
+      </>
+    );
+  }
 };
 export default CategoriesView;

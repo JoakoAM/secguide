@@ -104,23 +104,7 @@ function NavHub({ children }: Props) {
                       gap="1"
                       wrap="wrap"
                     >
-                      <>
-                        <Button
-                          bg={"transparent"}
-                          color={"black"}
-                          variant={"plain"}
-                          onClick={() => {
-                            auth.signOut();
-                            location.reload();
-                          }}
-                          _hover={{
-                            bg: "rgba(255, 255, 255, 0.2)",
-                          }}
-                        >
-                          🚪 Cerrar Sesion
-                        </Button>
-                        {children}
-                      </>
+                      <>{children}</>
                     </Stack>
                   </Menu.Content>
                 </Menu.Positioner>

@@ -1,20 +1,19 @@
 import { Button } from "@chakra-ui/react";
-import DrawerPanelAdmin from "./DrawerPanelAdmin";
-import { auth } from "../../firebasePath/firebase";
 import NavHub from "../../components/NavHub";
-import { useNavigate } from "react-router";
+import { auth } from "../../firebasePath/firebase";
+import useCategories from "../../hooks/useCategories";
+import DialogPanelAdmin from "./DialogPanelAdmin";
 
 type Props = {};
 
 function HubAdmin({}: Props) {
-  const nav = useNavigate();
   return (
     <>
       <NavHub>
         <Button
           onClick={() => {
             auth.signOut();
-            nav("/");
+            location.reload();
           }}
           variant={"plain"}
           borderRadius={"10px"}
@@ -24,7 +23,7 @@ function HubAdmin({}: Props) {
         >
           🚪 Cerrar Sesion
         </Button>
-        <DrawerPanelAdmin></DrawerPanelAdmin>
+        <DialogPanelAdmin></DialogPanelAdmin>
       </NavHub>
     </>
   );
