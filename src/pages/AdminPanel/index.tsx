@@ -2,7 +2,6 @@ import { Grid } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { auth } from "../../firebasePath/firebase";
-import useUser from "../../hooks/useUser";
 import useAdminStatus from "../../hooks/useAdminStatus";
 type Props = {
   children?: ReactNode;

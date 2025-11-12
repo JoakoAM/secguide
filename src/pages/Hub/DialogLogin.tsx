@@ -22,7 +22,6 @@ export default function DialogLogin({}: Props) {
   const nav = useNavigate();
   useEffect(() => {
     let timeout: number;
-
     if (success) {
       setMostrar(true); // Mostrar el mensaje
       console.log("hola");

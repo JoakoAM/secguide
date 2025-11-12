@@ -19,7 +19,7 @@ function CategorySelect({}: Props) {
   return (
     <Select.Root
       collection={categoriesCollection}
-      width="341px"
+      width="455px"
       value={value}
       onValueChange={(e) => setValue(e.value)}
       variant="subtle"
@@ -34,7 +34,7 @@ function CategorySelect({}: Props) {
         </Select.IndicatorGroup>
       </Select.Control>
       <Select.Positioner>
-        <Select.Content>
+        <Select.Content fontWeight={"bold"}>
           {categoriesCollection.items.map((c) => (
             <Select.Item item={c} key={c.value}>
               {c.label}

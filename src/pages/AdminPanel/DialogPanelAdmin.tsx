@@ -1,18 +1,18 @@
 import {
   Button,
+  Center,
   CloseButton,
   Dialog,
   DialogCloseTrigger,
   Portal,
+  Separator,
   Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import CategorySelect from "./CategorySelect";
-import { query } from "firebase/firestore";
-import { useQueryClient } from "@tanstack/react-query";
-import { type Categories } from "../../types";
-import ToolsList from "./ToolsList";
+import AddCategory from "./AddCategory";
+import AddTool from "./AddTool";
 import PendingTools from "./PendingTools";
+import ToolsList from "./ToolsList";
 
 type Props = {};
 
@@ -20,7 +20,7 @@ export default function DialogPanelAdmin({}: Props) {
   const [addCategory, setAddCategory] = useState<boolean>(false);
   const [addTool, setAddTool] = useState<boolean>(false);
   const [pendingTool, setPendingTool] = useState<boolean>(false);
-
+  const [currentTool, setCurrentTool] = useState<boolean>(false);
   return (
     <>
       <Dialog.Root
@@ -48,168 +48,118 @@ export default function DialogPanelAdmin({}: Props) {
               alignItems={"center"}
               justifyContent={"space-between"}
             >
-              <Dialog.Header alignSelf={"center"}>
-                <Dialog.Title>Panel de Administración</Dialog.Title>
-              </Dialog.Header>
-              <Dialog.Body pb="4">
+              <Dialog.Header></Dialog.Header>
+              <Dialog.Body w="513px" pb="4">
+                <Dialog.Title>Panel de administración</Dialog.Title>
                 <div id="adminContainer" className="admin-panel">
-                  <Stack>
+                  <Stack
+                    p="5px"
+                    bg={"rgba(255, 255, 255, 0.19)"}
+                    borderRadius="10px"
+                  >
                     <>
                       <Button
                         onClick={() => {
                           setAddCategory(true);
+                          setCurrentTool(false);
                           setAddTool(false);
+                          setPendingTool(false);
                         }}
-                        variant={"plain"}
                         borderRadius={"10px"}
+                        bg={"rgba(0, 110, 255, 0.75)"}
+                        transition={"ease 0.5s"}
                         _hover={{
-                          bg: "rgba(255, 255, 255, 0.2)",
+                          bg: "rgba(0, 132, 255, 0.59)",
                         }}
                       >
-                        ➕ Añadir Categoría
+                        ➕ Añadir categoría
                       </Button>
                       <Button
                         onClick={() => {
                           setAddTool(true);
+                          setCurrentTool(false);
                           setAddCategory(false);
+                          setPendingTool(false);
                         }}
-                        variant={"plain"}
                         borderRadius={"10px"}
+                        transition={"ease 0.5s"}
+                        bg={"rgba(0, 110, 255, 0.75)"}
                         _hover={{
-                          bg: "rgba(255, 255, 255, 0.2)",
+                          bg: "rgba(0, 132, 255, 0.59)",
                         }}
                       >
-                        🛠️ Añadir Herramienta
+                        🔨 Añadir herramienta
                       </Button>
                     </>
                     <Button
                       onClick={() => {
                         setPendingTool(true);
+                        setCurrentTool(false);
+                        setAddCategory(false);
+                        setAddTool(false);
                       }}
-                      variant={"plain"}
                       borderRadius={"10px"}
+                      bg={"rgba(0, 110, 255, 0.75)"}
+                      transition={"ease 0.5s"}
                       _hover={{
-                        bg: "rgba(255, 255, 255, 0.2)",
+                        bg: "rgba(0, 132, 255, 0.59)",
                       }}
                     >
-                      ⏳ Herramientas Pendientes
+                      ⏳ Herramientas pendientes
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setCurrentTool(true);
+                        setPendingTool(false);
+                        setAddCategory(false);
+                        setAddTool(false);
+                      }}
+                      borderRadius={"10px"}
+                      bg={"rgba(0, 110, 255, 0.75)"}
+                      transition={"ease 0.5s"}
+                      _hover={{
+                        bg: "rgba(0, 132, 255, 0.59)",
+                      }}
+                    >
+                      🛠️ Herramientas existentes
                     </Button>
                   </Stack>
                 </div>
                 <Stack>
-                  {addCategory ? (
-                    <div id="addCategoryForm" className="admin-form">
-                      <h3>Añadir Nueva Categoría</h3>
-                      <div className="mb-3">
-                        <label className="form-label">
-                          Nombre de la categoría
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="categoryName"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">
-                          Descripción de la categoría
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="categoryDescription"
-                        />
-                      </div>
-                      <button className="btn btn-primary">
-                        Guardar Categoría
-                      </button>
-                    </div>
-                  ) : null}
-
-                  {addTool ? (
-                    <Stack h={"100%"} gap="1">
-                      <div id="addToolForm" className="admin-form">
-                        <h3>Añadir Nueva Herramienta</h3>
-                        <div className="mb-3">
-                          <label className="form-label"></label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="toolName"
-                            placeholder="Nombre de la herramienta"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <textarea
-                            style={{ maxHeight: "100px" }}
-                            className={"form-control"}
-                            placeholder="Descripción breve"
-                            id="toolBrief"
-                          ></textarea>
-                        </div>
-                        <div className="mb-3">
-                          <CategorySelect></CategorySelect>
-                        </div>
-                        <div className="mb-3">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="toolFunc"
-                            placeholder="Funcionalidades"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="toolPlatform"
-                            placeholder="Plataformas"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="toolLicense"
-                            placeholder="Licencia"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="toolLink"
-                            placeholder="Enlace oficial"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="toolArticle"
-                            placeholder="Artículo descriptivo"
-                          />
-                        </div>
-
-                        <button className="btn btn-primary">
-                          Guardar Herramienta
-                        </button>
-                      </div>
-                    </Stack>
-                  ) : null}
-
-                  {pendingTool ? <PendingTools></PendingTools> : ""}
+                  <Separator
+                    mt={"10px"}
+                    orientation={"horizontal"}
+                    border={"0.00001px solid rgb(131 126 126 / 81%)"}
+                  />
+                  {addCategory ? <AddCategory /> : ""}
+                  {addTool ? <AddTool /> : ""}
+                  {pendingTool ? <PendingTools /> : ""}
                 </Stack>
-                <h2>Herramientas existentes</h2>
-                <div id="adminToolsList" className="admin-list">
-                  <ToolsList></ToolsList>
-                </div>
-                <div id="pendingToolsList" className="admin-list"></div>
+                {currentTool ? (
+                  <>
+                    <Center>
+                      <h2>Herramientas existentes</h2>
+                    </Center>
+
+                    <div id="adminToolsList" className="admin-list">
+                      <ToolsList></ToolsList>
+                    </div>
+                    <div id="pendingToolsList" className="admin-list"></div>
+                  </>
+                ) : (
+                  ""
+                )}
               </Dialog.Body>
               <DialogCloseTrigger>
                 <CloseButton
                   _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
                   borderRadius={"20px"}
+                  onClick={() => {
+                    setPendingTool(false);
+                    setAddCategory(false);
+                    setAddTool(false);
+                    setCurrentTool(false);
+                  }}
                 />
               </DialogCloseTrigger>
             </Dialog.Content>
