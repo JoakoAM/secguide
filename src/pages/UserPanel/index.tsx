@@ -1,15 +1,14 @@
 import { Grid } from "@chakra-ui/react/grid";
 import { type ReactNode } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import useUserStatus from "../../hooks/useUserStatus";
+import { auth } from "../../firebasePath/firebase";
 
 type Props = {
   children?: ReactNode;
 };
 
 const UserPanel = ({ children }: Props) => {
-  const { isLoading, isOnline } = useUserStatus();
-  if (!isLoading && !isOnline) {
+  if (!auth.currentUser) {
     return <Navigate to="/" />;
   }
   return (

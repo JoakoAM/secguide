@@ -6,16 +6,15 @@ import {
   Portal,
   Spinner,
   Stack,
+  VStack,
 } from "@chakra-ui/react";
 import { VscThreeBars } from "react-icons/vsc";
 import CategoriesView from "./CategoriesView";
 import type { ReactNode } from "react";
-import useUserStatus from "../hooks/useUserStatus";
 
 type Props = { children: ReactNode };
 
 function NavHub({ children }: Props) {
-  const { isLoading } = useUserStatus();
   return (
     <>
       <GridItem
@@ -34,16 +33,10 @@ function NavHub({ children }: Props) {
         borderRadius="12px"
         width={{ md: "calc(100% - 70rem)" }}
         justifySelf={"center"}
-        alignContent={"center"}
+        justifyItems={"center"}
       >
-        <HStack justifyContent={"space-between"}>
-          <Stack
-            color={"black"}
-            alignItems={"center"}
-            justifyItems={"center"}
-            position={"relative"}
-            left={"155px"}
-          >
+        <HStack>
+          <VStack w="716px" color={"black"} alignContent={"center"}>
             <h1
               style={{
                 fontWeight: "bold",
@@ -70,8 +63,8 @@ function NavHub({ children }: Props) {
             >
               Explora las mejores herramientas y aprende cómo funcionan
             </p>
-          </Stack>
-          <Stack justifySelf={"center"} justifyContent={"end"}>
+          </VStack>
+          <Stack>
             <Menu.Root positioning={{ placement: "right" }}>
               <Menu.Trigger asChild>
                 <Button
@@ -106,7 +99,7 @@ function NavHub({ children }: Props) {
                       gap="1"
                       wrap="wrap"
                     >
-                      {isLoading ? <Spinner /> : children}
+                      {children}
                     </Stack>
                   </Menu.Content>
                 </Menu.Positioner>

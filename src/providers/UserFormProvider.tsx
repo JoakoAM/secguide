@@ -6,7 +6,6 @@ import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useState, type ReactNode } from "react";
 import UserContext from "../contexts/UserContext";
 import { auth, currentUser, db } from "../firebasePath/firebase";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   children: ReactNode;

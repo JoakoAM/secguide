@@ -1,14 +1,16 @@
 import { Button } from "@chakra-ui/react";
 import { auth } from "../firebasePath/firebase";
+import { useNavigate } from "react-router";
 
 type Props = {};
 
 const LogOut = ({}: Props) => {
+  const nav = useNavigate();
   return (
     <Button
       onClick={() => {
         auth.signOut();
-        location.reload();
+        nav("/");
       }}
       variant={"plain"}
       borderRadius={"10px"}

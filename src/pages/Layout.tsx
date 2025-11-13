@@ -15,6 +15,7 @@ function Layout({ children }: Props) {
         templateAreas={`"header header" "main main"`}
         templateRows="160px 1fr"
         templateColumns={"repeat(auto-fit, minmax(280px, 1fr))"}
+        justifyItems={"center"}
       >
         {children ?? <Outlet />}
       </Grid>
