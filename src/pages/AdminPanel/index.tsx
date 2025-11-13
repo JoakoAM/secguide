@@ -1,16 +1,19 @@
 import { Grid } from "@chakra-ui/react";
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { auth } from "../../firebasePath/firebase";
-import useAdminStatus from "../../hooks/useAdminStatus";
+import useUserStatus from "../../hooks/useUserStatus";
+
 type Props = {
   children?: ReactNode;
 };
 
 const AdminPanel = ({ children }: Props) => {
-  const { data } = useAdminStatus();
-  if (!auth.currentUser || !data) {
-    return <Navigate to="/" />;
+  const { isLoading, isAdmin } = useUserStatus();
+
+  if (!isLoading) {
+    if (!isAdmin || isAdmin == undefined) {
+      return <Navigate to="/" />;
+    }
   }
   return (
     <>

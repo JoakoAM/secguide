@@ -24,7 +24,13 @@ const Hub = ({}: Props) => {
     });
   };
   useEffect(() => {
-    fetchUserData();
+    let timeout: number;
+
+    timeout = setTimeout(() => fetchUserData(), 3000);
+
+    () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
   return (

@@ -24,7 +24,6 @@ export default function DialogLogin({}: Props) {
     let timeout: number;
     if (success) {
       setMostrar(true); // Mostrar el mensaje
-      console.log("hola");
       timeout = setTimeout(() => {
         setMostrar(false); // Ocultar después de X tiempo
         setOpen(false);

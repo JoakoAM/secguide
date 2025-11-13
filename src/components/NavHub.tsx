@@ -4,16 +4,18 @@ import {
   HStack,
   Menu,
   Portal,
+  Spinner,
   Stack,
 } from "@chakra-ui/react";
 import { VscThreeBars } from "react-icons/vsc";
 import CategoriesView from "./CategoriesView";
 import type { ReactNode } from "react";
-import { auth } from "../firebasePath/firebase";
+import useUserStatus from "../hooks/useUserStatus";
 
 type Props = { children: ReactNode };
 
 function NavHub({ children }: Props) {
+  const { isLoading } = useUserStatus();
   return (
     <>
       <GridItem
@@ -104,7 +106,7 @@ function NavHub({ children }: Props) {
                       gap="1"
                       wrap="wrap"
                     >
-                      <>{children}</>
+                      {isLoading ? <Spinner /> : children}
                     </Stack>
                   </Menu.Content>
                 </Menu.Positioner>

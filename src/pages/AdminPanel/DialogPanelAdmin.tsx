@@ -6,6 +6,7 @@ import {
   DialogCloseTrigger,
   Portal,
   Separator,
+  Spinner,
   Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -13,6 +14,7 @@ import AddCategory from "./AddCategory";
 import AddTool from "./AddTool";
 import PendingTools from "./PendingTools";
 import ToolsList from "./ToolsList";
+import useUserStatus from "../../hooks/useUserStatus";
 
 type Props = {};
 
@@ -21,6 +23,8 @@ export default function DialogPanelAdmin({}: Props) {
   const [addTool, setAddTool] = useState<boolean>(false);
   const [pendingTool, setPendingTool] = useState<boolean>(false);
   const [currentTool, setCurrentTool] = useState<boolean>(false);
+  const { isLoading } = useUserStatus();
+
   return (
     <>
       <Dialog.Root

@@ -1,28 +1,9 @@
-import { Button, CloseButton, Dialog, Text, Portal } from "@chakra-ui/react";
-import { doc, getDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
-import { auth, db } from "../../firebasePath/firebase";
+import { Button, CloseButton, Dialog, Portal, Text } from "@chakra-ui/react";
 // import useUser from "../hooks/useUser";
 
 type Props = {};
 
 export default function DrawerPanel({}: Props) {
-  const nav = useNavigate();
-  const fetchUserData = async () => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const userRef = doc(db, "users", user.uid);
-        const userDoc = await getDoc(userRef);
-        const isAdmin = userDoc.get("isAdmin");
-        if (isAdmin) {
-          return nav("/adminpanel");
-        } else {
-          return nav("/userpanel");
-        }
-      }
-    });
-  };
-  fetchUserData();
   return (
     <>
       <Dialog.Root placement="center" motionPreset="slide-in-bottom">
@@ -44,7 +25,6 @@ export default function DrawerPanel({}: Props) {
               bg={"rgba(255, 255, 255, 0.2)"}
               backdropFilter={"blur(10px)"}
               border={"1px solid rgba(255, 255, 255, 0.3)"}
-
             >
               <Dialog.Header>
                 <Dialog.Title>Panel de usuario</Dialog.Title>

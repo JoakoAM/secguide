@@ -23,6 +23,7 @@ export default function usedeleteTool() {
       queryClient.setQueryData<Tools[]>(["toolsPending"], (tools = []) =>
         tools.filter((tool) => tool.id !== deletedTool.id)
       );
+
       return oldPendingTools;
     },
     onError: (_, __, ctx) => {
