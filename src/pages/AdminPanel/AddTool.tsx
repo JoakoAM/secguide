@@ -27,11 +27,10 @@ const AddTool = ({}: Props) => {
             borderRadius="10px"
             id="addToolForm"
             className="admin-form"
-            p={"5px"}
+            p={"10px"}
             gap={4}
           >
             <div className="mb-3">
-              <label className="form-label"></label>
               <input
                 type="text"
                 className="form-control"

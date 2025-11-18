@@ -13,6 +13,8 @@ export default function DialogLogin({}: Props) {
   const [open, setOpen] = useState(false);
   const [mostrar, setMostrar] = useState(false);
   const { handleLogin, loading, error, success, admin } = useUser();
+
+  console.log(admin);
   const {
     register,
     handleSubmit,
@@ -93,8 +95,6 @@ export default function DialogLogin({}: Props) {
                     variant="disc"
                     color="#3237cdff"
                     size="small"
-                    text=""
-                    textColor=""
                   />
                 ) : (
                   <form

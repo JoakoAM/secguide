@@ -10,7 +10,7 @@ const CategoriesView = ({}: Props) => {
     error: errorCategories,
     isLoading: isLoadingCategories,
   } = useCategories();
-
+  console.log(categories);
   const [Tools] = useTools();
   const { data: tools, error: errorTools, isLoading: isLoadingTools } = Tools;
   if (errorTools || errorCategories) {

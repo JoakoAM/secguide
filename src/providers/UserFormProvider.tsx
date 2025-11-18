@@ -3,7 +3,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import UserContext from "../contexts/UserContext";
 import { auth, currentUser, db } from "../firebasePath/firebase";
 
@@ -16,6 +16,39 @@ function UserFormProvider({ children }: Props) {
   const [admin, setIsAdmin] = useState<boolean>(false);
   const [success, setSuccess] = useState<string>();
   const [error, setError] = useState<string>();
+
+  const fetchUserData = async () => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userRef);
+        const isAdmin = userDoc.get("isAdmin");
+        if (isAdmin) {
+          setIsAdmin(isAdmin);
+        } else {
+          return;
+        }
+      }
+    });
+  };
+  useEffect(() => {
+    let timeout: number;
+
+    timeout = setTimeout(() => fetchUserData(), 3000);
+
+    () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+  async () => {
+    if (auth.currentUser) {
+      const userRef = doc(db, "users", auth.currentUser.uid);
+      const userDoc = await getDoc(userRef);
+      const isAdmin = userDoc.get("isAdmin");
+      setIsAdmin(isAdmin);
+    }
+  };
+
   const handleLogin = async (email: string, password: string) => {
     async function hook() {
       setLoading(true);
@@ -24,9 +57,7 @@ function UserFormProvider({ children }: Props) {
         if (auth.currentUser) {
           const userRef = doc(db, "users", auth.currentUser.uid);
           const userDoc = await getDoc(userRef);
-          const user = userDoc.get("name");
           const isAdmin = userDoc.get("isAdmin");
-          setSuccess("Hola " + user + "!!");
           setIsAdmin(isAdmin);
         }
       } catch (e) {

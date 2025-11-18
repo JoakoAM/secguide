@@ -294,7 +294,7 @@ function register() {
     .then((userCredential) => {
       // Guardar información adicional del usuario
       return db.collection("users").doc(userCredential.user.uid).set({
-        name: name, 
+        name: name,
         email: email,
         isAdmin: false,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -598,7 +598,7 @@ function addCategory() {
       name: name,
       desc: desc,
       approved: true,
-      createdAt: firebase. firestore.FieldValue.serverTimestamp(),
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     })
     .then(() => {
       showSuccess("Categoría añadida correctamente");
@@ -621,7 +621,6 @@ function addTool() {
   const license = document.getElementById("toolLicense").value;
   const link = document.getElementById("toolLink").value;
   const article = document.getElementById("toolArticle").value;
-
   if (
     !name ||
     !brief ||

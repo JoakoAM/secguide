@@ -11,8 +11,8 @@ function HubAdmin({}: Props) {
   return (
     <>
       <NavHub>
-        <LogOut />
         <DialogPanelAdmin></DialogPanelAdmin>
+        <LogOut />
       </NavHub>
     </>
   );

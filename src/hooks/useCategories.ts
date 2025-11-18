@@ -13,7 +13,9 @@ const queryCategories = async () => {
     ...doc.data(),
   })) as Categories[];
 
-  return categoriesData;
+  return categoriesData.sort(
+    (a, b) => b.createdAt.toMillis() - a.createdAt.toMillis()
+  );
 };
 
 export default function useCategories() {

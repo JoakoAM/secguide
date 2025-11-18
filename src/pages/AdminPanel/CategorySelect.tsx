@@ -9,7 +9,6 @@ function CategorySelect({}: Props) {
   const [value, setValue] = useState<string[]>([]);
   const queryClient = useQueryClient();
   const categories = queryClient.getQueryData<Categories[]>(["categories"]);
-  console.log(categories);
   if (!categories) {
     return;
   }
@@ -19,7 +18,7 @@ function CategorySelect({}: Props) {
   return (
     <Select.Root
       collection={categoriesCollection}
-      width="455px"
+      width="auto"
       value={value}
       onValueChange={(e) => setValue(e.value)}
       variant="subtle"

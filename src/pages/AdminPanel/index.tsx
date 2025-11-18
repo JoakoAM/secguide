@@ -11,6 +11,7 @@ type Props = {
 const AdminPanel = ({ children }: Props) => {
   const { admin } = useUser();
   if (!auth.currentUser || !admin) {
+    auth.signOut();
     return <Navigate to="/" />;
   }
   return (

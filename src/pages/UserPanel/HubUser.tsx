@@ -1,6 +1,6 @@
 import NavHub from "../../components/NavHub";
-import DrawerPanel from "./DrawerPanel";
 import LogOut from "../../components/LogOut";
+import DialogPanelUser from "./DialogPanelUser";
 
 type Props = {};
 
@@ -8,8 +8,8 @@ function HubUser({}: Props) {
   return (
     <>
       <NavHub>
+        <DialogPanelUser></DialogPanelUser>
         <LogOut />
-        <DrawerPanel></DrawerPanel>
       </NavHub>
     </>
   );
