@@ -1,8 +1,20 @@
-import { Button, Center, Input, Spinner, Stack, Text } from "@chakra-ui/react";
-import { useEffect, useState, type InputEvent } from "react";
+import {
+  Button,
+  Center,
+  Field,
+  Input,
+  InputGroup,
+  Separator,
+  Spinner,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import type { Categories } from "../../types";
 import useAddCat from "../../hooks/useAddCat";
+import type { Categories } from "../../types";
+import { FaToolbox } from "react-icons/fa";
+import { TbTournament } from "react-icons/tb";
 
 type Props = {};
 
@@ -11,10 +23,10 @@ const AddCategory = ({}: Props) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset: resetForm,
   } = useForm<Categories>({
     mode: "onSubmit", // o "onChange" si quieres validar en tiempo real
   });
-  const [characDesc, setCharacDesc] = useState(0);
   const {
     mutate: addCat,
     isPending: isPendingAdd,
@@ -32,9 +44,9 @@ const AddCategory = ({}: Props) => {
   }, []);
   const onSubmit: SubmitHandler<Categories> = (data) => {
     addCat(data);
+    resetForm();
   };
 
-  console.log(errors);
   if (mostrar) {
     return (
       <>
@@ -50,37 +62,55 @@ const AddCategory = ({}: Props) => {
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3">
-              <input
-                type="text"
-                {...register("name", {
-                  required: { value: true, message: "Campo requerido" },
-                  maxLength: { value: 20, message: "Max 20 caracteres" },
-                  minLength: { value: 10, message: "Minimo 10 caracteres" },
-                })}
-                className="form-control"
-                color={"black"}
-                placeholder={"Nombre de categoría"}
-              />
-              {errors.name ? <span>{errors.name.message}</span> : ""}
+              <Field.Root invalid={!!errors.name}>
+                <InputGroup startElement={<TbTournament fontWeight="bold" />}>
+                  <Input
+                    bg={"whiteAlpha.900"}
+                    type="text"
+                    {...register("name", {
+                      maxLength: { value: 20, message: "Max 20 caracteres" },
+                      required: { value: true, message: "Campo requerido" },
+                      minLength: { value: 10, message: "Minimo 10 caracteres" },
+                    })}
+                    color={"black"}
+                    placeholder={"Nombre de categoría"}
+                  />
+                </InputGroup>
+                <Field.ErrorText
+                  color={"red.600"}
+                  width={"full"}
+                  p="2px"
+                  justifyContent={"flex-end"}
+                  animation="fade-in 0.5s ease-out"
+                >
+                  {errors.name?.message}
+                </Field.ErrorText>
+              </Field.Root>
             </div>
             <div className="mb-3">
-              <input
-                type="text"
-                placeholder="Descripción de la categoría"
-                className="form-control"
-                {...register("desc", {
-                  maxLength: { value: 60, message: "Max 60 caracteres" },
-                  required: { value: true, message: "Campo requerido" },
-                  minLength: { value: 10, message: "Minimo 10 caracteres" },
-                })}
-              ></input>
-              {errors.desc ? (
-                <Text transition={"all 0.5s"} animation="fade-in 0.5s ease-out">
-                  {errors.desc.message}
-                </Text>
-              ) : (
-                ""
-              )}
+              <Field.Root invalid={!!errors.desc}>
+                <InputGroup startElement={<FaToolbox />}>
+                  <Input
+                    bg={"whiteAlpha.900"}
+                    type="text"
+                    placeholder="Descripción de la categoría"
+                    {...register("desc", {
+                      maxLength: { value: 60, message: "Max 60 caracteres" },
+                      required: { value: true, message: "Campo requerido" },
+                      minLength: { value: 10, message: "Minimo 10 caracteres" },
+                    })}
+                  />
+                </InputGroup>
+                <Field.ErrorText
+                  color={"red.600"}
+                  width={"full"}
+                  p="2px"
+                  justifyContent={"flex-end"}
+                  animation="fade-in 0.5s ease-out"
+                >
+                  {errors.desc?.message}
+                </Field.ErrorText>
+              </Field.Root>
             </div>
             <Button
               type="submit"
