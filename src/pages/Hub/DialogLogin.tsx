@@ -1,60 +1,26 @@
-import { Button, Portal, CloseButton, Dialog } from "@chakra-ui/react";
-import { useEffect, useState, type FormEvent } from "react";
-import useUser from "../../hooks/useUser";
+import { Button, CloseButton, Dialog, Portal } from "@chakra-ui/react";
+import { useState, type FormEvent } from "react";
 import { useForm } from "react-hook-form";
-import type { UserForm } from "../../types";
-import { OrbitProgress } from "react-loading-indicators";
 import { auth } from "../../firebasePath/firebase";
-import { useNavigate } from "react-router-dom";
+import useUser from "../../hooks/useUser";
+import type { UserForm } from "../../types";
 
 type Props = {};
 
 export default function DialogLogin({}: Props) {
   const [open, setOpen] = useState(false);
-  const [mostrar, setMostrar] = useState(false);
-  const { handleLogin, loading, error, success, admin } = useUser();
-
-  console.log(admin);
+  const { handleLogin } = useUser();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
   } = useForm<UserForm>();
-  const nav = useNavigate();
-  useEffect(() => {
-    let timeout: number;
-    if (success) {
-      setMostrar(true); // Mostrar el mensaje
-      timeout = setTimeout(() => {
-        setMostrar(false); // Ocultar después de X tiempo
-        setOpen(false);
-        if (admin) {
-          nav("/adminpanel");
-        } else {
-          nav("/userpanel");
-        }
-      }, 3000); // 3000 ms = 3 segundos
-    }
-    () => {
-      clearTimeout(timeout);
-    };
-  }, [success]);
 
-  useEffect(() => {
-    if (error) {
-      setError("password", {
-        type: "Invalid auth",
-        message: error,
-      });
-    }
-  }, [error, setError]);
   const onSubmit = handleSubmit((data: UserForm) => {
     handleLogin(data.email, data.password);
   });
-  if (auth.currentUser && !open) {
-    return;
-  }
+
   return (
     <Dialog.Root
       closeOnInteractOutside={false}
@@ -83,93 +49,67 @@ export default function DialogLogin({}: Props) {
             alignItems={"center"}
           >
             <Dialog.Header alignSelf={"center"}>
-              <Dialog.Title>
-                {mostrar || loading ? "Iniciando sesión" : ""}
-                {!loading && !mostrar ? "Iniciar sesión" : ""}
-              </Dialog.Title>
+              <Dialog.Title>Iniciar sesión</Dialog.Title>
             </Dialog.Header>
             <Dialog.Body pb="4">
               <div className="container">
-                {mostrar || loading ? (
-                  <OrbitProgress
-                    variant="disc"
-                    color="#3237cdff"
-                    size="small"
-                  />
-                ) : (
-                  <form
-                    onSubmit={(e: FormEvent) => {
-                      e.preventDefault();
-                      onSubmit();
-                    }}
-                  >
-                    <div className="mb-3">
-                      <label className="form-label">Email</label>
-                      <input
-                        {...register("email", {
-                          required: {
-                            value: true,
-                            message: "Campo requerido",
-                          },
-                        })}
-                        className="form-control"
-                      ></input>
-                      {errors.email ? (
-                        <span style={{ color: "red" }}>
-                          {errors.email.message}
-                        </span>
-                      ) : (
-                        ""
-                      )}
-                      <div className="form-text" id="emailHelp">
-                        Nunca compartiremos tus datos con terceros :D
-                      </div>
+                <form
+                  onSubmit={(e: FormEvent) => {
+                    e.preventDefault();
+                    onSubmit();
+                  }}
+                >
+                  <div className="mb-3">
+                    <label className="form-label">Email</label>
+                    <input
+                      {...register("email", {
+                        required: {
+                          value: true,
+                          message: "Campo requerido",
+                        },
+                      })}
+                      className="form-control"
+                    ></input>
+                    {errors.email ? (
+                      <span style={{ color: "red" }}>
+                        {errors.email.message}
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                    <div className="form-text" id="emailHelp">
+                      Nunca compartiremos tus datos con terceros :D
                     </div>
-                    <div className="mb-3">
-                      <label className="form-label">Contraseña</label>
-                      <input
-                        {...register("password", {
-                          required: {
-                            value: true,
-                            message: "Campo requerido",
-                          },
-                        })}
-                        type="password"
-                        className="form-control"
-                      />
-                      {errors.password ? (
-                        <span>{errors.password?.message}</span>
-                      ) : (
-                        ""
-                      )}
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Contraseña</label>
+                    <input
+                      {...register("password", {
+                        required: {
+                          value: true,
+                          message: "Campo requerido",
+                        },
+                      })}
+                      type="password"
+                      className="form-control"
+                    />
+                    {errors.password ? (
+                      <span>{errors.password?.message}</span>
+                    ) : (
+                      ""
+                    )}
 
-                      <div className="form-text" id="emailHelp"></div>
-                    </div>
-                    <div style={{ justifyContent: "center", display: "flex" }}>
-                      {loading ? (
-                        <OrbitProgress
-                          variant="disc"
-                          color="#3237cdff"
-                          size="small"
-                          text=""
-                          textColor=""
-                        />
-                      ) : (
-                        ""
-                      )}
-                      {!loading && !mostrar ? (
-                        <button type="submit" className={`btn btn-primary`}>
-                          ingresar
-                        </button>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </form>
-                )}
+                    <div className="form-text" id="emailHelp"></div>
+                  </div>
+                  <div style={{ justifyContent: "center", display: "flex" }}>
+                    <button type="submit" className={`btn btn-primary`}>
+                      ingresar
+                    </button>
+                  </div>
+                </form>
               </div>
             </Dialog.Body>
-            <Dialog.CloseTrigger>
+            <Dialog.CloseTrigger asChild>
               <CloseButton
                 _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
                 borderRadius={"10px"}

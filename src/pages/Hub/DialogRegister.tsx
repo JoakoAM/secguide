@@ -5,13 +5,19 @@ import {
   Dialog,
   DialogCloseTrigger,
 } from "@chakra-ui/react";
-import type { FormEvent } from "react";
 import useUser from "../../hooks/useUser";
+import { useForm } from "react-hook-form";
 
 type Props = {};
-
+type FormType = {
+  firstName: string;
+  password: string;
+  email: string;
+};
 export default function DialogRegister({}: Props) {
-  const {  error, success } = useUser();
+  const { register, handleSubmit, formState: errors } = useForm<FormType>();
+  const { error, success, handleRegister } = useUser();
+
   return (
     <>
       <Dialog.Root
@@ -44,15 +50,14 @@ export default function DialogRegister({}: Props) {
               <Dialog.Body pb="4">
                 <div className="container">
                   <form
-                    onSubmit={(e: FormEvent) => {
-                      e.preventDefault();
-                      // handleRegister(e);
-                    }}
+                    onSubmit={handleSubmit((data) =>
+                      handleRegister(data.email, data.password, data.firstName)
+                    )}
                   >
                     <div className="mb-3">
                       <label className="form-label">Nombre</label>
                       <input
-                        name="firstName"
+                        {...register("firstName")}
                         type="text"
                         className="form-control"
                       ></input>
@@ -60,7 +65,7 @@ export default function DialogRegister({}: Props) {
                     <div className="mb-3">
                       <label className="form-label">Contraseña</label>
                       <input
-                        name="password"
+                        {...register("password")}
                         type="password"
                         className="form-control"
                       ></input>
@@ -69,26 +74,26 @@ export default function DialogRegister({}: Props) {
                     <div className="mb-3">
                       <label className="form-label">Correo</label>
                       <input
-                        name="email"
+                        {...register("email")}
                         type="text"
                         className="form-control"
                       ></input>
                       <div className="form-text" id="emailHelp"></div>
+                      {success ? (
+                        <>
+                          <span>{`Registrado con exito :D`}</span>
+                        </>
+                      ) : (
+                        ""
+                      )}
+                      {error ? (
+                        <>
+                          <span>{"Ha ocurrido un error :("}</span>
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </div>
-                    {success ? (
-                      <>
-                        <span>{`Registrado con exito :D`}</span>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                    {error ? (
-                      <>
-                        <span>{"Ha ocurrido un error :("}</span>
-                      </>
-                    ) : (
-                      ""
-                    )}
                     <button type="submit" className="btn btn-primary">
                       ingresar
                     </button>

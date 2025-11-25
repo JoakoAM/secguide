@@ -31,10 +31,18 @@ export default function useTools() {
       {
         queryKey: ["tools"],
         queryFn: () => queryTools(),
+        staleTime: 1000 * 60 * 10, // 10 minutos
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
+        refetchOnMount: false,
       },
       {
         queryKey: ["toolsPending"],
         queryFn: () => queryPendingTools(),
+        staleTime: 1000 * 60 * 10, // 10 minutos
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
+        refetchOnMount: false,
       },
     ],
   });

@@ -4,10 +4,8 @@ import {
   Field,
   Input,
   InputGroup,
-  Separator,
   Spinner,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -27,11 +25,7 @@ const AddCategory = ({}: Props) => {
   } = useForm<Categories>({
     mode: "onSubmit", // o "onChange" si quieres validar en tiempo real
   });
-  const {
-    mutate: addCat,
-    isPending: isPendingAdd,
-    error: errorAdd,
-  } = useAddCat();
+  const { mutate: addCat } = useAddCat();
   const [mostrar, setMostrar] = useState(false);
   useEffect(() => {
     let timeout: number;

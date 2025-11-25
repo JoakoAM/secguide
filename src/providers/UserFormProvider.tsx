@@ -1,11 +1,5 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import UserContext from "../contexts/UserContext";
-import { auth, currentUser, db } from "../firebasePath/firebase";
 
 type Props = {
   children: ReactNode;
@@ -17,79 +11,12 @@ function UserFormProvider({ children }: Props) {
   const [success, setSuccess] = useState<string>();
   const [error, setError] = useState<string>();
 
-  const fetchUserData = async () => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const userRef = doc(db, "users", user.uid);
-        const userDoc = await getDoc(userRef);
-        const isAdmin = userDoc.get("isAdmin");
-        if (isAdmin) {
-          setIsAdmin(isAdmin);
-        } else {
-          return;
-        }
-      }
-    });
-  };
-  useEffect(() => {
-    let timeout: number;
-
-    timeout = setTimeout(() => fetchUserData(), 3000);
-
-    () => {
-      clearTimeout(timeout);
-    };
-  }, []);
-  async () => {
-    if (auth.currentUser) {
-      const userRef = doc(db, "users", auth.currentUser.uid);
-      const userDoc = await getDoc(userRef);
-      const isAdmin = userDoc.get("isAdmin");
-      setIsAdmin(isAdmin);
-    }
-  };
-
-  const handleLogin = async (email: string, password: string) => {
-    async function hook() {
-      setLoading(true);
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        if (auth.currentUser) {
-          const userRef = doc(db, "users", auth.currentUser.uid);
-          const userDoc = await getDoc(userRef);
-          const isAdmin = userDoc.get("isAdmin");
-          setIsAdmin(isAdmin);
-        }
-      } catch (e) {
-        setError("Correo/Contraseña invalido(s)");
-      } finally {
-        setLoading(false);
-      }
-    }
-    hook();
-  };
+  const handleLogin = async (email: string, password: string) => {};
   const handleRegister = async (
     email: string,
     password: string,
     name: string
-  ) => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      if (!currentUser?.uid) {
-        throw new Error("No se pudo crear usuario.");
-      }
-      await setDoc(doc(db, "users", currentUser?.uid), {
-        name: name,
-        email: email,
-        createdAt: serverTimestamp(),
-      });
-      // setSuccess("Bienvenido");
-    } catch (e) {
-      setError("Error al registrarse:(");
-    } finally {
-      setLoading(false);
-    }
-  };
+  ) => {};
 
   return (
     <UserContext.Provider

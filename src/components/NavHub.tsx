@@ -36,7 +36,7 @@ function NavHub({ children }: Props) {
         justifyItems={"center"}
       >
         <HStack>
-          <VStack w="716px" color={"black"} alignContent={"center"}>
+          <VStack w="720px" color={"black"} alignContent={"center"}>
             <h1
               style={{
                 fontWeight: "bold",

@@ -8,9 +8,6 @@ type Props = {
 };
 
 const UserPanel = ({ children }: Props) => {
-  if (!auth.currentUser) {
-    return <Navigate to="/" />;
-  }
   return (
     <>
       <Grid

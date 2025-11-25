@@ -22,5 +22,9 @@ export default function useCategories() {
   return useQuery({
     queryKey: ["categories"],
     queryFn: () => queryCategories(),
+    staleTime: 1000 * 60 * 10, // 10 minutos
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
   });
 }
