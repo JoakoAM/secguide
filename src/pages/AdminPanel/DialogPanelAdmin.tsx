@@ -13,6 +13,7 @@ import AddCategory from "./AddCategory";
 import AddTool from "./AddTool";
 import PendingTools from "./PendingTools";
 import ToolsList from "./ToolsList";
+import useAuth from "../../contexts/AuthContext";
 
 type Props = {};
 
@@ -21,6 +22,7 @@ export default function DialogPanelAdmin({}: Props) {
   const [addTool, setAddTool] = useState<boolean>(false);
   const [pendingTool, setPendingTool] = useState<boolean>(false);
   const [currentTool, setCurrentTool] = useState<boolean>(false);
+  const { currentUser } = useAuth();
 
   return (
     <>

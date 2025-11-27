@@ -1,3 +1,4 @@
+import type { User } from "firebase/auth";
 import type { Timestamp } from "firebase/firestore";
 
 export type Tools = {
@@ -32,4 +33,13 @@ export type UserForm = {
 
 export type PropUserUid = {
   uid: string;
+};
+export type UserFormContext = {
+  handleLogin: (email: string, password: string) => void;
+  handleRegister: (email: string, password: string, name: string) => void;
+  success: string;
+  error: string;
+  currentUser: User | null;
+  isAdmin: boolean | undefined;
+  isLoading: boolean;
 };

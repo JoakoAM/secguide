@@ -51,10 +51,13 @@ function PendingTools({}: Props) {
           <Center>No hay herramientas pendientes</Center>
         ) : (
           <>
-            {isPendingDelete ? <h5>Eliminando tool</h5> : ""}
+            {/* {isPendingDelete ? <h5>Eliminando tool</h5> : ""}
             {errorDelete ? <h5>{errorDelete.message}</h5> : ""}
             {isPendingAprove ? <h5>Aprobando tool</h5> : ""}
-            {errorAprove ? <h5>errorAprove.message</h5> : ""}
+            {errorAprove ? <h5>errorAprove.message</h5> : ""} 
+            Estas fueron pensadas para el momento de querer eliminar o aprobar un tool
+            salga un pequeño mensaje (puede cambiarse por otra cosa en un futuro)
+            */}
             {tools.map((t) => (
               <>
                 <HStack

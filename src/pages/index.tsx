@@ -1,55 +1,35 @@
 import { createBrowserRouter } from "react-router-dom";
-import AdminPanel from "./AdminPanel";
 import ErrorDetail from "./ErrorDetails";
 import Hub from "./Hub";
 import Layout from "./Layout";
-import UserPanel from "./UserPanel";
 import HubUser from "./UserPanel/HubUser";
 import HubAdmin from "./AdminPanel/HubAdmin";
+import AdminRoute from "./AdminPanel/AdminRoute";
+import UserRoute from "./UserPanel/UserRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout></Layout>,
-    errorElement: (
-      <Layout>
-        <ErrorDetail />
-      </Layout>
-    ),
+    element: <Layout />,
     children: [
+      { index: true, element: <Hub />, errorElement: <ErrorDetail /> },
       {
-        index: true,
-        element: <Hub />,
+        path: "adminpanel",
+        element: (
+          <AdminRoute>
+            <HubAdmin />
+          </AdminRoute>
+        ),
+        errorElement: <ErrorDetail />,
       },
-    ],
-  },
-  {
-    path: "/adminpanel",
-    element: <AdminPanel />,
-    errorElement: (
-      <AdminPanel>
-        <ErrorDetail />
-      </AdminPanel>
-    ),
-    children: [
       {
-        index: true,
-        element: <HubAdmin />,
-      },
-    ],
-  },
-  {
-    path: "/userpanel",
-    element: <UserPanel />,
-    errorElement: (
-      <UserPanel>
-        <ErrorDetail />
-      </UserPanel>
-    ),
-    children: [
-      {
-        index: true,
-        element: <HubUser />,
+        path: "userpanel",
+        element: (
+          <UserRoute>
+            <HubUser />
+          </UserRoute>
+        ),
+        errorElement: <ErrorDetail />,
       },
     ],
   },

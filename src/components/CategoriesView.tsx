@@ -12,6 +12,7 @@ const CategoriesView = ({}: Props) => {
   } = useCategories();
   const [Tools] = useTools();
   const { data: tools, error: errorTools, isLoading: isLoadingTools } = Tools;
+
   if (errorTools || errorCategories) {
     return;
   }

@@ -6,18 +6,28 @@ import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import router from "./pages";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UserFormProvider from "./providers/UserFormProvider";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { AuthProvider } from "./contexts/AuthContext";
 
-const queryClient = new QueryClient();
-
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 2,
+      staleTime: 60 * 1000,
+      gcTime: 5 * 60 * 1000, // 5  min
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      structuralSharing: true,
+    },
+  },
+});
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ChakraProvider value={defaultSystem}>
-      <QueryClientProvider client={queryClient}>
-        <UserFormProvider>
-          <RouterProvider router={router} />
-        </UserFormProvider>
-      </QueryClientProvider>
-    </ChakraProvider>
-  </StrictMode>
+  <ChakraProvider value={defaultSystem}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ReactQueryDevtools />
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </QueryClientProvider>
+  </ChakraProvider>
 );

@@ -4,13 +4,11 @@ import {
   HStack,
   Menu,
   Portal,
-  Spinner,
   Stack,
   VStack,
 } from "@chakra-ui/react";
-import { VscThreeBars } from "react-icons/vsc";
-import CategoriesView from "./CategoriesView";
 import type { ReactNode } from "react";
+import { VscThreeBars } from "react-icons/vsc";
 
 type Props = { children: ReactNode };
 
@@ -107,12 +105,6 @@ function NavHub({ children }: Props) {
             </Menu.Root>
           </Stack>
         </HStack>
-      </GridItem>
-      <GridItem
-        bg={"linear-gradient(135deg, #667eea 0%, #764ba2 100%)"}
-        area={"main"}
-      >
-        <CategoriesView></CategoriesView>
       </GridItem>
     </>
   );

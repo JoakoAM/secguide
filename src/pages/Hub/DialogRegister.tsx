@@ -1,12 +1,12 @@
 import {
   Button,
-  Portal,
   CloseButton,
   Dialog,
   DialogCloseTrigger,
+  Portal,
 } from "@chakra-ui/react";
-import useUser from "../../hooks/useUser";
 import { useForm } from "react-hook-form";
+import useAuth from "../../contexts/AuthContext";
 
 type Props = {};
 type FormType = {
@@ -16,7 +16,7 @@ type FormType = {
 };
 export default function DialogRegister({}: Props) {
   const { register, handleSubmit, formState: errors } = useForm<FormType>();
-  const { error, success, handleRegister } = useUser();
+  const { error, success, handleRegister } = useAuth();
 
   return (
     <>

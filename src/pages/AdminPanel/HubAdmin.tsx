@@ -1,13 +1,12 @@
-import { Button } from "@chakra-ui/react";
 import NavHub from "../../components/NavHub";
-import { auth } from "../../firebasePath/firebase";
 import DialogPanelAdmin from "./DialogPanelAdmin";
 import LogOut from "../../components/LogOut";
-import useUser from "../../hooks/useUser";
+import useAuth from "../../contexts/AuthContext";
 
 type Props = {};
 
 function HubAdmin({}: Props) {
+  const { currentUser } = useAuth();
   return (
     <>
       <NavHub>

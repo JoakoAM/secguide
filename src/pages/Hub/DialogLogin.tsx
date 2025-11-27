@@ -1,15 +1,15 @@
 import { Button, CloseButton, Dialog, Portal } from "@chakra-ui/react";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useForm } from "react-hook-form";
-import { auth } from "../../firebasePath/firebase";
-import useUser from "../../hooks/useUser";
 import type { UserForm } from "../../types";
+import { useNavigate } from "react-router";
+import useAuth from "../../contexts/AuthContext";
 
 type Props = {};
 
 export default function DialogLogin({}: Props) {
   const [open, setOpen] = useState(false);
-  const { handleLogin } = useUser();
+  const { handleLogin } = useAuth();
   const {
     register,
     handleSubmit,

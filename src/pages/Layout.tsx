@@ -1,14 +1,16 @@
-import { Grid } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import { type ReactNode } from "react";
 import { Outlet } from "react-router-dom";
+import CategoriesView from "../components/CategoriesView";
 
 type Props = {
   children?: ReactNode;
 };
 
-function Layout({ children }: Props) {
+function Layout({}: Props) {
+  console.log("cargando layout");
   return (
-    <div>
+    <>
       <Grid
         font={"caption"}
         bg={"linear-gradient(135deg, #667eea 0%, #764ba2 100%)"}
@@ -17,9 +19,15 @@ function Layout({ children }: Props) {
         templateColumns={"repeat(auto-fit, minmax(280px, 1fr))"}
         justifyItems={"center"}
       >
-        {children ?? <Outlet />}
+        <Outlet />
+        <GridItem
+          bg={"linear-gradient(135deg, #667eea 0%, #764ba2 100%)"}
+          area={"main"}
+        >
+          <CategoriesView />
+        </GridItem>
       </Grid>
-    </div>
+    </>
   );
 }
 

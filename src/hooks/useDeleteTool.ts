@@ -3,7 +3,7 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebasePath/firebase";
 import type { Tools } from "../types";
 
-export const queryDeleteToold = async (tool: Tools) => {
+const queryDeleteToold = async (tool: Tools) => {
   try {
     const toolsRef = doc(db, "tools", tool.id);
     await deleteDoc(toolsRef);
@@ -23,11 +23,11 @@ export default function usedeleteTool() {
       queryClient.setQueryData<Tools[]>(["toolsPending"], (tools = []) =>
         tools.filter((tool) => tool.id !== deletedTool.id)
       );
-
       return oldPendingTools;
     },
     onError: (_, __, ctx) => {
       queryClient.setQueryData<Tools[]>(["toolsPending"], ctx);
+      console.log("ERROR");
     },
   });
 }

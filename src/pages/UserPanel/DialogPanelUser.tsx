@@ -10,7 +10,6 @@ import {
 import { useState } from "react";
 import AddTool from "../AdminPanel/AddTool";
 import ToolsList from "../AdminPanel/ToolsList";
-// import useUser from "../hooks/useUser";
 
 type Props = {};
 
