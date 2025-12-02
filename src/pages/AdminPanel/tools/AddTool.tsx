@@ -1,11 +1,22 @@
-import { Button, Center, Spinner, Stack } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Field,
+  HStack,
+  SegmentGroup,
+  Spinner,
+  Stack,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import CategorySelect from "./CategorySelect";
-
+import CategorySelect from "../categories/CategorySelect";
+import { Controller, useForm } from "react-hook-form";
+import { SiMacos } from "react-icons/si";
+import { FaLinux, FaWindows } from "react-icons/fa";
 type Props = {};
 
 const AddTool = ({}: Props) => {
   const [mostrar, setMostrar] = useState(false);
+  const { register, handleSubmit, control } = useForm();
   useEffect(() => {
     let timeout: number;
     timeout = setTimeout(() => {
@@ -58,11 +69,57 @@ const AddTool = ({}: Props) => {
               />
             </div>
             <div className="mb-3">
-              <input
-                type="text"
-                className="form-control"
-                id="toolPlatform"
-                placeholder="Plataformas"
+              <Controller
+                control={control}
+                name="Plataforma"
+                render={({ field }) => (
+                  <Field.Root>
+                    <Field.Label>Plataforma</Field.Label>
+                    <SegmentGroup.Root
+                      size="sm"
+                      onBlur={field.onBlur}
+                      name={field.name}
+                      value={field.value}
+                      onValueChange={({ value }) => {
+                        field.onChange(value);
+                        console.log(value);
+                      }}
+                    >
+                      <SegmentGroup.Items
+                        items={[
+                          {
+                            value: "Windows",
+                            label: (
+                              <HStack>
+                                <FaWindows />
+                                Win
+                              </HStack>
+                            ),
+                          },
+                          {
+                            value: "MacOS",
+                            label: (
+                              <HStack>
+                                <SiMacos />
+                                MacOs
+                              </HStack>
+                            ),
+                          },
+                          {
+                            value: "Linux",
+                            label: (
+                              <HStack>
+                                <FaLinux />
+                                Linux
+                              </HStack>
+                            ),
+                          },
+                        ]}
+                      />
+                      <SegmentGroup.Indicator />
+                    </SegmentGroup.Root>
+                  </Field.Root>
+                )}
               />
             </div>
             <div className="mb-3">

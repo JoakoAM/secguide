@@ -1,7 +1,7 @@
 import { Select, createListCollection } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import type { Categories } from "../../types";
+import type { Categories } from "../../../types";
 
 type Props = {};
 

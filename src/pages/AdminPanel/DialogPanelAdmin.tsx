@@ -1,6 +1,5 @@
 import {
   Button,
-  Center,
   CloseButton,
   Dialog,
   DialogCloseTrigger,
@@ -9,11 +8,10 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import AddCategory from "./AddCategory";
-import AddTool from "./AddTool";
-import PendingTools from "./PendingTools";
+import AddCategory from "./categories/AddCategory";
+import AddTool from "./tools/AddTool";
+import PendingTools from "./tools/PendingTools";
 import ToolsList from "./ToolsList";
-import useAuth from "../../contexts/AuthContext";
 
 type Props = {};
 
@@ -22,7 +20,6 @@ export default function DialogPanelAdmin({}: Props) {
   const [addTool, setAddTool] = useState<boolean>(false);
   const [pendingTool, setPendingTool] = useState<boolean>(false);
   const [currentTool, setCurrentTool] = useState<boolean>(false);
-  const { currentUser } = useAuth();
 
   return (
     <>

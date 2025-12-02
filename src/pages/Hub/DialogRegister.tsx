@@ -16,7 +16,7 @@ type FormType = {
 };
 export default function DialogRegister({}: Props) {
   const { register, handleSubmit, formState: errors } = useForm<FormType>();
-  const { error, success, handleRegister } = useAuth();
+  const { registerState, handleRegister } = useAuth();
 
   return (
     <>
@@ -79,14 +79,14 @@ export default function DialogRegister({}: Props) {
                         className="form-control"
                       ></input>
                       <div className="form-text" id="emailHelp"></div>
-                      {success ? (
+                      {registerState.success ? (
                         <>
                           <span>{`Registrado con exito :D`}</span>
                         </>
                       ) : (
                         ""
                       )}
-                      {error ? (
+                      {registerState.error ? (
                         <>
                           <span>{"Ha ocurrido un error :("}</span>
                         </>

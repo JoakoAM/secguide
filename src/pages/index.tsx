@@ -4,8 +4,8 @@ import Hub from "./Hub";
 import Layout from "./Layout";
 import HubUser from "./UserPanel/HubUser";
 import HubAdmin from "./AdminPanel/HubAdmin";
-import AdminRoute from "./AdminPanel/AdminRoute";
-import UserRoute from "./UserPanel/UserRoute";
+import AdminRoute from "../AdminRoute";
+import UserRoute from "./UserRoute";
 
 const router = createBrowserRouter([
   {

@@ -8,7 +8,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import AddTool from "../AdminPanel/AddTool";
+import AddTool from "../AdminPanel/tools/AddTool";
 import ToolsList from "../AdminPanel/ToolsList";
 
 type Props = {};

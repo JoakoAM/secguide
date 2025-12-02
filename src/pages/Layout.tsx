@@ -13,17 +13,13 @@ function Layout({}: Props) {
     <>
       <Grid
         font={"caption"}
-        bg={"linear-gradient(135deg, #667eea 0%, #764ba2 100%)"}
         templateAreas={`"header header" "main main"`}
         templateRows="160px 1fr"
         templateColumns={"repeat(auto-fit, minmax(280px, 1fr))"}
         justifyItems={"center"}
       >
         <Outlet />
-        <GridItem
-          bg={"linear-gradient(135deg, #667eea 0%, #764ba2 100%)"}
-          area={"main"}
-        >
+        <GridItem area={"main"}>
           <CategoriesView />
         </GridItem>
       </Grid>

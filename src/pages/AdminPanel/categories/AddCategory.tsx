@@ -9,8 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import useAddCat from "../../hooks/useAddCat";
-import type { Categories } from "../../types";
+import useAddCat from "../../../hooks/useAddCat";
+import type { Categories } from "../../../types";
 import { FaToolbox } from "react-icons/fa";
 import { TbTournament } from "react-icons/tb";
 

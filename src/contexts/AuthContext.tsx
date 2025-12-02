@@ -4,7 +4,13 @@ import {
   type User,
 } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import React, { useContext, useEffect, useState, type ReactNode } from "react";
+import React, {
+  use,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { auth, db } from "../firebasePath/firebase";
 import type { UserFormContext } from "../types";
 
@@ -19,21 +25,41 @@ export default function useAuth() {
 }
 
 export function AuthProvider({ children }: Props) {
-  const [success, setSuccess] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const [loginState, setLoginState] = useState({
+    isLoading: true,
+    success: "",
+    error: "",
+  });
+  const [registerState, setRegisterState] = useState({
+    isLoading: true,
+    success: "",
+    error: "",
+  });
+
+  useEffect(() => {
+    let timeout;
+    timeout = setTimeout(() => {
+      setLoginState((s) => ({ ...s, success: "" }));
+    }, 4000);
+  }, [loginState.success]);
+
+  const [isLoadingAuth, setIsLoadingAuth] = useState<boolean>(true);
+
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+
   const [isAdmin, setIsAdmin] = useState<boolean | undefined>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user != null) {
+      if (user) {
         setCurrentUser(user);
+
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
+
         if (docSnap.exists()) {
           const data = docSnap.data();
           const adminFlag = data.isAdmin ?? false;
-          console.log(adminFlag);
           setIsAdmin(adminFlag);
         } else {
           setIsAdmin(false);
@@ -42,21 +68,23 @@ export function AuthProvider({ children }: Props) {
         setCurrentUser(null);
         setIsAdmin(false);
       }
-      setIsLoading(false);
+      setIsLoadingAuth(false);
     });
     return unsubscribe;
   }, [currentUser]);
 
   const handleLogin = async (email: string, password: string) => {
-    setIsLoading(true);
+    setLoginState((s) => ({ ...s, isLoading: true }));
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setSuccess("Bienvenido.");
+      setLoginState((s) => ({
+        ...s,
+        success: "Bienvenido :D",
+      }));
     } catch (e) {
-      setError((e as Error).message);
-      console.error(error);
+      setLoginState((s) => ({ ...s, error: (e as Error).message }));
     } finally {
-      setIsLoading(false);
+      setLoginState((s) => ({ ...s, isLoading: false }));
     }
   };
   const handleRegister = async (
@@ -70,11 +98,11 @@ export function AuthProvider({ children }: Props) {
       value={{
         handleRegister,
         handleLogin,
-        success,
-        error,
         currentUser,
         isAdmin,
-        isLoading,
+        registerState,
+        loginState,
+        isLoadingAuth,
       }}
     >
       {children}

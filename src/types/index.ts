@@ -34,12 +34,19 @@ export type UserForm = {
 export type PropUserUid = {
   uid: string;
 };
+
+export type AuthStates = {
+  isLoading: boolean;
+  success: string;
+  error: string;
+};
+
 export type UserFormContext = {
   handleLogin: (email: string, password: string) => void;
   handleRegister: (email: string, password: string, name: string) => void;
-  success: string;
-  error: string;
   currentUser: User | null;
   isAdmin: boolean | undefined;
-  isLoading: boolean;
+  loginState: AuthStates;
+  registerState: AuthStates;
+  isLoadingAuth: boolean;
 };

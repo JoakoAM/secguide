@@ -4,14 +4,13 @@ import NavHub from "../../components/NavHub";
 import DialogLogin from "./DialogLogin";
 import DialogRegister from "./DialogRegister";
 import useAuth from "../../contexts/AuthContext";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 type Props = {};
 
 const Hub = ({}: Props) => {
   const nav = useNavigate();
   const [spinner, setSpinner] = useState(true);
-  const { currentUser, isAdmin, isLoading } = useAuth();
-  console.log(isAdmin, "fuera");
+  const { currentUser, isAdmin, isLoadingAuth } = useAuth();
   useEffect(() => {
     let timeout: number;
     timeout = setTimeout(() => {
@@ -24,18 +23,18 @@ const Hub = ({}: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!isLoading && !spinner && currentUser != null) {
+    if (!isLoadingAuth && !spinner && currentUser != null) {
       const timeout = setTimeout(() => {
         if (isAdmin) {
           nav("adminpanel");
         } else {
           nav("userpanel");
         }
-      }, 2000);
+      }, 2500);
 
       return () => clearTimeout(timeout);
     }
-  }, [isLoading, spinner, currentUser, isAdmin]);
+  }, [isLoadingAuth, spinner, currentUser, isAdmin]);
 
   return (
     <>

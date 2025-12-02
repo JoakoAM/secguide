@@ -7,9 +7,9 @@ import {
 } from "@chakra-ui/react";
 import { FaCheck } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import useTools from "../../hooks/useTools";
-import useDeleteTool from "../../hooks/useDeleteTool";
-import useAproveTool from "../../hooks/useAproveTool";
+import useTools from "../../../hooks/useTools";
+import useDeleteTool from "../../../hooks/useDeleteTool";
+import useAproveTool from "../../../hooks/useAproveTool";
 import { useEffect, useState } from "react";
 type Props = {};
 
