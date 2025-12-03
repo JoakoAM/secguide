@@ -13,6 +13,7 @@ import useAddCat from "../../../hooks/useAddCat";
 import type { Categories } from "../../../types";
 import { FaToolbox } from "react-icons/fa";
 import { TbTournament } from "react-icons/tb";
+import stylesDialog from "../../../styles/Dialog.module.css";
 
 type Props = {};
 
@@ -108,16 +109,8 @@ const AddCategory = ({}: Props) => {
             </div>
             <Button
               type="submit"
-              justifySelf={"center"}
-              w="full"
               disabled={errors.name || errors.desc ? true : false}
-              className="btn btn-primary"
-              borderRadius={"10px"}
-              transition={"ease 0.5s"}
-              bg={"rgba(0, 110, 255, 0.75)"}
-              _hover={{
-                bg: "rgba(0, 132, 255, 0.59)",
-              }}
+              className={`btn btn-primary ${stylesDialog.btnBody}`}
             >
               Guardar Categoría
             </Button>

@@ -10,7 +10,7 @@ import { useState, type FormEvent } from "react";
 import { useForm } from "react-hook-form";
 import type { UserForm } from "../../types";
 import useAuth from "../../contexts/AuthContext";
-
+import stylesDialog from "../../styles/Dialog.module.css";
 type Props = {};
 
 export default function DialogLogin({}: Props) {
@@ -49,13 +49,7 @@ export default function DialogLogin({}: Props) {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content
-            animation="fade-in 0.5s ease-out"
-            bg={"rgba(255, 255, 255, 0.2)"}
-            backdropFilter={"blur(10px)"}
-            border={"1px solid rgba(255, 255, 255, 0.3)"}
-            alignItems={"center"}
-          >
+          <Dialog.Content className={stylesDialog.content}>
             <Dialog.Header alignSelf={"center"}>
               <Dialog.Title
                 animation="fade-in 0.5s ease-out"
@@ -136,10 +130,7 @@ export default function DialogLogin({}: Props) {
               )}
             </Dialog.Body>
             <Dialog.CloseTrigger asChild>
-              <CloseButton
-                _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
-                borderRadius={"10px"}
-              />
+              <CloseButton className={stylesDialog.btnClose} />
             </Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>

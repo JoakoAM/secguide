@@ -12,6 +12,7 @@ import AddCategory from "./categories/AddCategory";
 import AddTool from "./tools/AddTool";
 import PendingTools from "./tools/PendingTools";
 import ToolsList from "./ToolsList";
+import stylesDialog from "../../styles/Dialog.module.css";
 
 type Props = {};
 
@@ -43,11 +44,7 @@ export default function DialogPanelAdmin({}: Props) {
           <Dialog.Backdrop />
           <Dialog.Positioner>
             <Dialog.Content
-              animation="fade-in 0.5s ease-out"
-              bg={"rgba(255, 255, 255, 0.2)"}
-              backdropFilter={"blur(10px)"}
-              border={"1px solid rgba(255, 255, 255, 0.3)"}
-              alignItems={"center"}
+              className={stylesDialog.content}
               justifyContent={"space-between"}
             >
               <Dialog.Header></Dialog.Header>
@@ -69,12 +66,7 @@ export default function DialogPanelAdmin({}: Props) {
                         setAddTool(false);
                         setPendingTool(false);
                       }}
-                      borderRadius={"10px"}
-                      bg={"rgba(0, 110, 255, 0.75)"}
-                      transition={"ease 0.5s"}
-                      _hover={{
-                        bg: "rgba(0, 132, 255, 0.59)",
-                      }}
+                      className={stylesDialog.btnBody}
                     >
                       ➕ Añadir categoría
                     </Button>
@@ -85,12 +77,7 @@ export default function DialogPanelAdmin({}: Props) {
                         setAddCategory(false);
                         setPendingTool(false);
                       }}
-                      borderRadius={"10px"}
-                      transition={"ease 0.5s"}
-                      bg={"rgba(0, 110, 255, 0.75)"}
-                      _hover={{
-                        bg: "rgba(0, 132, 255, 0.59)",
-                      }}
+                      className={stylesDialog.btnBody}
                     >
                       🔨 Añadir herramienta
                     </Button>
@@ -102,12 +89,7 @@ export default function DialogPanelAdmin({}: Props) {
                       setAddCategory(false);
                       setAddTool(false);
                     }}
-                    borderRadius={"10px"}
-                    bg={"rgba(0, 110, 255, 0.75)"}
-                    transition={"ease 0.5s"}
-                    _hover={{
-                      bg: "rgba(0, 132, 255, 0.59)",
-                    }}
+                    className={stylesDialog.btnBody}
                   >
                     ⏳ Herramientas pendientes
                   </Button>
@@ -118,12 +100,7 @@ export default function DialogPanelAdmin({}: Props) {
                       setAddCategory(false);
                       setAddTool(false);
                     }}
-                    borderRadius={"10px"}
-                    bg={"rgba(0, 110, 255, 0.75)"}
-                    transition={"ease 0.5s"}
-                    _hover={{
-                      bg: "rgba(0, 132, 255, 0.59)",
-                    }}
+                    className={stylesDialog.btnBody}
                   >
                     🛠️ Herramientas existentes
                   </Button>
@@ -141,8 +118,7 @@ export default function DialogPanelAdmin({}: Props) {
               </Dialog.Body>
               <DialogCloseTrigger asChild>
                 <CloseButton
-                  _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
-                  borderRadius={"20px"}
+                  className={stylesDialog.btnClose}
                   onClick={() => {
                     setPendingTool(false);
                     setAddCategory(false);

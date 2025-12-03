@@ -1,6 +1,7 @@
 type Props = {};
 import {
   Card,
+  CardDescription,
   CloseButton,
   Dialog,
   HStack,
@@ -14,6 +15,8 @@ import { useLocation } from "react-router";
 import useCategories from "../hooks/useCategories.ts";
 import useTools from "../hooks/useTools.ts";
 import type { Categories, Tools } from "../types/index.ts";
+import styles from "../styles/CategoriesView.module.css";
+import stylesDialog from "../styles/Dialog.module.css";
 
 type selectedCatType = {
   idx: number;
@@ -37,43 +40,19 @@ const CategoriesView = ({}: Props) => {
       return (
         <Dialog.Trigger key={cat.id} asChild>
           <Card.Root
-            boxShadow={"0 10px 30px rgba(0, 0, 0, 0.2)"}
-            color={"gray.300"}
-            borderRadius="10px"
-            marginTop="10px"
-            w="486px"
-            h="200px"
-            overflow="hidden"
-            margin={"14px"}
-            transition=".3s"
-            cursor={"pointer"}
+            className={styles.CardRoot}
             onClick={() => {
               setOpen(true);
               setSelectedCat({ idx, tools: selectedTools });
               console.log(selectedCat);
             }}
-            _hover={{
-              transform: "translateY(-8px)",
-              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
-            }}
           >
             <Card.Body gap="2">
-              <Card.Title
-                maxH={"62px"}
-                fontWeight={"bold"}
-                fontSize={30}
-                color="#333"
-              >
-                {cat.name}
-              </Card.Title>
-              <Card.Description fontWeight={"lighter"} color={"#555"}>
+              <Card.Title className={styles.CardTitle}>{cat.name}</Card.Title>
+              <Card.Description className={styles.CardDescriptionDesc}>
                 {cat.desc}
               </Card.Description>
-              <Card.Description
-                fontSize={"15px"}
-                fontWeight={"bold"}
-                color="#667eea"
-              >
+              <Card.Description className={styles.CardDescriptionCount}>
                 {count} herramienta{count !== 1 ? "s" : ""}
               </Card.Description>
             </Card.Body>
@@ -108,26 +87,10 @@ const CategoriesView = ({}: Props) => {
         wrap="wrap"
         id={`${Math.random()}`}
         key={path.pathname}
-        animation="fade-out 1s ease-out"
+        animation="fade-out 2s ease-out"
       >
         {skeletons.map((m) => (
-          <Card.Root
-            key={m}
-            boxShadow={"0 10px 30px rgba(0, 0, 0, 0.2)"}
-            color={"gray.300"}
-            borderRadius="10px"
-            marginTop="10px"
-            w="486px"
-            h="200px"
-            overflow="hidden"
-            margin={"14px"}
-            transition=".3s"
-            cursor={"pointer"}
-            _hover={{
-              transform: "translateY(-8px)",
-              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
-            }}
-          >
+          <Card.Root className={styles.SkeletonCard}>
             <Card.Body marginTop={"10px"} gap="2">
               <SkeletonText bg={"gray.600"} w="200px" noOfLines={1} />
               <SkeletonText bg={"gray.600"} w="100px" noOfLines={1} />
@@ -154,6 +117,7 @@ const CategoriesView = ({}: Props) => {
         >
           <Dialog.Root
             lazyMount
+            placement={"top"}
             open={open}
             onOpenChange={(e) => setOpen(e.open)}
           >
@@ -161,13 +125,7 @@ const CategoriesView = ({}: Props) => {
             <Portal>
               <Dialog.Backdrop />
               <Dialog.Positioner>
-                <Dialog.Content
-                  bg={"rgba(255, 255, 255, 0.2)"}
-                  backdropFilter={"blur(10px)"}
-                  border={"1px solid rgba(255, 255, 255, 0.3)"}
-                  alignItems={"center"}
-                  animation="fade-in 0.5s ease-out"
-                >
+                <Dialog.Content className={stylesDialog.content}>
                   <Dialog.Header>
                     <Dialog.Title>
                       {selectedCat ? categories[selectedCat.idx].name : ""}
@@ -180,6 +138,7 @@ const CategoriesView = ({}: Props) => {
                         : selectedCat.tools.map((t) => (
                             <Stack key={t.id} borderRadius="10px" gap={4}>
                               <HStack
+                                border={"1px solid rgba(255, 255, 255, 0.21)"}
                                 bg={"rgba(255, 255, 255, 0.19)"}
                                 borderRadius="10px"
                                 p={"5px"}

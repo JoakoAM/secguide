@@ -1,0 +1,33 @@
+.content {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  align-items: center;
+  animation: "fade-in 0.5s ease-out";
+}
+
+.btnTrigger {
+  animation: "fade-in 0.5s ease-out";
+  border-radius: 10px;
+}
+.btnTrigger:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btnBody {
+  background: rgba(0, 110, 255, 0.75);
+  transition: 0.5s;
+  border-radius: 10px;
+  justify-self: center;
+  width: 100%;
+}
+.btnBody:hover {
+  background: rgba(0, 110, 255, 0.59);
+}
+
+.btnClose {
+  border-radius: 20px;
+}
+.btnClose:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

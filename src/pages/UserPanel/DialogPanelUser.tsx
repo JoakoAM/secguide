@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import AddTool from "../AdminPanel/tools/AddTool";
 import ToolsList from "../AdminPanel/ToolsList";
+import stylesDialog from "../../styles/Dialog.module.css";
 
 type Props = {};
 
@@ -34,15 +35,14 @@ export default function DialogPanelUser({}: Props) {
         <Portal>
           <Dialog.Backdrop />
           <Dialog.Positioner>
-            <Dialog.Content
-              animation="fade-in 0.5s ease-out"
-              bg={"rgba(255, 255, 255, 0.2)"}
-              backdropFilter={"blur(10px)"}
-              border={"1px solid rgba(255, 255, 255, 0.3)"}
-            >
+            <Dialog.Content className={stylesDialog.content}>
               <Dialog.Header>
                 <Dialog.CloseTrigger asChild>
-                  <CloseButton onClick={() => setAddTool(false)} size="sm" />
+                  <CloseButton
+                    className={stylesDialog.btnClose}
+                    onClick={() => setAddTool(false)}
+                    size="sm"
+                  />
                 </Dialog.CloseTrigger>
               </Dialog.Header>
               <Dialog.Body>
@@ -58,12 +58,7 @@ export default function DialogPanelUser({}: Props) {
                     onClick={() => {
                       setAddTool(true);
                     }}
-                    borderRadius={"10px"}
-                    transition={"ease 0.5s"}
-                    bg={"rgba(0, 110, 255, 0.75)"}
-                    _hover={{
-                      bg: "rgba(0, 132, 255, 0.59)",
-                    }}
+                    className={stylesDialog.btnBody}
                   >
                     🔨 Sugerir herramienta
                   </Button>
@@ -71,12 +66,7 @@ export default function DialogPanelUser({}: Props) {
                     onClick={() => {
                       setTools(true);
                     }}
-                    borderRadius={"10px"}
-                    transition={"ease 0.5s"}
-                    bg={"rgba(0, 110, 255, 0.75)"}
-                    _hover={{
-                      bg: "rgba(0, 132, 255, 0.59)",
-                    }}
+                    className={stylesDialog.btnBody}
                   >
                     🛠️ Mis herramientas
                   </Button>

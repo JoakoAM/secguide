@@ -9,6 +9,7 @@ import {
 import { auth, currentUser } from "../firebasePath/firebase";
 import { useNavigate } from "react-router";
 import { useEffect, useState, type FormEvent } from "react";
+import stylesDialog from "../styles/Dialog.module.css";
 
 type Props = {};
 
@@ -32,15 +33,11 @@ const LogOut = ({}: Props) => {
     >
       <Dialog.Trigger asChild>
         <Button
-          animation="fade-in 0.5s ease-out"
+          className={stylesDialog.btnTrigger}
           onClick={() => {
             logOut();
           }}
           variant={"plain"}
-          borderRadius={"10px"}
-          _hover={{
-            bg: "rgba(255, 255, 255, 0.2)",
-          }}
         >
           🚪 Cerrar Sesion
         </Button>
@@ -48,12 +45,7 @@ const LogOut = ({}: Props) => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content
-            bg={"rgba(255, 255, 255, 0.2)"}
-            backdropFilter={"blur(10px)"}
-            border={"1px solid rgba(255, 255, 255, 0.3)"}
-            alignItems={"center"}
-          >
+          <Dialog.Content className={stylesDialog.content}>
             <Dialog.Header alignSelf={"center"}>
               <Dialog.Title animation="fade-in 0.5s ease-out">
                 Cerrando sesión

@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../contexts/AuthContext";
+import stylesDialog from "../../styles/Dialog.module.css";
 
 type Props = {};
 type FormType = {
@@ -39,13 +40,7 @@ export default function DialogRegister({}: Props) {
         <Portal>
           <Dialog.Backdrop />
           <Dialog.Positioner>
-            <Dialog.Content
-              animation="fade-in 0.5s ease-out"
-              bg={"rgba(255, 255, 255, 0.2)"}
-              backdropFilter={"blur(10px)"}
-              border={"1px solid rgba(255, 255, 255, 0.3)"}
-              alignItems={"center"}
-            >
+            <Dialog.Content className={stylesDialog.content}>
               <Dialog.Header alignSelf={"center"}>
                 <Dialog.Title>Crear Cuenta</Dialog.Title>
               </Dialog.Header>
@@ -103,10 +98,7 @@ export default function DialogRegister({}: Props) {
                 </div>
               </Dialog.Body>
               <DialogCloseTrigger>
-                <CloseButton
-                  _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
-                  borderRadius={"20"}
-                />
+                <CloseButton className={stylesDialog.btnClose} />
               </DialogCloseTrigger>
             </Dialog.Content>
           </Dialog.Positioner>
