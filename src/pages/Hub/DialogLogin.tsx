@@ -41,6 +41,7 @@ export default function DialogLogin({}: Props) {
           _hover={{
             bg: "rgba(255, 255, 255, 0.2)",
           }}
+          animation="fade-in 0.5s ease-out"
         >
           🔐 Iniciar Sesión
         </Button>
@@ -49,6 +50,7 @@ export default function DialogLogin({}: Props) {
         <Dialog.Backdrop />
         <Dialog.Positioner>
           <Dialog.Content
+            animation="fade-in 0.5s ease-out"
             bg={"rgba(255, 255, 255, 0.2)"}
             backdropFilter={"blur(10px)"}
             border={"1px solid rgba(255, 255, 255, 0.3)"}

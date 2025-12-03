@@ -13,7 +13,7 @@ export type Tools = {
   license: string;
   link: string;
   name: string;
-  platform: string;
+  platform: string | string[];
   ratings: object;
 };
 

@@ -32,6 +32,7 @@ const LogOut = ({}: Props) => {
     >
       <Dialog.Trigger asChild>
         <Button
+          animation="fade-in 0.5s ease-out"
           onClick={() => {
             logOut();
           }}

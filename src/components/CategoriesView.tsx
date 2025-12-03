@@ -178,13 +178,12 @@ const CategoriesView = ({}: Props) => {
                       ? selectedCat.tools.length === 0
                         ? "No hay herramientas"
                         : selectedCat.tools.map((t) => (
-                            <Stack borderRadius="10px" p={"px"} gap={4}>
+                            <Stack key={t.id} borderRadius="10px" gap={4}>
                               <HStack
                                 bg={"rgba(255, 255, 255, 0.19)"}
                                 borderRadius="10px"
                                 p={"5px"}
                                 gap={4}
-                                key={t.id}
                                 scale={1.2}
                                 _hover={{ scale: 1.25 }}
                                 transition={"1s"}

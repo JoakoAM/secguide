@@ -21,6 +21,7 @@ export default function DialogPanelUser({}: Props) {
       <Dialog.Root placement="center" motionPreset="slide-in-bottom">
         <Dialog.Trigger asChild>
           <Button
+            animation="fade-in 0.5s ease-out"
             variant={"plain"}
             borderRadius={"10px"}
             _hover={{
@@ -34,6 +35,7 @@ export default function DialogPanelUser({}: Props) {
           <Dialog.Backdrop />
           <Dialog.Positioner>
             <Dialog.Content
+              animation="fade-in 0.5s ease-out"
               bg={"rgba(255, 255, 255, 0.2)"}
               backdropFilter={"blur(10px)"}
               border={"1px solid rgba(255, 255, 255, 0.3)"}
