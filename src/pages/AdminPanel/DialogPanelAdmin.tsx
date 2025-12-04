@@ -29,14 +29,7 @@ export default function DialogPanelAdmin({}: Props) {
         placement={{ sm: "bottom", md: "top" }}
       >
         <Dialog.Trigger asChild>
-          <Button
-            variant={"plain"}
-            borderRadius={"10px"}
-            _hover={{
-              bg: "rgba(255, 255, 255, 0.2)",
-            }}
-            animation="fade-in 0.5s ease-out"
-          >
+          <Button variant={"plain"} className={stylesDialog.btnTrigger}>
             🖥️ Panel de administracion
           </Button>
         </Dialog.Trigger>
@@ -61,11 +54,13 @@ export default function DialogPanelAdmin({}: Props) {
                   <>
                     <Button
                       onClick={() => {
+                        console.log("botonClickeado");
                         setAddCategory(true);
                         setCurrentTool(false);
                         setAddTool(false);
                         setPendingTool(false);
                       }}
+                      disabled={addCategory}
                       className={stylesDialog.btnBody}
                     >
                       ➕ Añadir categoría
@@ -77,6 +72,7 @@ export default function DialogPanelAdmin({}: Props) {
                         setAddCategory(false);
                         setPendingTool(false);
                       }}
+                      disabled={addTool}
                       className={stylesDialog.btnBody}
                     >
                       🔨 Añadir herramienta
@@ -89,6 +85,7 @@ export default function DialogPanelAdmin({}: Props) {
                       setAddCategory(false);
                       setAddTool(false);
                     }}
+                    disabled={pendingTool}
                     className={stylesDialog.btnBody}
                   >
                     ⏳ Herramientas pendientes
@@ -100,6 +97,7 @@ export default function DialogPanelAdmin({}: Props) {
                       setAddCategory(false);
                       setAddTool(false);
                     }}
+                    disabled={currentTool}
                     className={stylesDialog.btnBody}
                   >
                     🛠️ Herramientas existentes

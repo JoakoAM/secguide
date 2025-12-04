@@ -1,10 +1,9 @@
 import { Field, HStack, Select, createListCollection } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
-import type { Categories, Tools } from "../../../types";
 import { Controller, type Control, type FieldErrors } from "react-hook-form";
-import { FaToolbox } from "react-icons/fa";
 import { GoMultiSelect } from "react-icons/go";
+import stylesField from "../../../styles/Field.module.css";
+import type { Categories, Tools } from "../../../types";
 
 type Props = {
   control: Control<Tools, any, Tools>;
@@ -60,9 +59,7 @@ function CategorySelect({ control, errors }: Props) {
         )}
       />
       <Field.ErrorText
-        color={"red.600"}
-        width={"full"}
-        justifyContent={"flex-end"}
+        className={stylesField.errorText}
         animation="fade-in 0.5s ease-out"
         key={errors.brief?.type}
       >

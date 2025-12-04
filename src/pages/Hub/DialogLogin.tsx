@@ -5,6 +5,7 @@ import {
   Dialog,
   Portal,
   Spinner,
+  Stack,
 } from "@chakra-ui/react";
 import { useState, type FormEvent } from "react";
 import { useForm } from "react-hook-form";
@@ -37,11 +38,8 @@ export default function DialogLogin({}: Props) {
       <Dialog.Trigger asChild>
         <Button
           variant={"plain"}
-          borderRadius={"10px"}
-          _hover={{
-            bg: "rgba(255, 255, 255, 0.2)",
-          }}
           animation="fade-in 0.5s ease-out"
+          className={stylesDialog.btnTrigger}
         >
           🔐 Iniciar Sesión
         </Button>
@@ -49,7 +47,10 @@ export default function DialogLogin({}: Props) {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content className={stylesDialog.content}>
+          <Dialog.Content
+            animation={"fade-in 0.5s ease-out"}
+            className={stylesDialog.content}
+          >
             <Dialog.Header alignSelf={"center"}>
               <Dialog.Title
                 animation="fade-in 0.5s ease-out"
@@ -66,7 +67,7 @@ export default function DialogLogin({}: Props) {
                   <Spinner size={"xl"} />
                 </Center>
               ) : (
-                <div className="container">
+                <Stack className="container">
                   <form
                     onSubmit={(e: FormEvent) => {
                       e.preventDefault();
@@ -115,18 +116,11 @@ export default function DialogLogin({}: Props) {
 
                       <div className="form-text" id="emailHelp"></div>
                     </div>
-                    <div style={{ justifyContent: "center", display: "flex" }}>
-                      <Button
-                        _hover={{ scale: 1.02 }}
-                        transition="0.1s ease all"
-                        type="submit"
-                        className={`btn btn-primary`}
-                      >
-                        ingresar
-                      </Button>
-                    </div>
+                    <Button type="submit" className={stylesDialog.btnBody}>
+                      ingresar
+                    </Button>
                   </form>
-                </div>
+                </Stack>
               )}
             </Dialog.Body>
             <Dialog.CloseTrigger asChild>

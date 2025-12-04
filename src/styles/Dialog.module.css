@@ -3,12 +3,11 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.74);
   align-items: center;
-  animation: "fade-in 0.5s ease-out";
 }
 
 .btnTrigger {
-  animation: "fade-in 0.5s ease-out";
   border-radius: 10px;
+  transition: 0.5s;
 }
 .btnTrigger:hover {
   background: rgba(255, 255, 255, 0.2);
@@ -16,13 +15,29 @@
 
 .btnBody {
   background: rgba(0, 110, 255, 0.75);
-  transition: 0.5s;
+  transition: 0.2s;
+  box-shadow: 0px 5px 0px 0px rgba(95, 156, 212, 0.651);
   border-radius: 10px;
   justify-self: center;
   width: 100%;
 }
-.btnBody:hover {
+.btnBody:hover:not(:disabled) {
   background: rgba(0, 110, 255, 0.59);
+}
+
+.btnBody:active:not(:disabled) {
+  box-shadow: 0px 0px 0px rgba(40, 35, 144, 0.631);
+  transition: 0.1s;
+  transform: translateY(5px) !important;
+}
+.btnBodyDisabled,
+.btnBodyDisabled:disabled {
+  background: rgba(50, 51, 53, 0.774);
+  transform: none;
+  border-radius: 10px;
+  justify-self: center;
+  width: 100%;
+  cursor: none;
 }
 
 .btnClose {
@@ -30,4 +45,26 @@
 }
 .btnClose:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+.hStack {
+  border: 1px solid rgba(255, 255, 255, 0.21);
+  background: rgba(255, 255, 255, 0.19);
+  border-radius: 10px;
+  padding: 5px;
+  gap: 5;
+  scale: 1.2;
+  cursor: pointer;
+  transition: 1s;
+}
+.hStack:hover {
+  scale: 1.25;
+}
+
+.hStackSpanName {
+  width: 55px;
+  font-weight: bold;
+}
+.hStackSpanBrief {
+  max-width: 291px;
+  width: 291px;
 }

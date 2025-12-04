@@ -1,0 +1,18 @@
+.card {
+  box-shadow: 0px 0px 15px 7px rgba(81, 80, 80, 0.22);
+  color: gray.300;
+  border-radius: 10px;
+  margin-top: 10px;
+  width: 486px;
+  height: 200px;
+  overflow: hidden;
+  margin: 14px;
+  transition: 0.6s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transition: 0.6s;
+  transform: translateY(-4px);
+  box-shadow: 0px 0px 15px 7px rgba(40, 35, 144, 0.631);
+}

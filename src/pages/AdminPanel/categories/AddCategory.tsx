@@ -14,6 +14,7 @@ import type { Categories } from "../../../types";
 import { FaToolbox } from "react-icons/fa";
 import { TbTournament } from "react-icons/tb";
 import stylesDialog from "../../../styles/Dialog.module.css";
+import stylesField from "../../../styles/Field.module.css";
 
 type Props = {};
 
@@ -72,11 +73,9 @@ const AddCategory = ({}: Props) => {
                   />
                 </InputGroup>
                 <Field.ErrorText
-                  color={"red.600"}
-                  width={"full"}
-                  p="2px"
-                  justifyContent={"flex-end"}
+                  className={stylesField.errorText}
                   animation="fade-in 0.5s ease-out"
+                  key={errors.name?.type}
                 >
                   {errors.name?.message}
                 </Field.ErrorText>
@@ -97,23 +96,31 @@ const AddCategory = ({}: Props) => {
                   />
                 </InputGroup>
                 <Field.ErrorText
-                  color={"red.600"}
-                  width={"full"}
-                  p="2px"
-                  justifyContent={"flex-end"}
+                  className={stylesField.errorText}
                   animation="fade-in 0.5s ease-out"
+                  key={errors.desc?.type}
                 >
                   {errors.desc?.message}
                 </Field.ErrorText>
               </Field.Root>
             </div>
-            <Button
-              type="submit"
-              disabled={errors.name || errors.desc ? true : false}
-              className={`btn btn-primary ${stylesDialog.btnBody}`}
-            >
-              Guardar Categoría
-            </Button>
+            {errors.name || errors.desc ? (
+              <Button
+                type="button"
+                disabled={errors.name || errors.desc ? true : false}
+                className={stylesDialog.btnBodyDisabled}
+              >
+                Guardar Categoría
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                disabled={errors.name || errors.desc ? true : false}
+                className={stylesDialog.btnBody}
+              >
+                Guardar Categoría
+              </Button>
+            )}
           </form>
         </Stack>
       </>

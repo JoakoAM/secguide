@@ -1,7 +1,6 @@
 type Props = {};
 import {
   Card,
-  CardDescription,
   CloseButton,
   Dialog,
   HStack,
@@ -14,9 +13,10 @@ import { useState } from "react";
 import { useLocation } from "react-router";
 import useCategories from "../hooks/useCategories.ts";
 import useTools from "../hooks/useTools.ts";
-import type { Categories, Tools } from "../types/index.ts";
-import styles from "../styles/CategoriesView.module.css";
+import stylesCard from "../styles/Card.module.css";
 import stylesDialog from "../styles/Dialog.module.css";
+import stylesSkeleton from "../styles/Skeleton.module.css";
+import type { Categories, Tools } from "../types/index.ts";
 
 type selectedCatType = {
   idx: number;
@@ -40,7 +40,7 @@ const CategoriesView = ({}: Props) => {
       return (
         <Dialog.Trigger key={cat.id} asChild>
           <Card.Root
-            className={styles.CardRoot}
+            className={stylesCard.root}
             onClick={() => {
               setOpen(true);
               setSelectedCat({ idx, tools: selectedTools });
@@ -48,11 +48,11 @@ const CategoriesView = ({}: Props) => {
             }}
           >
             <Card.Body gap="2">
-              <Card.Title className={styles.CardTitle}>{cat.name}</Card.Title>
-              <Card.Description className={styles.CardDescriptionDesc}>
+              <Card.Title className={stylesCard.title}>{cat.name}</Card.Title>
+              <Card.Description className={stylesCard.descriptionDesc}>
                 {cat.desc}
               </Card.Description>
-              <Card.Description className={styles.CardDescriptionCount}>
+              <Card.Description className={stylesCard.descriptionCount}>
                 {count} herramienta{count !== 1 ? "s" : ""}
               </Card.Description>
             </Card.Body>
@@ -89,8 +89,8 @@ const CategoriesView = ({}: Props) => {
         key={path.pathname}
         animation="fade-out 2s ease-out"
       >
-        {skeletons.map((m) => (
-          <Card.Root className={styles.SkeletonCard}>
+        {skeletons.map(() => (
+          <Card.Root className={stylesSkeleton.card}>
             <Card.Body marginTop={"10px"} gap="2">
               <SkeletonText bg={"gray.600"} w="200px" noOfLines={1} />
               <SkeletonText bg={"gray.600"} w="100px" noOfLines={1} />
@@ -137,20 +137,8 @@ const CategoriesView = ({}: Props) => {
                         ? "No hay herramientas"
                         : selectedCat.tools.map((t) => (
                             <Stack key={t.id} borderRadius="10px" gap={4}>
-                              <HStack
-                                border={"1px solid rgba(255, 255, 255, 0.21)"}
-                                bg={"rgba(255, 255, 255, 0.19)"}
-                                borderRadius="10px"
-                                p={"5px"}
-                                gap={4}
-                                scale={1.2}
-                                _hover={{ scale: 1.25 }}
-                                transition={"1s"}
-                                cursor={"pointer"}
-                              >
-                                <span
-                                  style={{ width: "55px", fontWeight: "bold" }}
-                                >
+                              <HStack className={stylesDialog.hStack}>
+                                <span className={stylesDialog.hStackSpanName}>
                                   {t.name}
                                 </span>
                                 <Separator
@@ -158,9 +146,7 @@ const CategoriesView = ({}: Props) => {
                                   orientation="vertical"
                                   height="30px"
                                 />
-                                <span
-                                  style={{ maxWidth: "291px", width: "291px" }}
-                                >
+                                <span className={stylesDialog.hStackSpanBrief}>
                                   {t.brief}
                                 </span>
                               </HStack>
@@ -170,8 +156,7 @@ const CategoriesView = ({}: Props) => {
                   </Dialog.Body>
                   <Dialog.CloseTrigger asChild>
                     <CloseButton
-                      _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
-                      borderRadius={"10px"}
+                      className={stylesDialog.btnTrigger}
                       variant={"plain"}
                     />
                   </Dialog.CloseTrigger>
@@ -179,9 +164,6 @@ const CategoriesView = ({}: Props) => {
               </Dialog.Positioner>
             </Portal>
           </Dialog.Root>
-
-          <div id="toolsView" className="tools-grid"></div>
-          <div id="toolDetailView"></div>
         </Stack>
       </>
     );

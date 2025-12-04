@@ -22,6 +22,9 @@ import { SiMacos } from "react-icons/si";
 import { TbLicense, TbSettingsCog, TbTournament } from "react-icons/tb";
 import type { Tools } from "../../../types";
 import CategorySelect from "../categories/CategorySelect";
+import stylesDialog from "../../../styles/Dialog.module.css";
+import stylesField from "../../../styles/Field.module.css";
+
 type Props = {};
 
 const AddTool = ({}: Props) => {
@@ -93,7 +96,6 @@ const AddTool = ({}: Props) => {
               bg={"rgba(255, 255, 255, 0.19)"}
               borderRadius="10px"
               id="addToolForm"
-              className="admin-form"
               p={"10px"}
               gap={4}
             >
@@ -117,11 +119,9 @@ const AddTool = ({}: Props) => {
                     />
                   </InputGroup>
                   <Field.ErrorText
-                    color={"red.600"}
-                    width={"full"}
-                    p="2px"
-                    justifyContent={"flex-end"}
+                    className={stylesField.errorText}
                     animation="fade-in 0.5s ease-out"
+                    key={errors.name?.type}
                   >
                     {errors.name?.message}
                   </Field.ErrorText>
@@ -149,10 +149,7 @@ const AddTool = ({}: Props) => {
                     />
                   </InputGroup>
                   <Field.ErrorText
-                    color={"red.600"}
-                    width={"full"}
-                    p="2px"
-                    justifyContent={"flex-end"}
+                    className={stylesField.errorText}
                     animation="fade-in 0.5s ease-out"
                     key={errors.brief?.type}
                   >
@@ -185,11 +182,9 @@ const AddTool = ({}: Props) => {
                     />
                   </InputGroup>
                   <Field.ErrorText
-                    color={"red.600"}
-                    width={"full"}
-                    p="2px"
-                    justifyContent={"flex-end"}
+                    className={stylesField.errorText}
                     animation="fade-in 0.5s ease-out"
+                    key={errors.func?.type}
                   >
                     {errors.func?.message}
                   </Field.ErrorText>
@@ -254,10 +249,8 @@ const AddTool = ({}: Props) => {
                     />
                   </InputGroup>
                   <Field.ErrorText
-                    color={"red.600"}
-                    width={"full"}
-                    p="2px"
-                    justifyContent={"flex-end"}
+                    className={stylesField.errorText}
+                    key={errors.license?.type}
                     animation="fade-in 0.5s ease-out"
                   >
                     {errors.license?.message}
@@ -283,10 +276,8 @@ const AddTool = ({}: Props) => {
                     />
                   </InputGroup>
                   <Field.ErrorText
-                    color={"red.600"}
-                    width={"full"}
-                    p="2px"
-                    justifyContent={"flex-end"}
+                    className={stylesField.errorText}
+                    key={errors.link?.type}
                     animation="fade-in 0.5s ease-out"
                   >
                     {errors.link?.message}
@@ -315,10 +306,8 @@ const AddTool = ({}: Props) => {
                     />
                   </InputGroup>
                   <Field.ErrorText
-                    color={"red.600"}
-                    width={"full"}
-                    p="2px"
-                    justifyContent={"flex-end"}
+                    className={stylesField.errorText}
+                    key={errors.article?.type}
                     animation="fade-in 0.5s ease-out"
                   >
                     {errors.article?.message}
@@ -327,12 +316,7 @@ const AddTool = ({}: Props) => {
               </div>
               <Button
                 type="submit"
-                borderRadius={"10px"}
-                transition={"ease 0.5s"}
-                bg={"rgba(0, 110, 255, 0.75)"}
-                _hover={{
-                  bg: "rgba(0, 132, 255, 0.59)",
-                }}
+                className={stylesDialog.btnBody}
                 disabled={errors.root?.message ? true : false}
               >
                 Guardar Herramienta

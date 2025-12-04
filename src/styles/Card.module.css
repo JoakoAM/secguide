@@ -1,4 +1,4 @@
-.CardRoot {
+.root {
   box-shadow: 0px 0px 15px 7px rgba(81, 80, 80, 0.22);
   color: gray.300;
   border-radius: 10px;
@@ -10,44 +10,25 @@
   cursor: pointer;
   transition: 0.6s;
 }
-.CardRoot:hover {
+.root:hover {
   transition: 0.6s;
   transform: translateY(-4px);
   box-shadow: 0px 0px 15px 7px rgba(40, 35, 144, 0.631);
 }
 
-.CardTitle {
+.title {
   max-height: 62px;
   font-weight: bold;
   font-size: 30px;
   color: #333;
 }
 
-.CardDescriptionDesc {
+.descriptionDesc {
   font-weight: lighter;
   color: #555;
 }
-.CardDescriptionCount {
+.descriptionCount {
   font-size: 15px;
   font-weight: bold;
   color: #667eea;
-}
-
-.SkeletonCard {
-  box-shadow: 0px 0px 15px 7px rgba(81, 80, 80, 0.22);
-  color: gray.300;
-  border-radius: 10px;
-  margin-top: 10px;
-  width: 486px;
-  height: 200px;
-  overflow: hidden;
-  margin: 14px;
-  transition: 0.6s;
-  cursor: pointer;
-}
-
-.SkeletonCard:hover {
-  transition: 0.6s;
-  transform: translateY(-4px);
-  box-shadow: 0px 0px 15px 7px rgba(40, 35, 144, 0.631);
 }

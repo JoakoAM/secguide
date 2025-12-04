@@ -1,14 +1,7 @@
-import {
-  Button,
-  Center,
-  CloseButton,
-  Dialog,
-  Portal,
-  Spinner,
-} from "@chakra-ui/react";
-import { auth, currentUser } from "../firebasePath/firebase";
+import { Button, Center, Dialog, Portal, Spinner } from "@chakra-ui/react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { auth } from "../firebasePath/firebase";
 import stylesDialog from "../styles/Dialog.module.css";
 
 type Props = {};

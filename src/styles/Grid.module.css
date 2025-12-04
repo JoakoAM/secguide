@@ -1,0 +1,31 @@
+.item {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  height: 160px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  align-items: center;
+  padding-left: 2;
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+  border-radius: 12px;
+  width: calc(100% - 70rem);
+  justify-self: center;
+  justify-items: center;
+}
+
+.vStack {
+  width: 730px;
+  color: black;
+  align-content: center;
+}
+
+.vStack h1,
+.vStack h2,
+.vStack p {
+  font-weight: bold;
+  text-shadow: rgb(0 0 0 / 79%) 2px 2px 4px;
+  color: white;
+}

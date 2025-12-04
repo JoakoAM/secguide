@@ -1,5 +1,4 @@
-import { Center, Spinner } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import useAuth from "../../contexts/AuthContext";
 import DialogLogin from "./DialogLogin";
