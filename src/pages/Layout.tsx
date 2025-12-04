@@ -8,18 +8,47 @@ import {
   Stack,
   VStack,
 } from "@chakra-ui/react";
-import { type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { VscThreeBars } from "react-icons/vsc";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import CategoriesView from "../components/CategoriesView";
 import stylesMenu from "../styles/Menu.module.css";
 import stylesGrid from "../styles/Grid.module.css";
+import useAuth from "../contexts/AuthContext";
+import LoadingAuth from "../components/LoadingAuth";
 
 type Props = {
   children?: ReactNode;
 };
 
 function Layout({}: Props) {
+  const nav = useNavigate();
+  const path = useLocation();
+
+  const {
+    currentUser,
+    isAdmin,
+    isLoadingAuth,
+    loginState: { success: successLogin },
+    registerState: { success: successRegister },
+  } = useAuth();
+  useEffect(() => {
+    if (!isLoadingAuth && currentUser != null) {
+      const timeout = setTimeout(() => {
+        if (isAdmin) {
+          nav("adminpanel");
+        } else {
+          nav("userpanel");
+        }
+      }, 1500);
+      return () => clearTimeout(timeout);
+    }
+  }, [isLoadingAuth, currentUser, isAdmin]);
+
+  const handleLoadingAuth =
+    isLoadingAuth ||
+    (currentUser && path.pathname === "/" && !successLogin && !successLogin);
+
   return (
     <>
       <Grid
@@ -49,15 +78,19 @@ function Layout({}: Props) {
                     <VscThreeBars />
                   </Button>
                 </Menu.Trigger>
-                <Portal>
-                  <Menu.Positioner>
-                    <Menu.Content className={stylesMenu.content}>
-                      <Stack className={stylesMenu.contentStack} wrap="wrap">
-                        <Outlet />
-                      </Stack>
-                    </Menu.Content>
-                  </Menu.Positioner>
-                </Portal>
+                {handleLoadingAuth ? (
+                  <LoadingAuth handleOpen={handleLoadingAuth} />
+                ) : (
+                  <Portal>
+                    <Menu.Positioner>
+                      <Menu.Content className={stylesMenu.content}>
+                        <Stack className={stylesMenu.contentStack} wrap="wrap">
+                          <Outlet />
+                        </Stack>
+                      </Menu.Content>
+                    </Menu.Positioner>
+                  </Portal>
+                )}
               </Menu.Root>
             </Stack>
           </HStack>

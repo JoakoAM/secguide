@@ -136,21 +136,44 @@ const CategoriesView = ({}: Props) => {
                       ? selectedCat.tools.length === 0
                         ? "No hay herramientas"
                         : selectedCat.tools.map((t) => (
-                            <Stack key={t.id} borderRadius="10px" gap={4}>
-                              <HStack className={stylesDialog.hStack}>
-                                <span className={stylesDialog.hStackSpanName}>
-                                  {t.name}
-                                </span>
-                                <Separator
-                                  borderColor={"rgba(0, 0, 0, 0.19)"}
-                                  orientation="vertical"
-                                  height="30px"
-                                />
-                                <span className={stylesDialog.hStackSpanBrief}>
-                                  {t.brief}
-                                </span>
-                              </HStack>
-                            </Stack>
+                            <>
+                              <Dialog.Root key={t.id}>
+                                <Dialog.Trigger asChild>
+                                  <Stack borderRadius="10px" gap={4}>
+                                    <HStack className={stylesDialog.hStack}>
+                                      <span
+                                        className={stylesDialog.hStackSpanName}
+                                      >
+                                        {t.name}
+                                      </span>
+                                      <Separator
+                                        borderColor={"rgba(0, 0, 0, 0.19)"}
+                                        orientation="vertical"
+                                        height="30px"
+                                      />
+                                      <span
+                                        className={stylesDialog.hStackSpanBrief}
+                                      >
+                                        {t.brief}
+                                      </span>
+                                    </HStack>
+                                  </Stack>
+                                </Dialog.Trigger>
+                                <Portal>
+                                  <Dialog.Backdrop />
+                                  <Dialog.Positioner>
+                                    <Dialog.Content
+                                      className={stylesDialog.content}
+                                    >
+                                      <Dialog.Header>
+                                        <Dialog.Title>{t.name}</Dialog.Title>
+                                      </Dialog.Header>
+                                      <Dialog.Body>{t.article}</Dialog.Body>
+                                    </Dialog.Content>
+                                  </Dialog.Positioner>
+                                </Portal>
+                              </Dialog.Root>
+                            </>
                           ))
                       : ""}
                   </Dialog.Body>
