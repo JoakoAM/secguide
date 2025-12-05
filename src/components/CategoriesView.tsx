@@ -1,8 +1,11 @@
 type Props = {};
 import {
+  Box,
   Card,
   CloseButton,
+  Container,
   Dialog,
+  Flex,
   HStack,
   Portal,
   Separator,
@@ -38,16 +41,16 @@ const CategoriesView = ({}: Props) => {
       const count = t.filter((t) => t.cats && t.cats.includes(cat.id)).length;
       const selectedTools = t.filter((t) => t.cats[0] === cat.id);
       return (
-        <Dialog.Trigger key={cat.id} asChild>
+        <Dialog.ActionTrigger>
           <Card.Root
-            className={stylesCard.root}
+            border={"none"}
             onClick={() => {
               setOpen(true);
               setSelectedCat({ idx, tools: selectedTools });
-              console.log(selectedCat);
             }}
+            className={stylesCard.root}
           >
-            <Card.Body gap="2">
+            <Card.Body className={stylesCard.body}>
               <Card.Title className={stylesCard.title}>{cat.name}</Card.Title>
               <Card.Description className={stylesCard.descriptionDesc}>
                 {cat.desc}
@@ -57,7 +60,7 @@ const CategoriesView = ({}: Props) => {
               </Card.Description>
             </Card.Body>
           </Card.Root>
-        </Dialog.Trigger>
+        </Dialog.ActionTrigger>
       );
     });
     return render;

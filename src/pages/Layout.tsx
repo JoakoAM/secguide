@@ -47,7 +47,7 @@ function Layout({}: Props) {
 
   const handleLoadingAuth =
     isLoadingAuth ||
-    (currentUser && path.pathname === "/" && !successLogin && !successLogin);
+    (currentUser && path.pathname === "/" && !successLogin && !successRegister);
 
   return (
     <>
