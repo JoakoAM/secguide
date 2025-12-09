@@ -11,6 +11,7 @@ import useTools from "../../../hooks/useTools";
 import useDeleteTool from "../../../hooks/useDeleteTool";
 import useAproveTool from "../../../hooks/useAproveTool";
 import { useEffect, useState } from "react";
+import Empty from "../../../components/Empty";
 type Props = {};
 
 function PendingTools({}: Props) {
@@ -48,7 +49,7 @@ function PendingTools({}: Props) {
           <h2>Herramientas pendientes </h2>
         </Center>
         {tools.length == 0 ? (
-          <Center>No hay herramientas pendientes</Center>
+          <Empty />
         ) : (
           <>
             {/* {isPendingDelete ? <h5>Eliminando tool</h5> : ""}
@@ -115,8 +116,8 @@ function PendingTools({}: Props) {
     );
   }
   return (
-    <Center>
-      <Spinner />
+    <Center mt={"20px"}>
+      <Spinner w="70px" h="70px" />
     </Center>
   );
 }

@@ -20,10 +20,10 @@ import { LuLink } from "react-icons/lu";
 import { PiArticleNyTimes } from "react-icons/pi";
 import { SiMacos } from "react-icons/si";
 import { TbLicense, TbSettingsCog, TbTournament } from "react-icons/tb";
-import type { Tools } from "../../../types";
-import CategorySelect from "../categories/CategorySelect";
-import stylesDialog from "../../../styles/Dialog.module.css";
-import stylesField from "../../../styles/Field.module.css";
+import type { Tools } from "../types";
+import CategorySelect from "../pages/AdminPanel/categories/CategorySelect";
+import stylesDialog from "../styles/Dialog.module.css";
+import stylesField from "../styles/Field.module.css";
 
 type Props = {};
 
@@ -328,8 +328,8 @@ const AddTool = ({}: Props) => {
     );
   }
   return (
-    <Center>
-      <Spinner />;
+    <Center mt={"20px"}>
+      <Spinner w="70px" h="70px" />
     </Center>
   );
 };

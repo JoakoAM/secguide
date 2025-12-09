@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Center,
   CloseButton,
@@ -7,39 +8,32 @@ import {
   Spinner,
   Stack,
 } from "@chakra-ui/react";
-import { useState, type FormEvent } from "react";
+import { type FormEvent } from "react";
 import { useForm } from "react-hook-form";
-import type { UserForm } from "../../types";
 import useAuth from "../../contexts/AuthContext";
 import stylesDialog from "../../styles/Dialog.module.css";
+import type { UserForm } from "../../types";
+import LoginForm from "./LoginForm";
+import useOpen from "../../contexts/OpenContext";
 type Props = {};
 
 export default function DialogLogin({}: Props) {
-  const [open, setOpen] = useState(false);
-  const { handleLogin, loginState, currentUser } = useAuth();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm<UserForm>();
-
-  const onSubmit = handleSubmit((data: UserForm) => {
-    handleLogin(data.email, data.password);
-  });
-
+  const { loginState, currentUser } = useAuth();
+  const { fromEmpty, setFromEmpty, openLog, setOpenLog, setOpenReg } =
+    useOpen();
   return (
     <Dialog.Root
       closeOnInteractOutside={false}
       placement={{ sm: "bottom", md: "center" }}
-      open={open}
-      onOpenChange={(e) => setOpen(e.open)}
+      open={openLog}
+      onOpenChange={(e) => setOpenLog(e.open)}
     >
       <Dialog.Trigger asChild>
         <Button
           variant={"plain"}
           animation="fade-in 0.5s ease-out"
           className={stylesDialog.btnTrigger}
+          onClick={() => setOpenLog(true)}
         >
           🔐 Iniciar Sesión
         </Button>
@@ -61,70 +55,55 @@ export default function DialogLogin({}: Props) {
                   : "Iniciar sesión"}
               </Dialog.Title>
             </Dialog.Header>
+
             <Dialog.Body pb="4">
               {(loginState.isLoading && loginState.success) || currentUser ? (
                 <Center>
                   <Spinner size={"xl"} />
                 </Center>
               ) : (
-                <Stack className="container">
-                  <form
-                    onSubmit={(e: FormEvent) => {
-                      e.preventDefault();
-                      onSubmit();
+                <>
+                  {fromEmpty ? (
+                    <Alert.Root
+                      animation={"pulse 2s ease-out"}
+                      mb={"5px"}
+                      status="error"
+                    >
+                      <Alert.Indicator />
+                      <Alert.Content>
+                        <Alert.Title>
+                          Primero debes iniciar sesión o crear una cuenta :D
+                        </Alert.Title>
+                        <Alert.Description />
+                      </Alert.Content>
+                    </Alert.Root>
+                  ) : (
+                    ""
+                  )}
+                  <LoginForm />
+                  <Button
+                    onClick={() => {
+                      setOpenLog(false);
+                      setOpenReg(true);
                     }}
+                    mt={"10px"}
+                    w={"auto"}
+                    h="auto"
+                    variant={"plain"}
                   >
-                    <div className="mb-3">
-                      <label className="form-label">Email</label>
-                      <input
-                        {...register("email", {
-                          required: {
-                            value: true,
-                            message: "Campo requerido",
-                          },
-                        })}
-                        className="form-control"
-                      ></input>
-                      {errors.email ? (
-                        <span style={{ color: "red" }}>
-                          {errors.email.message}
-                        </span>
-                      ) : (
-                        ""
-                      )}
-                      <div className="form-text" id="emailHelp">
-                        Nunca compartiremos tus datos con terceros :D
-                      </div>
-                    </div>
-                    <div className="mb-3">
-                      <label className="form-label">Contraseña</label>
-                      <input
-                        {...register("password", {
-                          required: {
-                            value: true,
-                            message: "Campo requerido",
-                          },
-                        })}
-                        type="password"
-                        className="form-control"
-                      />
-                      {errors.password ? (
-                        <span>{errors.password?.message}</span>
-                      ) : (
-                        ""
-                      )}
-
-                      <div className="form-text" id="emailHelp"></div>
-                    </div>
-                    <Button type="submit" className={stylesDialog.btnBody}>
-                      ingresar
-                    </Button>
-                  </form>
-                </Stack>
+                    ¿No tienes cuenta?. Regístrate aquí
+                  </Button>
+                </>
               )}
             </Dialog.Body>
             <Dialog.CloseTrigger asChild>
-              <CloseButton className={stylesDialog.btnClose} />
+              <CloseButton
+                onClick={() => {
+                  setOpenLog(false);
+                  setFromEmpty(false);
+                }}
+                className={stylesDialog.btnClose}
+              />
             </Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>

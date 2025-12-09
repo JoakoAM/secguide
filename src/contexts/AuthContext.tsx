@@ -4,15 +4,10 @@ import {
   type User,
 } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import React, {
-  use,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
+import React, { useContext, useEffect, useState, type ReactNode } from "react";
 import { auth, db } from "../firebasePath/firebase";
 import type { UserFormContext } from "../types";
+import useOpen from "./OpenContext";
 
 type Props = {
   children: ReactNode;
@@ -25,6 +20,7 @@ export default function useAuth() {
 }
 
 export function AuthProvider({ children }: Props) {
+  const { setFromEmpty } = useOpen();
   const [loginState, setLoginState] = useState({
     isLoading: true,
     success: "",
@@ -81,6 +77,7 @@ export function AuthProvider({ children }: Props) {
         ...s,
         success: "Bienvenido :D",
       }));
+      setFromEmpty(false);
     } catch (e) {
       setLoginState((s) => ({ ...s, error: (e as Error).message }));
     } finally {

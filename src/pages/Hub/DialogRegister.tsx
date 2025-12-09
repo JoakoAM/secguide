@@ -5,34 +5,28 @@ import {
   DialogCloseTrigger,
   Portal,
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
-import useAuth from "../../contexts/AuthContext";
 import stylesDialog from "../../styles/Dialog.module.css";
+import RegisterForm from "./RegisterForm";
+import useOpen from "../../contexts/OpenContext";
 
 type Props = {};
-type FormType = {
-  firstName: string;
-  password: string;
-  email: string;
-};
-export default function DialogRegister({}: Props) {
-  const { register, handleSubmit, formState: errors } = useForm<FormType>();
-  const { registerState, handleRegister } = useAuth();
 
+export default function DialogRegister({}: Props) {
+  const { setOpenLog, openReg, setOpenReg } = useOpen();
   return (
     <>
       <Dialog.Root
         closeOnInteractOutside={false}
         placement={{ sm: "bottom", md: "center" }}
+        open={openReg}
+        onOpenChange={(e) => e.open}
       >
         <Dialog.Trigger asChild>
           <Button
             animation="fade-in 0.5s ease-out"
             variant={"plain"}
-            borderRadius={"10px"}
-            _hover={{
-              bg: "rgba(255, 255, 255, 0.2)",
-            }}
+            className={stylesDialog.btnTrigger}
+            onClick={() => setOpenReg(true)}
           >
             📝 Crear Cuenta
           </Button>
@@ -40,65 +34,33 @@ export default function DialogRegister({}: Props) {
         <Portal>
           <Dialog.Backdrop />
           <Dialog.Positioner>
-            <Dialog.Content className={stylesDialog.content}>
+            <Dialog.Content
+              animation={"fade-in 0.5s ease-out"}
+              className={stylesDialog.content}
+            >
               <Dialog.Header alignSelf={"center"}>
                 <Dialog.Title>Crear Cuenta</Dialog.Title>
               </Dialog.Header>
               <Dialog.Body pb="4">
-                <div className="container">
-                  <form
-                    onSubmit={handleSubmit((data) =>
-                      handleRegister(data.email, data.password, data.firstName)
-                    )}
-                  >
-                    <div className="mb-3">
-                      <label className="form-label">Nombre</label>
-                      <input
-                        {...register("firstName")}
-                        type="text"
-                        className="form-control"
-                      ></input>
-                    </div>
-                    <div className="mb-3">
-                      <label className="form-label">Contraseña</label>
-                      <input
-                        {...register("password")}
-                        type="password"
-                        className="form-control"
-                      ></input>
-                      <div className="form-text" id="emailHelp"></div>
-                    </div>
-                    <div className="mb-3">
-                      <label className="form-label">Correo</label>
-                      <input
-                        {...register("email")}
-                        type="text"
-                        className="form-control"
-                      ></input>
-                      <div className="form-text" id="emailHelp"></div>
-                      {registerState.success ? (
-                        <>
-                          <span>{`Registrado con exito :D`}</span>
-                        </>
-                      ) : (
-                        ""
-                      )}
-                      {registerState.error ? (
-                        <>
-                          <span>{"Ha ocurrido un error :("}</span>
-                        </>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <button type="submit" className="btn btn-primary">
-                      ingresar
-                    </button>
-                  </form>
-                </div>
+                <RegisterForm />
+                <Button
+                  onClick={() => {
+                    setOpenReg(false);
+                    setOpenLog(true);
+                  }}
+                  mt={"10px"}
+                  w={"auto"}
+                  h="auto"
+                  variant={"plain"}
+                >
+                  ¿Ya tienes cuenta?. Inicia sesión aquí.
+                </Button>
               </Dialog.Body>
               <DialogCloseTrigger>
-                <CloseButton className={stylesDialog.btnClose} />
+                <CloseButton
+                  onClick={() => setOpenReg(false)}
+                  className={stylesDialog.btnClose}
+                />
               </DialogCloseTrigger>
             </Dialog.Content>
           </Dialog.Positioner>

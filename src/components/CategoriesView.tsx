@@ -20,6 +20,8 @@ import stylesCard from "../styles/Card.module.css";
 import stylesDialog from "../styles/Dialog.module.css";
 import stylesSkeleton from "../styles/Skeleton.module.css";
 import type { Categories, Tools } from "../types/index.ts";
+import Empty from "./Empty.tsx";
+import { set } from "react-hook-form";
 
 type selectedCatType = {
   idx: number;
@@ -33,7 +35,7 @@ const CategoriesView = ({}: Props) => {
 
   const renderCategories = (c: Categories[], t: Tools[]) => {
     if (c.length === 0) {
-      //Mensaje de er
+      //Mensaje de error
       <p style={{ color: "white" }}>No hay categorías disponibles</p>;
       return;
     }
@@ -41,7 +43,7 @@ const CategoriesView = ({}: Props) => {
       const count = t.filter((t) => t.cats && t.cats.includes(cat.id)).length;
       const selectedTools = t.filter((t) => t.cats[0] === cat.id);
       return (
-        <Dialog.ActionTrigger>
+        <Dialog.ActionTrigger key={cat.id}>
           <Card.Root
             border={"none"}
             onClick={() => {
@@ -90,10 +92,9 @@ const CategoriesView = ({}: Props) => {
         wrap="wrap"
         id={`${Math.random()}`}
         key={path.pathname}
-        animation="fade-out 2s ease-out"
       >
-        {skeletons.map(() => (
-          <Card.Root className={stylesSkeleton.card}>
+        {skeletons.map((_, idx) => (
+          <Card.Root className={stylesSkeleton.card} key={idx * 3123}>
             <Card.Body marginTop={"10px"} gap="2">
               <SkeletonText bg={"gray.600"} w="200px" noOfLines={1} />
               <SkeletonText bg={"gray.600"} w="100px" noOfLines={1} />
@@ -130,55 +131,68 @@ const CategoriesView = ({}: Props) => {
               <Dialog.Positioner>
                 <Dialog.Content className={stylesDialog.content}>
                   <Dialog.Header>
-                    <Dialog.Title>
-                      {selectedCat ? categories[selectedCat.idx].name : ""}
-                    </Dialog.Title>
+                    <Stack
+                      bg={"rgba(255, 255, 255, 0.19)"}
+                      borderRadius="10px"
+                      id="addToolForm"
+                      border={"3px solid #ffffff45"}
+                      p={"10px"}
+                      gap={4}
+                    >
+                      <Dialog.Title>
+                        {selectedCat ? categories[selectedCat.idx].name : ""}
+                      </Dialog.Title>
+                    </Stack>
                   </Dialog.Header>
                   <Dialog.Body>
-                    {selectedCat
-                      ? selectedCat.tools.length === 0
-                        ? "No hay herramientas"
-                        : selectedCat.tools.map((t) => (
-                            <>
-                              <Dialog.Root key={t.id}>
-                                <Dialog.Trigger asChild>
-                                  <Stack borderRadius="10px" gap={4}>
-                                    <HStack className={stylesDialog.hStack}>
-                                      <span
-                                        className={stylesDialog.hStackSpanName}
-                                      >
-                                        {t.name}
-                                      </span>
-                                      <Separator
-                                        borderColor={"rgba(0, 0, 0, 0.19)"}
-                                        orientation="vertical"
-                                        height="30px"
-                                      />
-                                      <span
-                                        className={stylesDialog.hStackSpanBrief}
-                                      >
-                                        {t.brief}
-                                      </span>
-                                    </HStack>
-                                  </Stack>
-                                </Dialog.Trigger>
-                                <Portal>
-                                  <Dialog.Backdrop />
-                                  <Dialog.Positioner>
-                                    <Dialog.Content
-                                      className={stylesDialog.content}
+                    {selectedCat ? (
+                      selectedCat.tools.length === 0 ? (
+                        <Empty setOpenParent={setOpen} />
+                      ) : (
+                        selectedCat.tools.map((t) => (
+                          <>
+                            <Dialog.Root key={t.id}>
+                              <Dialog.Trigger asChild>
+                                <Stack borderRadius="10px" gap={4}>
+                                  <HStack className={stylesDialog.hStack}>
+                                    <span
+                                      className={stylesDialog.hStackSpanName}
                                     >
-                                      <Dialog.Header>
-                                        <Dialog.Title>{t.name}</Dialog.Title>
-                                      </Dialog.Header>
-                                      <Dialog.Body>{t.article}</Dialog.Body>
-                                    </Dialog.Content>
-                                  </Dialog.Positioner>
-                                </Portal>
-                              </Dialog.Root>
-                            </>
-                          ))
-                      : ""}
+                                      {t.name}
+                                    </span>
+                                    <Separator
+                                      borderColor={"rgba(0, 0, 0, 0.19)"}
+                                      orientation="vertical"
+                                      height="30px"
+                                    />
+                                    <span
+                                      className={stylesDialog.hStackSpanBrief}
+                                    >
+                                      {t.brief}
+                                    </span>
+                                  </HStack>
+                                </Stack>
+                              </Dialog.Trigger>
+                              <Portal>
+                                <Dialog.Backdrop />
+                                <Dialog.Positioner>
+                                  <Dialog.Content
+                                    className={stylesDialog.content}
+                                  >
+                                    <Dialog.Header>
+                                      <Dialog.Title>{t.name}</Dialog.Title>
+                                    </Dialog.Header>
+                                    <Dialog.Body>{t.article}</Dialog.Body>
+                                  </Dialog.Content>
+                                </Dialog.Positioner>
+                              </Portal>
+                            </Dialog.Root>
+                          </>
+                        ))
+                      )
+                    ) : (
+                      ""
+                    )}
                   </Dialog.Body>
                   <Dialog.CloseTrigger asChild>
                     <CloseButton

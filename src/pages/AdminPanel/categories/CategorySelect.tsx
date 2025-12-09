@@ -17,7 +17,7 @@ function CategorySelect({ control, errors }: Props) {
     return;
   }
   const categoriesCollection = createListCollection({
-    items: categories.map((c) => ({ label: c.name, value: c.name })),
+    items: categories.map((c) => ({ label: c.name, value: c.id })),
   });
   return (
     <Field.Root width="auto" invalid={!!errors.cats}>

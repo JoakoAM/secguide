@@ -128,7 +128,7 @@ const AddCategory = ({}: Props) => {
   }
   return (
     <Center>
-      <Spinner />;
+      <Spinner w="70px" h="70px" />;
     </Center>
   );
 };

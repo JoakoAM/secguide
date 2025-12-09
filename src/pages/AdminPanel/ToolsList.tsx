@@ -84,8 +84,8 @@ function ToolsList({}: Props) {
     );
   }
   return (
-    <Center>
-      <Spinner />
+    <Center mt={"20px"}>
+      <Spinner w="70px" h="70px" />
     </Center>
   );
 }

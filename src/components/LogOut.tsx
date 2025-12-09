@@ -1,6 +1,6 @@
 import { Button, Center, Dialog, Portal, Spinner } from "@chakra-ui/react";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { auth } from "../firebasePath/firebase";
 import stylesDialog from "../styles/Dialog.module.css";
 
@@ -14,6 +14,7 @@ const LogOut = ({}: Props) => {
     timeout = setTimeout(() => {
       auth.signOut();
       nav("/");
+      setOpen(false);
     }, 3000);
   };
   const nav = useNavigate();
@@ -26,11 +27,12 @@ const LogOut = ({}: Props) => {
     >
       <Dialog.Trigger asChild>
         <Button
+          animation="fade-in 0.5s ease-out"
+          variant={"plain"}
           className={stylesDialog.btnTrigger}
           onClick={() => {
             logOut();
           }}
-          variant={"plain"}
         >
           🚪 Cerrar Sesion
         </Button>

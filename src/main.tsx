@@ -8,6 +8,7 @@ import router from "./pages";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "./contexts/AuthContext";
+import { OpenProvider } from "./contexts/OpenContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,10 +25,12 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")!).render(
   <ChakraProvider value={defaultSystem}>
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <ReactQueryDevtools />
-        <RouterProvider router={router} />
-      </AuthProvider>
+      <OpenProvider>
+        <AuthProvider>
+          <ReactQueryDevtools />
+          <RouterProvider router={router} />
+        </AuthProvider>
+      </OpenProvider>
     </QueryClientProvider>
   </ChakraProvider>
 );

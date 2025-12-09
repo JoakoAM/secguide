@@ -7,7 +7,12 @@ type Props = {
 };
 
 const UserRoute = ({ children }: Props) => {
-  const { currentUser, isAdmin, isLoadingAuth } = useAuth();
+  const {
+    currentUser,
+    isAdmin,
+
+    isLoadingAuth,
+  } = useAuth();
 
   if (isLoadingAuth) return null;
 

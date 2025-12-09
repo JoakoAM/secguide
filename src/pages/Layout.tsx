@@ -16,6 +16,7 @@ import stylesMenu from "../styles/Menu.module.css";
 import stylesGrid from "../styles/Grid.module.css";
 import useAuth from "../contexts/AuthContext";
 import LoadingAuth from "../components/LoadingAuth";
+import useOpen from "../contexts/OpenContext";
 
 type Props = {
   children?: ReactNode;
@@ -32,6 +33,7 @@ function Layout({}: Props) {
     loginState: { success: successLogin },
     registerState: { success: successRegister },
   } = useAuth();
+  const { openMenu, setOpenMenu } = useOpen();
   useEffect(() => {
     if (!isLoadingAuth && currentUser != null) {
       const timeout = setTimeout(() => {
@@ -66,7 +68,13 @@ function Layout({}: Props) {
               <p>Explora las mejores herramientas y aprende cómo funcionan</p>
             </VStack>
             <Stack>
-              <Menu.Root positioning={{ placement: "right" }}>
+              <Menu.Root
+                open={openMenu}
+                onOpenChange={(e) => {
+                  e.open;
+                }}
+                positioning={{ placement: "right" }}
+              >
                 <Menu.Trigger asChild>
                   <Button
                     className={stylesMenu.btnTrigger}
@@ -74,6 +82,13 @@ function Layout({}: Props) {
                     variant="plain"
                     outline="none"
                     size="sm"
+                    onClick={() => {
+                      if (openMenu == false) {
+                        setOpenMenu(true);
+                      } else {
+                        setOpenMenu(false);
+                      }
+                    }}
                   >
                     <VscThreeBars />
                   </Button>

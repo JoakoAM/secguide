@@ -8,25 +8,31 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import AddTool from "../AdminPanel/tools/AddTool";
+import AddTool from "../../components/AddTool";
 import ToolsList from "../AdminPanel/ToolsList";
 import stylesDialog from "../../styles/Dialog.module.css";
+import useOpen from "../../contexts/OpenContext";
 
 type Props = {};
 
 export default function DialogPanelUser({}: Props) {
-  const [addTool, setAddTool] = useState<boolean>(false);
+  const { openUser, setOpenUser, addTool, setAddTool } = useOpen();
   const [tools, setTools] = useState<boolean>(false);
   return (
     <>
-      <Dialog.Root placement="center" motionPreset="slide-in-bottom">
+      <Dialog.Root
+        open={openUser}
+        onOpenChange={(e) => e.open}
+        placement="center"
+        motionPreset="slide-in-bottom"
+      >
         <Dialog.Trigger asChild>
           <Button
             animation="fade-in 0.5s ease-out"
             variant={"plain"}
-            borderRadius={"10px"}
-            _hover={{
-              bg: "rgba(255, 255, 255, 0.2)",
+            className={stylesDialog.btnTrigger}
+            onClick={() => {
+              setOpenUser(true);
             }}
           >
             👤 Mi Panel
@@ -40,7 +46,11 @@ export default function DialogPanelUser({}: Props) {
                 <Dialog.CloseTrigger asChild>
                   <CloseButton
                     className={stylesDialog.btnClose}
-                    onClick={() => setAddTool(false)}
+                    onClick={() => {
+                      setAddTool(false);
+                      setTools(false);
+                      setOpenUser(false);
+                    }}
                     size="sm"
                   />
                 </Dialog.CloseTrigger>
@@ -57,6 +67,7 @@ export default function DialogPanelUser({}: Props) {
                   <Button
                     onClick={() => {
                       setAddTool(true);
+                      setTools(false);
                     }}
                     className={stylesDialog.btnBody}
                   >
@@ -65,6 +76,7 @@ export default function DialogPanelUser({}: Props) {
                   <Button
                     onClick={() => {
                       setTools(true);
+                      setAddTool(false);
                     }}
                     className={stylesDialog.btnBody}
                   >

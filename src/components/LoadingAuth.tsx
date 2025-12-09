@@ -22,7 +22,7 @@ function LoadingAuth({ handleOpen }: Props) {
               </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
-              <Spinner />
+              <Spinner w="70px" h="70px" />
             </Dialog.Body>
           </Dialog.Content>
         </Dialog.Positioner>

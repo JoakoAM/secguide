@@ -4,7 +4,7 @@ import Hub from "./Hub";
 import Layout from "./Layout";
 import HubUser from "./UserPanel/HubUser";
 import HubAdmin from "./AdminPanel/HubAdmin";
-import AdminRoute from "../AdminRoute";
+import AdminRoute from "./AdminPanel/AdminRoute";
 import UserRoute from "./UserPanel/UserRoute";
 
 const router = createBrowserRouter([
@@ -12,7 +12,11 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      { index: true, element: <Hub />, errorElement: <ErrorDetail /> },
+      {
+        index: true,
+        element: <Hub />,
+        errorElement: <ErrorDetail />,
+      },
       {
         path: "adminpanel",
         element: (

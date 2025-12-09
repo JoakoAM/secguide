@@ -7,29 +7,47 @@ import {
   Separator,
   Stack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import AddTool from "../../components/AddTool";
+import useOpen from "../../contexts/OpenContext";
+import stylesDialog from "../../styles/Dialog.module.css";
 import AddCategory from "./categories/AddCategory";
-import AddTool from "./tools/AddTool";
 import PendingTools from "./tools/PendingTools";
 import ToolsList from "./ToolsList";
-import stylesDialog from "../../styles/Dialog.module.css";
 
 type Props = {};
 
 export default function DialogPanelAdmin({}: Props) {
-  const [addCategory, setAddCategory] = useState<boolean>(false);
-  const [addTool, setAddTool] = useState<boolean>(false);
-  const [pendingTool, setPendingTool] = useState<boolean>(false);
-  const [currentTool, setCurrentTool] = useState<boolean>(false);
-
+  const {
+    openAdmin,
+    setOpenAdmin,
+    addCategory,
+    setAddCategory,
+    addTool,
+    setAddTool,
+    pendingTool,
+    setPendingTool,
+    currentTool,
+    setCurrentTool,
+  } = useOpen();
   return (
     <>
       <Dialog.Root
         closeOnInteractOutside={false}
         placement={{ sm: "bottom", md: "top" }}
+        open={openAdmin}
+        onOpenChange={(e) => {
+          e.open;
+        }}
       >
         <Dialog.Trigger asChild>
-          <Button variant={"plain"} className={stylesDialog.btnTrigger}>
+          <Button
+            onClick={() => {
+              setOpenAdmin(true);
+            }}
+            animation={"fade-in 0.5s ease-out"}
+            variant={"plain"}
+            className={stylesDialog.btnTrigger}
+          >
             🖥️ Panel de administracion
           </Button>
         </Dialog.Trigger>
@@ -122,6 +140,7 @@ export default function DialogPanelAdmin({}: Props) {
                     setAddCategory(false);
                     setAddTool(false);
                     setCurrentTool(false);
+                    setOpenAdmin(false);
                   }}
                 />
               </DialogCloseTrigger>
