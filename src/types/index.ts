@@ -1,12 +1,12 @@
 import type { User } from "firebase/auth";
-import type { Timestamp } from "firebase/firestore";
+import type { FieldValue, Timestamp } from "firebase/firestore";
 
 export type Tools = {
   approved: boolean;
   article: string;
   brief: string;
   cats: string[];
-  createdAt: Timestamp;
+  createdAt: Timestamp | FieldValue;
   createdBy: string;
   func: string;
   id: string;

@@ -33,7 +33,7 @@ function Layout({}: Props) {
     loginState: { success: successLogin },
     registerState: { success: successRegister },
   } = useAuth();
-  const { openMenu, setOpenMenu, setOpenLog } = useOpen();
+  const { openMenu, setOpenMenu } = useOpen();
   useEffect(() => {
     if (!isLoadingAuth && currentUser != null) {
       const timeout = setTimeout(() => {

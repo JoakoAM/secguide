@@ -132,17 +132,17 @@ export default function DialogPanelAdmin({}: Props) {
                 {pendingTool ? <PendingTools /> : ""}
                 {currentTool ? <ToolsList /> : ""}
               </Dialog.Body>
-              <DialogCloseTrigger asChild>
-                <CloseButton
-                  className={stylesDialog.btnClose}
-                  onClick={() => {
-                    setPendingTool(false);
-                    setAddCategory(false);
-                    setAddTool(false);
-                    setCurrentTool(false);
-                    setOpenAdmin(false);
-                  }}
-                />
+              <DialogCloseTrigger
+                onClick={() => {
+                  setPendingTool(false);
+                  setAddCategory(false);
+                  setAddTool(false);
+                  setCurrentTool(false);
+                  setOpenAdmin(false);
+                }}
+                asChild
+              >
+                <CloseButton className={stylesDialog.btnClose} />
               </DialogCloseTrigger>
             </Dialog.Content>
           </Dialog.Positioner>

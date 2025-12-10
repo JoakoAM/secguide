@@ -10,13 +10,17 @@ import { MdDelete } from "react-icons/md";
 import usedeleteTool from "../../hooks/useDeleteTool";
 import useTools from "../../hooks/useTools";
 import { useEffect, useState } from "react";
+import useAuth from "../../contexts/AuthContext";
 
 type Props = {};
-
+{
+  ("por alguna razon esta wea no esta funcionaaaaadooojasdolkfgdssweoipjfep");
+}
 function ToolsList({}: Props) {
   const [Tools] = useTools();
   const { mutate: deleteTool, isPending, error } = usedeleteTool();
   const [mostrar, setMostrar] = useState(false);
+
   useEffect(() => {
     let timeout: number;
     timeout = setTimeout(() => {
@@ -26,12 +30,12 @@ function ToolsList({}: Props) {
       clearTimeout(timeout);
     };
   }, []);
-
   const { data: tools } = Tools;
   if (!tools) {
     return <span>No hay Herramientas</span>;
   }
 
+  console.log(tools);
   if (mostrar) {
     return (
       <>

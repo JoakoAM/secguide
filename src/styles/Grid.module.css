@@ -9,10 +9,10 @@
   padding-left: 2;
   position: sticky;
   top: 0px;
-  z-index: 1;
   border-radius: 12px;
   width: calc(100% - 70rem);
   justify-self: center;
+  z-index: 1;
   justify-items: center;
 }
 

@@ -4,24 +4,40 @@ import {
   Center,
   CloseButton,
   Dialog,
+  HStack,
   Portal,
   Spinner,
+  Stack,
 } from "@chakra-ui/react";
 import useAuth from "../../contexts/AuthContext";
 import useOpen from "../../contexts/OpenContext";
 import stylesDialog from "../../styles/Dialog.module.css";
 import LoginForm from "./LoginForm";
+import { useEffect } from "react";
+import { FaRegSmileWink } from "react-icons/fa";
 type Props = {};
 
 export default function DialogLogin({}: Props) {
   const { loginState, currentUser } = useAuth();
-  const { fromEmpty, openLog, setOpenLog, setOpenReg, setOpenMenu } = useOpen();
+  const { fromEmpty, openLog, setOpenLog, setOpenReg, setFromEmpty } =
+    useOpen();
+  useEffect(() => {
+    if (fromEmpty) {
+      setOpenLog(true);
+    }
+  }, [fromEmpty]);
+
   return (
     <Dialog.Root
       closeOnInteractOutside={false}
       placement={{ sm: "bottom", md: "center" }}
       open={openLog}
-      onOpenChange={(e) => setOpenLog(e.open)}
+      onOpenChange={(e) => {
+        setOpenLog(e.open);
+        if (!openLog) {
+          setFromEmpty(false);
+        }
+      }}
     >
       <Dialog.Trigger asChild>
         <Button
@@ -62,11 +78,16 @@ export default function DialogLogin({}: Props) {
                       animation={"pulse 2s ease-out"}
                       mb={"5px"}
                       status="error"
+                      key={`${fromEmpty}`}
+                      border={"1px solid red"}
                     >
                       <Alert.Indicator />
                       <Alert.Content>
                         <Alert.Title>
-                          Primero debes iniciar sesión o crear una cuenta :D
+                          <HStack>
+                            Primero debes iniciar sesión o crear una cuenta
+                            <FaRegSmileWink style={{ fontSize: "20px" }} />
+                          </HStack>
                         </Alert.Title>
                         <Alert.Description />
                       </Alert.Content>
@@ -90,13 +111,8 @@ export default function DialogLogin({}: Props) {
                 </>
               )}
             </Dialog.Body>
-            <Dialog.CloseTrigger onClick={() => setOpenLog(false)} asChild>
-              <CloseButton
-                onClick={() => {
-                  setOpenLog(false);
-                }}
-                className={stylesDialog.btnClose}
-              />
+            <Dialog.CloseTrigger asChild>
+              <CloseButton className={stylesDialog.btnClose} />
             </Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>

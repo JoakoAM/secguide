@@ -7,9 +7,7 @@ export const queryAddCat = async (cat: Categories) => {
   try {
     const ref = collection(db, "categories");
     addDoc(ref, {
-      name: cat.name,
-      desc: cat.desc,
-      approved: true,
+      ...cat,
       createdAt: serverTimestamp(),
     });
   } catch (e) {

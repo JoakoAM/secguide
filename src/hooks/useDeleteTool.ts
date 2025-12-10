@@ -18,15 +18,15 @@ export default function usedeleteTool() {
     mutationFn: (tool: Tools) => queryDeleteToold(tool),
     onMutate: (deletedTool) => {
       const oldPendingTools = queryClient.getQueryData<Tools[]>([
-        "toolsPending",
+        "pendingTools",
       ]);
-      queryClient.setQueryData<Tools[]>(["toolsPending"], (tools = []) =>
+      queryClient.setQueryData<Tools[]>(["pendingTools"], (tools = []) =>
         tools.filter((tool) => tool.id !== deletedTool.id)
       );
       return oldPendingTools;
     },
     onError: (_, __, ctx) => {
-      queryClient.setQueryData<Tools[]>(["toolsPending"], ctx);
+      queryClient.setQueryData<Tools[]>(["pendingTools"], ctx);
       console.log("ERROR");
     },
   });

@@ -24,6 +24,9 @@ const queryPendingTools = async () => {
   })) as Tools[];
   return toolsPending;
 };
+{
+  ("por alguna razon esta wea no esta funcionaaaaadooojasdolkfgdssweoipjfep");
+}
 
 export default function useTools() {
   return useQueries({
@@ -37,12 +40,8 @@ export default function useTools() {
         refetchOnMount: false,
       },
       {
-        queryKey: ["toolsPending"],
+        queryKey: ["pendingTools"],
         queryFn: () => queryPendingTools(),
-        staleTime: 1000 * 60 * 10, // 10 minutos
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
-        refetchOnMount: false,
       },
     ],
   });

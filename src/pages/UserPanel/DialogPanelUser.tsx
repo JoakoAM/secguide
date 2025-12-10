@@ -9,9 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import AddTool from "../../components/AddTool";
-import ToolsList from "../AdminPanel/ToolsList";
 import stylesDialog from "../../styles/Dialog.module.css";
 import useOpen from "../../contexts/OpenContext";
+import UserTools from "./UserTools";
 
 type Props = {};
 
@@ -89,7 +89,7 @@ export default function DialogPanelUser({}: Props) {
                   border={"0.00001px solid rgb(131 126 126 / 81%)"}
                 />
                 <Center>{addTool ? <AddTool /> : ""}</Center>
-                {tools ? <ToolsList /> : ""}
+                {tools ? <UserTools /> : ""}
               </Dialog.Body>
             </Dialog.Content>
           </Dialog.Positioner>

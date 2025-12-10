@@ -24,12 +24,13 @@ import type { Tools } from "../types";
 import CategorySelect from "../pages/AdminPanel/categories/CategorySelect";
 import stylesDialog from "../styles/Dialog.module.css";
 import stylesField from "../styles/Field.module.css";
+import useAddTool from "../hooks/useAddTool";
 
 type Props = {};
 
 const AddTool = ({}: Props) => {
   const [mostrar, setMostrar] = useState(false);
-
+  const { mutate: addTool } = useAddTool();
   const {
     register,
     handleSubmit,
@@ -64,26 +65,9 @@ const AddTool = ({}: Props) => {
 
   if (mostrar) {
     const onSubmit = handleSubmit((data) => {
-      console.log(data.cats.toString());
-      const plataforma = data.platform as string[];
-      console.log(plataforma.join("/"));
-      console.log(data);
-      {
-        /*
-            name: name,
-      brief: brief,
-      cats: [category],
-      func: func,
-      platform: platform,
-      license: license,
-      link: link,
-      article: article,
-      approved: true,
-      createdBy: currentUser.uid,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      ESTE ORDEN DEBE LLEVAR AL MOMENTO DE AÑADIR A BBDD
-      */
-      }
+      addTool({
+        ...data,
+      });
     });
     return (
       <>
@@ -91,7 +75,12 @@ const AddTool = ({}: Props) => {
           <Center>
             <h3>Añadir nueva herramienta</h3>
           </Center>
-          <form onSubmit={onSubmit}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit();
+            }}
+          >
             <Stack
               bg={"rgba(255, 255, 255, 0.19)"}
               borderRadius="10px"

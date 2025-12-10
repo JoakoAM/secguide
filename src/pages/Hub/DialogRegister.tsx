@@ -8,11 +8,14 @@ import {
 import stylesDialog from "../../styles/Dialog.module.css";
 import RegisterForm from "./RegisterForm";
 import useOpen from "../../contexts/OpenContext";
+import { useEffect } from "react";
+import { set } from "react-hook-form";
 
 type Props = {};
 
 export default function DialogRegister({}: Props) {
-  const { setOpenLog, openReg, setOpenReg, setOpenMenu } = useOpen();
+  const { setOpenLog, openReg, setOpenReg } = useOpen();
+
   return (
     <>
       <Dialog.Root
@@ -21,7 +24,7 @@ export default function DialogRegister({}: Props) {
         open={openReg}
         onOpenChange={(e) => setOpenReg(e.open)}
       >
-        <Dialog.Trigger onClick={() => setOpenReg(true)} asChild>
+        <Dialog.Trigger asChild>
           <Button
             animation="fade-in 0.5s ease-out"
             variant={"plain"}
@@ -55,13 +58,8 @@ export default function DialogRegister({}: Props) {
                   ¿Ya tienes cuenta?. Inicia sesión aquí.
                 </Button>
               </Dialog.Body>
-              <DialogCloseTrigger onClick={() => setOpenReg(false)}>
-                <CloseButton
-                  onClick={() => {
-                    setOpenReg(false);
-                  }}
-                  className={stylesDialog.btnClose}
-                />
+              <DialogCloseTrigger asChild>
+                <CloseButton className={stylesDialog.btnClose} />
               </DialogCloseTrigger>
             </Dialog.Content>
           </Dialog.Positioner>

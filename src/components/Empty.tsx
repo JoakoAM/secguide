@@ -3,19 +3,23 @@ import { FaRegSmileWink } from "react-icons/fa";
 import { IoSadOutline } from "react-icons/io5";
 import { useLocation } from "react-router";
 import useOpen from "../contexts/OpenContext";
-type Props = {
-  setOpenParent: (e: boolean) => void;
-};
+import { useEffect } from "react";
+type Props = {};
 
-function Empty({ setOpenParent }: Props) {
+function Empty({}: Props) {
   const {
+    openLog,
     setFromEmpty,
-    setOpenReg,
     setOpenAdmin,
     setOpenUser,
-    setOpenMenu,
     setAddTool,
+    setOpenMenu,
   } = useOpen();
+  useEffect(() => {
+    if (!openLog) {
+      setFromEmpty(false);
+    }
+  }, [openLog]);
   const path = useLocation();
   return (
     <Stack
@@ -36,21 +40,16 @@ function Empty({ setOpenParent }: Props) {
             <EmptyState.Description justifyItems={"center"}>
               <Button
                 onClick={() => {
-                  setOpenParent(false);
-
+                  setFromEmpty(true);
+                  setOpenMenu(true);
                   if (path.pathname === "/adminpanel") {
-                    setOpenMenu(true);
                     setOpenAdmin(true);
                     setAddTool(true);
                   }
                   if (path.pathname === "/userpanel") {
-                    setOpenMenu(true);
                     setOpenUser(true);
                     setAddTool(true);
                   }
-                  setOpenMenu(true);
-                  setFromEmpty(true);
-                  setOpenReg(true);
                 }}
                 variant={"plain"}
               >

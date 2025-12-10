@@ -43,7 +43,7 @@ type selectedCatType = {
 
 const CategoriesView = ({}: Props) => {
   const [Tools] = useTools();
-  const [open, setOpen] = useState(false);
+  const [openParent, setOpenParent] = useState(false);
   const [selectedCat, setSelectedCat] = useState<selectedCatType>();
 
   const renderCategories = (c: Categories[], t: Tools[]) => {
@@ -56,61 +56,56 @@ const CategoriesView = ({}: Props) => {
       const count = t.filter((t) => t.cats && t.cats.includes(cat.id)).length;
       const selectedTools = t.filter((t) => t.cats[0] === cat.id);
       return (
-        <Dialog.ActionTrigger key={cat.id}>
-          <Card.Root
-            border={"none"}
-            onClick={() => {
-              setOpen(true);
-              setSelectedCat({ idx, tools: selectedTools });
-            }}
-            className={stylesCard.root}
-          >
-            <Card.Body className={stylesCard.body}>
-              <Card.Title className={stylesCard.title}>{cat.name}</Card.Title>
-              <Card.Description className={stylesCard.descriptionDesc}>
-                {cat.desc}
-              </Card.Description>
-              <Card.Description className={stylesCard.descriptionCount}>
-                {count} herramienta{count !== 1 ? "s" : ""}
-              </Card.Description>
+        <Card.Root
+          key={cat.id}
+          border={"none"}
+          onClick={() => {
+            setOpenParent(true);
+            setSelectedCat({ idx, tools: selectedTools });
+          }}
+          className={stylesCard.root}
+        >
+          <Card.Body className={stylesCard.body}>
+            <Card.Title className={stylesCard.title}>{cat.name}</Card.Title>
+            <Card.Description className={stylesCard.descriptionDesc}>
+              {cat.desc}
+            </Card.Description>
+            <Card.Description className={stylesCard.descriptionCount}>
+              {count} herramienta{count !== 1 ? "s" : ""}
+            </Card.Description>
 
-              <Stack
-                position={"absolute"}
-                left={"-10px"}
-                fontSize={"70px"}
-                w={"100%"}
-                alignItems={"flex-end"}
-              >
-                {cat.id === "ttScC1m8pNXwgxAZkz9q" ? <MdScience /> : ""}
-                {cat.id === "tGYcWd4hxFD9ORBurapT" ? <MdOutlineVpnLock /> : ""}
-                {cat.id === "CZ4Ew7Q52yshUgoZSDbf" ? <FaUserSecret /> : ""}
-                {cat.id === "6tfhZMI7GDKPzjLWQ9rx" ? <MdMemory /> : ""}
-                {cat.id === "2EkeVpknRwbZUkiB1MBv" ? (
-                  <HiOutlineDocumentReport />
-                ) : (
-                  ""
-                )}
-                {cat.id === "Ec1jTAjDhSnIDuRSmQpW" ? <FaShieldVirus /> : ""}
+            <Stack
+              position={"absolute"}
+              left={"-10px"}
+              fontSize={"70px"}
+              w={"100%"}
+              alignItems={"flex-end"}
+            >
+              {cat.id === "ttScC1m8pNXwgxAZkz9q" ? <MdScience /> : ""}
+              {cat.id === "tGYcWd4hxFD9ORBurapT" ? <MdOutlineVpnLock /> : ""}
+              {cat.id === "CZ4Ew7Q52yshUgoZSDbf" ? <FaUserSecret /> : ""}
+              {cat.id === "6tfhZMI7GDKPzjLWQ9rx" ? <MdMemory /> : ""}
+              {cat.id === "2EkeVpknRwbZUkiB1MBv" ? (
+                <HiOutlineDocumentReport />
+              ) : (
+                ""
+              )}
+              {cat.id === "Ec1jTAjDhSnIDuRSmQpW" ? <FaShieldVirus /> : ""}
 
-                {cat.id === "Nm681zb79HnwtVCBNVPh" ? (
-                  <RiLockPasswordLine />
-                ) : (
-                  ""
-                )}
-                {cat.id === "aKnL5iwZJyJZ4X66lNYI" ? <MdWifiPassword /> : ""}
-                {cat.id === "SUKKU2rjLFUPtWVCqTA1" ? (
-                  <HiOutlineShieldCheck />
-                ) : (
-                  ""
-                )}
-                {cat.id === "nmwAQsuF6OHFpG8OET7v" ? <RiTerminalLine /> : ""}
-                {cat.id === "9WI9eN6GyW7ggKlcjT8b" ? <FaShieldAlt /> : ""}
-                {cat.id === "ZW281HGf24SQtxsWQ3dy" ? <MdTrackChanges /> : ""}
-                {cat.id === "BJ7rxydu32Z3l8crLCXA" ? <RiGlobalLine /> : ""}
-              </Stack>
-            </Card.Body>
-          </Card.Root>
-        </Dialog.ActionTrigger>
+              {cat.id === "Nm681zb79HnwtVCBNVPh" ? <RiLockPasswordLine /> : ""}
+              {cat.id === "aKnL5iwZJyJZ4X66lNYI" ? <MdWifiPassword /> : ""}
+              {cat.id === "SUKKU2rjLFUPtWVCqTA1" ? (
+                <HiOutlineShieldCheck />
+              ) : (
+                ""
+              )}
+              {cat.id === "nmwAQsuF6OHFpG8OET7v" ? <RiTerminalLine /> : ""}
+              {cat.id === "9WI9eN6GyW7ggKlcjT8b" ? <FaShieldAlt /> : ""}
+              {cat.id === "ZW281HGf24SQtxsWQ3dy" ? <MdTrackChanges /> : ""}
+              {cat.id === "BJ7rxydu32Z3l8crLCXA" ? <RiGlobalLine /> : ""}
+            </Stack>
+          </Card.Body>
+        </Card.Root>
       );
     });
     return render;
@@ -170,87 +165,84 @@ const CategoriesView = ({}: Props) => {
           <Dialog.Root
             lazyMount
             placement={"top"}
-            open={open}
-            onOpenChange={(e) => setOpen(e.open)}
+            open={openParent}
+            onOpenChange={(e) => setOpenParent(e.open)}
           >
             <>{renderCategories(categories, tools)}</>
-            <Portal>
-              <Dialog.Backdrop />
-              <Dialog.Positioner>
-                <Dialog.Content className={stylesDialog.content}>
-                  <Dialog.Header>
-                    <Stack
-                      bg={"rgba(255, 255, 255, 0.19)"}
-                      borderRadius="10px"
-                      id="addToolForm"
-                      border={"3px solid #ffffff45"}
-                      p={"10px"}
-                      gap={4}
-                    >
-                      <Dialog.Title>
-                        {selectedCat ? categories[selectedCat.idx].name : ""}
-                      </Dialog.Title>
-                    </Stack>
-                  </Dialog.Header>
-                  <Dialog.Body>
-                    {selectedCat ? (
-                      selectedCat.tools.length === 0 ? (
-                        <Empty setOpenParent={setOpen} />
-                      ) : (
-                        selectedCat.tools.map((t) => (
-                          <>
-                            <Dialog.Root key={t.id}>
-                              <Dialog.Trigger asChild>
-                                <Stack borderRadius="10px" gap={4}>
-                                  <HStack className={stylesDialog.hStack}>
-                                    <span
-                                      className={stylesDialog.hStackSpanName}
-                                    >
-                                      {t.name}
-                                    </span>
-                                    <Separator
-                                      borderColor={"rgba(0, 0, 0, 0.19)"}
-                                      orientation="vertical"
-                                      height="30px"
-                                    />
-                                    <span
-                                      className={stylesDialog.hStackSpanBrief}
-                                    >
-                                      {t.brief}
-                                    </span>
-                                  </HStack>
-                                </Stack>
-                              </Dialog.Trigger>
-                              <Portal>
-                                <Dialog.Backdrop />
-                                <Dialog.Positioner>
-                                  <Dialog.Content
-                                    className={stylesDialog.content}
-                                  >
-                                    <Dialog.Header>
-                                      <Dialog.Title>{t.name}</Dialog.Title>
-                                    </Dialog.Header>
-                                    <Dialog.Body>{t.article}</Dialog.Body>
-                                  </Dialog.Content>
-                                </Dialog.Positioner>
-                              </Portal>
-                            </Dialog.Root>
-                          </>
-                        ))
-                      )
+
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+              <Dialog.Content className={stylesDialog.content}>
+                <Dialog.Header>
+                  <Stack
+                    bg={"rgba(255, 255, 255, 0.19)"}
+                    borderRadius="10px"
+                    id="addToolForm"
+                    border={"3px solid #ffffff45"}
+                    p={"10px"}
+                    gap={4}
+                  >
+                    <Dialog.Title>
+                      {selectedCat ? categories[selectedCat.idx].name : ""}
+                    </Dialog.Title>
+                  </Stack>
+                </Dialog.Header>
+                <Dialog.Body>
+                  {selectedCat ? (
+                    selectedCat.tools.length === 0 ? (
+                      <Empty />
                     ) : (
-                      ""
-                    )}
-                  </Dialog.Body>
-                  <Dialog.CloseTrigger asChild>
-                    <CloseButton
-                      className={stylesDialog.btnTrigger}
-                      variant={"plain"}
-                    />
-                  </Dialog.CloseTrigger>
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Portal>
+                      selectedCat.tools.map((t) => (
+                        <>
+                          <Dialog.Root key={t.id}>
+                            <Dialog.Trigger asChild>
+                              <Stack borderRadius="10px" gap={4}>
+                                <HStack className={stylesDialog.hStack}>
+                                  <span className={stylesDialog.hStackSpanName}>
+                                    {t.name}
+                                  </span>
+                                  <Separator
+                                    borderColor={"rgba(0, 0, 0, 0.19)"}
+                                    orientation="vertical"
+                                    height="30px"
+                                  />
+                                  <span
+                                    className={stylesDialog.hStackSpanBrief}
+                                  >
+                                    {t.brief}
+                                  </span>
+                                </HStack>
+                              </Stack>
+                            </Dialog.Trigger>
+                            <Portal>
+                              <Dialog.Backdrop />
+                              <Dialog.Positioner>
+                                <Dialog.Content
+                                  className={stylesDialog.content}
+                                >
+                                  <Dialog.Header>
+                                    <Dialog.Title>{t.name}</Dialog.Title>
+                                  </Dialog.Header>
+                                  <Dialog.Body>{t.article}</Dialog.Body>
+                                </Dialog.Content>
+                              </Dialog.Positioner>
+                            </Portal>
+                          </Dialog.Root>
+                        </>
+                      ))
+                    )
+                  ) : (
+                    ""
+                  )}
+                </Dialog.Body>
+                <Dialog.CloseTrigger asChild>
+                  <CloseButton
+                    className={stylesDialog.btnTrigger}
+                    variant={"plain"}
+                  />
+                </Dialog.CloseTrigger>
+              </Dialog.Content>
+            </Dialog.Positioner>
           </Dialog.Root>
         </Stack>
       </>

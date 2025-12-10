@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../contexts/AuthContext";
 import stylesDialog from "../../styles/Dialog.module.css";
 import type { UserForm } from "../../types";
-import useOpen from "../../contexts/OpenContext";
 
 type Props = {};
 
