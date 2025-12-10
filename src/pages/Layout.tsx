@@ -26,7 +26,6 @@ type Props = {
 function Layout({}: Props) {
   const nav = useNavigate();
   const path = useLocation();
-
   const {
     currentUser,
     isAdmin,
@@ -34,16 +33,18 @@ function Layout({}: Props) {
     loginState: { success: successLogin },
     registerState: { success: successRegister },
   } = useAuth();
-  const { openMenu, setOpenMenu } = useOpen();
+  const { openMenu, setOpenMenu, setOpenLog } = useOpen();
   useEffect(() => {
     if (!isLoadingAuth && currentUser != null) {
       const timeout = setTimeout(() => {
         if (isAdmin) {
+          setOpenMenu(false);
           nav("adminpanel");
         } else {
+          setOpenMenu(false);
           nav("userpanel");
         }
-      }, 1500);
+      }, 2500);
       return () => clearTimeout(timeout);
     }
   }, [isLoadingAuth, currentUser, isAdmin]);

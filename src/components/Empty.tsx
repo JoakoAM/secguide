@@ -10,7 +10,7 @@ type Props = {
 function Empty({ setOpenParent }: Props) {
   const {
     setFromEmpty,
-    setOpenLog,
+    setOpenReg,
     setOpenAdmin,
     setOpenUser,
     setOpenMenu,
@@ -36,21 +36,21 @@ function Empty({ setOpenParent }: Props) {
             <EmptyState.Description justifyItems={"center"}>
               <Button
                 onClick={() => {
+                  setOpenParent(false);
+
                   if (path.pathname === "/adminpanel") {
-                    setOpenParent(false);
                     setOpenMenu(true);
                     setOpenAdmin(true);
                     setAddTool(true);
                   }
                   if (path.pathname === "/userpanel") {
-                    setOpenParent(false);
                     setOpenMenu(true);
                     setOpenUser(true);
                     setAddTool(true);
                   }
                   setOpenMenu(true);
                   setFromEmpty(true);
-                  setOpenLog(true);
+                  setOpenReg(true);
                 }}
                 variant={"plain"}
               >

@@ -6,21 +6,16 @@ import {
   Dialog,
   Portal,
   Spinner,
-  Stack,
 } from "@chakra-ui/react";
-import { type FormEvent } from "react";
-import { useForm } from "react-hook-form";
 import useAuth from "../../contexts/AuthContext";
-import stylesDialog from "../../styles/Dialog.module.css";
-import type { UserForm } from "../../types";
-import LoginForm from "./LoginForm";
 import useOpen from "../../contexts/OpenContext";
+import stylesDialog from "../../styles/Dialog.module.css";
+import LoginForm from "./LoginForm";
 type Props = {};
 
 export default function DialogLogin({}: Props) {
   const { loginState, currentUser } = useAuth();
-  const { fromEmpty, setFromEmpty, openLog, setOpenLog, setOpenReg } =
-    useOpen();
+  const { fromEmpty, openLog, setOpenLog, setOpenReg, setOpenMenu } = useOpen();
   return (
     <Dialog.Root
       closeOnInteractOutside={false}
@@ -33,7 +28,6 @@ export default function DialogLogin({}: Props) {
           variant={"plain"}
           animation="fade-in 0.5s ease-out"
           className={stylesDialog.btnTrigger}
-          onClick={() => setOpenLog(true)}
         >
           🔐 Iniciar Sesión
         </Button>
@@ -96,11 +90,10 @@ export default function DialogLogin({}: Props) {
                 </>
               )}
             </Dialog.Body>
-            <Dialog.CloseTrigger asChild>
+            <Dialog.CloseTrigger onClick={() => setOpenLog(false)} asChild>
               <CloseButton
                 onClick={() => {
                   setOpenLog(false);
-                  setFromEmpty(false);
                 }}
                 className={stylesDialog.btnClose}
               />

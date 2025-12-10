@@ -12,21 +12,20 @@ import useOpen from "../../contexts/OpenContext";
 type Props = {};
 
 export default function DialogRegister({}: Props) {
-  const { setOpenLog, openReg, setOpenReg } = useOpen();
+  const { setOpenLog, openReg, setOpenReg, setOpenMenu } = useOpen();
   return (
     <>
       <Dialog.Root
         closeOnInteractOutside={false}
         placement={{ sm: "bottom", md: "center" }}
         open={openReg}
-        onOpenChange={(e) => e.open}
+        onOpenChange={(e) => setOpenReg(e.open)}
       >
-        <Dialog.Trigger asChild>
+        <Dialog.Trigger onClick={() => setOpenReg(true)} asChild>
           <Button
             animation="fade-in 0.5s ease-out"
             variant={"plain"}
             className={stylesDialog.btnTrigger}
-            onClick={() => setOpenReg(true)}
           >
             📝 Crear Cuenta
           </Button>
@@ -56,9 +55,11 @@ export default function DialogRegister({}: Props) {
                   ¿Ya tienes cuenta?. Inicia sesión aquí.
                 </Button>
               </Dialog.Body>
-              <DialogCloseTrigger>
+              <DialogCloseTrigger onClick={() => setOpenReg(false)}>
                 <CloseButton
-                  onClick={() => setOpenReg(false)}
+                  onClick={() => {
+                    setOpenReg(false);
+                  }}
                   className={stylesDialog.btnClose}
                 />
               </DialogCloseTrigger>

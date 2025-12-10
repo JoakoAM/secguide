@@ -21,7 +21,20 @@ import stylesDialog from "../styles/Dialog.module.css";
 import stylesSkeleton from "../styles/Skeleton.module.css";
 import type { Categories, Tools } from "../types/index.ts";
 import Empty from "./Empty.tsx";
-import { set } from "react-hook-form";
+import { FaShieldAlt, FaShieldVirus, FaUserSecret } from "react-icons/fa";
+import {
+  MdMemory,
+  MdOutlineVpnLock,
+  MdScience,
+  MdTrackChanges,
+  MdWifiPassword,
+} from "react-icons/md";
+import { HiOutlineDocumentReport, HiOutlineShieldCheck } from "react-icons/hi";
+import {
+  RiGlobalLine,
+  RiLockPasswordLine,
+  RiTerminalLine,
+} from "react-icons/ri";
 
 type selectedCatType = {
   idx: number;
@@ -60,6 +73,41 @@ const CategoriesView = ({}: Props) => {
               <Card.Description className={stylesCard.descriptionCount}>
                 {count} herramienta{count !== 1 ? "s" : ""}
               </Card.Description>
+
+              <Stack
+                position={"absolute"}
+                left={"-10px"}
+                fontSize={"70px"}
+                w={"100%"}
+                alignItems={"flex-end"}
+              >
+                {cat.id === "ttScC1m8pNXwgxAZkz9q" ? <MdScience /> : ""}
+                {cat.id === "tGYcWd4hxFD9ORBurapT" ? <MdOutlineVpnLock /> : ""}
+                {cat.id === "CZ4Ew7Q52yshUgoZSDbf" ? <FaUserSecret /> : ""}
+                {cat.id === "6tfhZMI7GDKPzjLWQ9rx" ? <MdMemory /> : ""}
+                {cat.id === "2EkeVpknRwbZUkiB1MBv" ? (
+                  <HiOutlineDocumentReport />
+                ) : (
+                  ""
+                )}
+                {cat.id === "Ec1jTAjDhSnIDuRSmQpW" ? <FaShieldVirus /> : ""}
+
+                {cat.id === "Nm681zb79HnwtVCBNVPh" ? (
+                  <RiLockPasswordLine />
+                ) : (
+                  ""
+                )}
+                {cat.id === "aKnL5iwZJyJZ4X66lNYI" ? <MdWifiPassword /> : ""}
+                {cat.id === "SUKKU2rjLFUPtWVCqTA1" ? (
+                  <HiOutlineShieldCheck />
+                ) : (
+                  ""
+                )}
+                {cat.id === "nmwAQsuF6OHFpG8OET7v" ? <RiTerminalLine /> : ""}
+                {cat.id === "9WI9eN6GyW7ggKlcjT8b" ? <FaShieldAlt /> : ""}
+                {cat.id === "ZW281HGf24SQtxsWQ3dy" ? <MdTrackChanges /> : ""}
+                {cat.id === "BJ7rxydu32Z3l8crLCXA" ? <RiGlobalLine /> : ""}
+              </Stack>
             </Card.Body>
           </Card.Root>
         </Dialog.ActionTrigger>
@@ -73,7 +121,7 @@ const CategoriesView = ({}: Props) => {
     error: errorCategories,
     isLoading: isLoadingCategories,
   } = useCategories();
-
+  console.log(categories);
   const { data: tools, error: errorTools, isLoading: isLoadingTools } = Tools;
 
   if (errorTools || errorCategories) {

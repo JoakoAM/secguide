@@ -17,9 +17,7 @@ function LoadingAuth({ handleOpen }: Props) {
         <Dialog.Positioner>
           <Dialog.Content className={stylesDialog.content}>
             <Dialog.Header>
-              <Dialog.Title className={stylesDialog.content}>
-                Cargando sesión
-              </Dialog.Title>
+              <Dialog.Title>Cargando sesión</Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
               <Spinner w="70px" h="70px" />
