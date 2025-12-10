@@ -8,6 +8,8 @@
 .btnTrigger {
   border-radius: 10px;
   transition: 0.5s;
+  color: white;
+  font-family: system-ui;
 }
 .btnTrigger:hover {
   background: rgba(255, 255, 255, 0.2);
