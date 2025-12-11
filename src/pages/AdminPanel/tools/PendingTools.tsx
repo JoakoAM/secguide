@@ -5,13 +5,13 @@ import {
   Separator,
   Spinner,
 } from "@chakra-ui/react";
-import { FaCheck } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import useTools from "../../../hooks/useTools";
+import { useEffect, useState } from "react";
 import useDeleteTool from "../../../hooks/useDeleteTool";
 import useAproveTool from "../../../hooks/useAproveTool";
-import { useEffect, useState } from "react";
 import Empty from "../../../components/Empty";
+import { FaCheck } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import useUserTools from "../../../hooks/useUserTools";
 type Props = {};
 
 function PendingTools({}: Props) {
@@ -25,41 +25,39 @@ function PendingTools({}: Props) {
       clearTimeout(timeout);
     };
   }, []);
-  const data = useTools();
-  // const {
-  //   mutate: deleteTool,
-  //   isPending: isPendingDelete,
-  //   error: errorDelete,
-  // } = useDeleteTool();
-  // const {
-  //   mutate: aproveTool,
-  //   isPending: isPendingAprove,
-  //   error: errorAprove,
-  // } = useAproveTool();
+  const {
+    mutate: deleteTool,
+    // isPending: isPendingDelete,
+    // error: errorDelete,
+  } = useDeleteTool();
+  const {
+    mutate: aproveTool,
+    // isPending: isPendingAprove,
+    // error: errorAprove,
+  } = useAproveTool();
+  const { data: tools } = useUserTools();
 
-  // const [_, PendingTools] = data;
-  // const { data: tools } = PendingTools;
-  // if (!tools) {
-  //   return;
-  // }
+  if (!tools) {
+    return;
+  }
   if (mostrar) {
     return (
       <>
         <Center>
           <h2>Herramientas pendientes </h2>
         </Center>
-        {/* {tools.length == 0 ? (
+        {tools.length == 0 ? (
           <Empty />
         ) : (
           <>
             {/* {isPendingDelete ? <h5>Eliminando tool</h5> : ""}
             {errorDelete ? <h5>{errorDelete.message}</h5> : ""}
             {isPendingAprove ? <h5>Aprobando tool</h5> : ""}
-            {errorAprove ? <h5>errorAprove.message</h5> : ""} 
-            Estas fueron pensadas para el momento de querer eliminar o aprobar un tool
-            salga un pequeño mensaje (puede cambiarse por otra cosa en un futuro)
-            */}
-        {/* {tools.map((t) => (
+            {errorAprove ? <h5>errorAprove.message</h5> : ""}
+            Estas fueron pensadas para el momento de querer eliminar o aprobar
+            un tool salga un pequeño mensaje (puede cambiarse por otra cosa en
+            un futuro) */}
+            {tools.map((t) => (
               <>
                 <HStack
                   bg={"rgba(255, 255, 255, 0.19)"}
@@ -111,7 +109,7 @@ function PendingTools({}: Props) {
               </>
             ))}
           </>
-        )} */}
+        )}
       </>
     );
   }

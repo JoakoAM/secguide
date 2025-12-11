@@ -5,11 +5,9 @@ import {
   DialogCloseTrigger,
   Portal,
 } from "@chakra-ui/react";
+import useOpen from "../../contexts/OpenContext";
 import stylesDialog from "../../styles/Dialog.module.css";
 import RegisterForm from "./RegisterForm";
-import useOpen from "../../contexts/OpenContext";
-import { useEffect } from "react";
-import { set } from "react-hook-form";
 
 type Props = {};
 

@@ -1,6 +1,6 @@
 import { Button, Center, Dialog, Portal, Spinner } from "@chakra-ui/react";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { auth } from "../firebasePath/firebase";
 import stylesDialog from "../styles/Dialog.module.css";
 
@@ -10,8 +10,7 @@ const LogOut = ({}: Props) => {
   const [open, setOpen] = useState(false);
 
   const logOut = () => {
-    let timeout;
-    timeout = setTimeout(() => {
+    setTimeout(() => {
       auth.signOut();
       nav("/");
       setOpen(false);

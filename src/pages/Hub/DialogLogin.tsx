@@ -7,14 +7,13 @@ import {
   HStack,
   Portal,
   Spinner,
-  Stack,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { FaRegSmileWink } from "react-icons/fa";
 import useAuth from "../../contexts/AuthContext";
 import useOpen from "../../contexts/OpenContext";
 import stylesDialog from "../../styles/Dialog.module.css";
 import LoginForm from "./LoginForm";
-import { useEffect } from "react";
-import { FaRegSmileWink } from "react-icons/fa";
 type Props = {};
 
 export default function DialogLogin({}: Props) {

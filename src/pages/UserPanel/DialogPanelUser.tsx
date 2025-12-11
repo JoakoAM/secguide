@@ -9,10 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import AddTool from "../../components/AddTool";
-import stylesDialog from "../../styles/Dialog.module.css";
 import useOpen from "../../contexts/OpenContext";
+import stylesDialog from "../../styles/Dialog.module.css";
 import UserTools from "./UserTools";
-import { toaster } from "../../components/ui/toaster";
 
 type Props = {};
 

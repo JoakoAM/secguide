@@ -7,16 +7,13 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-import useTools from "../../hooks/useTools";
 import { useEffect, useState } from "react";
-import Empty from "../../components/Empty";
-import useAuth from "../../contexts/AuthContext";
+import { FaCheck } from "react-icons/fa";
+import { IoAlertOutline } from "react-icons/io5";
 import { LuCircleAlert } from "react-icons/lu";
+import { Tooltip } from "../../components/ui/tooltip";
 import useUserTools from "../../hooks/useUserTools";
 import type { Tools } from "../../types";
-import { Tooltip } from "../../components/ui/tooltip";
-import { IoAlertOutline } from "react-icons/io5";
-import { FaCheck } from "react-icons/fa";
 type Props = {};
 
 function UserTools({}: Props) {

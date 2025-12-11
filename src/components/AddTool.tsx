@@ -12,7 +12,7 @@ import {
   Spinner,
   Stack,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useController, useForm } from "react-hook-form";
 import { FaLinux, FaToolbox, FaWindows } from "react-icons/fa";
 import { GrSystem } from "react-icons/gr";

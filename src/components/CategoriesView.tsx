@@ -1,11 +1,8 @@
 type Props = {};
 import {
-  Box,
   Card,
   CloseButton,
-  Container,
   Dialog,
-  Flex,
   HStack,
   Portal,
   Separator,
@@ -13,6 +10,20 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { FaShieldAlt, FaShieldVirus, FaUserSecret } from "react-icons/fa";
+import { HiOutlineDocumentReport, HiOutlineShieldCheck } from "react-icons/hi";
+import {
+  MdMemory,
+  MdOutlineVpnLock,
+  MdScience,
+  MdTrackChanges,
+  MdWifiPassword,
+} from "react-icons/md";
+import {
+  RiGlobalLine,
+  RiLockPasswordLine,
+  RiTerminalLine,
+} from "react-icons/ri";
 import { useLocation } from "react-router";
 import useCategories from "../hooks/useCategories.ts";
 import useTools from "../hooks/useTools.ts";
@@ -21,20 +32,6 @@ import stylesDialog from "../styles/Dialog.module.css";
 import stylesSkeleton from "../styles/Skeleton.module.css";
 import type { Categories, Tools } from "../types/index.ts";
 import Empty from "./Empty.tsx";
-import { FaShieldAlt, FaShieldVirus, FaUserSecret } from "react-icons/fa";
-import {
-  MdMemory,
-  MdOutlineVpnLock,
-  MdScience,
-  MdTrackChanges,
-  MdWifiPassword,
-} from "react-icons/md";
-import { HiOutlineDocumentReport, HiOutlineShieldCheck } from "react-icons/hi";
-import {
-  RiGlobalLine,
-  RiLockPasswordLine,
-  RiTerminalLine,
-} from "react-icons/ri";
 
 type selectedCatType = {
   idx: number;

@@ -1,12 +1,11 @@
-import React from "react";
-import useAuth from "../../contexts/AuthContext";
 import { useForm } from "react-hook-form";
+import useAuth from "../../contexts/AuthContext";
 import type { FormType } from "../../types";
 
 type Props = {};
 
 function RegisterForm({}: Props) {
-  const { register, handleSubmit, formState: errors } = useForm<FormType>();
+  const { register, handleSubmit } = useForm<FormType>();
 
   const { registerState, handleRegister } = useAuth();
 

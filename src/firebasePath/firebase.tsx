@@ -1,18 +1,16 @@
 // firebase.ts
 import { initializeApp } from "firebase/app";
 import {
-  initializeFirestore,
   collection,
-  where,
-  query,
+  doc,
   getDoc,
   getDocs,
-  doc,
-  // setDoc,
+  initializeFirestore,
+  query,
+  where,
 } from "firebase/firestore";
 
 import { getAuth } from "firebase/auth";
-import { Card } from "@chakra-ui/react";
 import type { Categories, Tools } from "../types";
 type Props = {};
 //Hola

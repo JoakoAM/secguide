@@ -33,8 +33,7 @@ export function AuthProvider({ children }: Props) {
   });
 
   useEffect(() => {
-    let timeout;
-    timeout = setTimeout(() => {
+    setTimeout(() => {
       setLoginState((s) => ({ ...s, success: "" }));
     }, 4000);
   }, [loginState.success]);
@@ -88,7 +87,12 @@ export function AuthProvider({ children }: Props) {
     email: string,
     password: string,
     name: string
-  ) => {};
+  ) => {
+    email;
+    password;
+    name;
+    setRegisterState((s) => ({ ...s }));
+  };
 
   return (
     <AuthContext.Provider

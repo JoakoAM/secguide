@@ -1,6 +1,5 @@
 import {
   Button,
-  For,
   Grid,
   GridItem,
   HStack,
@@ -11,14 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, type ReactNode } from "react";
 import { VscThreeBars } from "react-icons/vsc";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import CategoriesView from "../components/CategoriesView";
-import stylesMenu from "../styles/Menu.module.css";
-import stylesGrid from "../styles/Grid.module.css";
-import useAuth from "../contexts/AuthContext";
 import LoadingAuth from "../components/LoadingAuth";
-import useOpen from "../contexts/OpenContext";
 import { Toaster } from "../components/ui/toaster";
+import useAuth from "../contexts/AuthContext";
+import useOpen from "../contexts/OpenContext";
+import stylesGrid from "../styles/Grid.module.css";
+import stylesMenu from "../styles/Menu.module.css";
 
 type Props = {
   children?: ReactNode;

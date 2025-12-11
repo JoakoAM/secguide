@@ -1,5 +1,4 @@
 import LogOut from "../../components/LogOut";
-import useAuth from "../../contexts/AuthContext";
 import DialogPanelUser from "./DialogPanelUser";
 
 type Props = {};

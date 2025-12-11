@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Categories } from "../types";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebasePath/firebase";
+import type { Categories } from "../types";
 
 const queryCategories = async () => {
   const categoriesRef = collection(db, "categories");
