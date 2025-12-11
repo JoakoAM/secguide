@@ -9,7 +9,7 @@ import UserRoute from "./UserPanel/UserRoute";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/secguide/",
     element: <Layout />,
     children: [
       {
