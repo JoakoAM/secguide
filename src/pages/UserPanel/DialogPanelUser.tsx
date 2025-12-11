@@ -12,6 +12,7 @@ import AddTool from "../../components/AddTool";
 import stylesDialog from "../../styles/Dialog.module.css";
 import useOpen from "../../contexts/OpenContext";
 import UserTools from "./UserTools";
+import { toaster } from "../../components/ui/toaster";
 
 type Props = {};
 
@@ -23,7 +24,7 @@ export default function DialogPanelUser({}: Props) {
       <Dialog.Root
         open={openUser}
         onOpenChange={(e) => e.open}
-        placement="center"
+        placement="top"
         motionPreset="slide-in-bottom"
       >
         <Dialog.Trigger asChild>
@@ -55,7 +56,7 @@ export default function DialogPanelUser({}: Props) {
                   />
                 </Dialog.CloseTrigger>
               </Dialog.Header>
-              <Dialog.Body>
+              <Dialog.Body w="513px" pb="4">
                 <Dialog.Title justifySelf={"center"}>
                   Panel de usuario
                 </Dialog.Title>
@@ -70,14 +71,17 @@ export default function DialogPanelUser({}: Props) {
                       setTools(false);
                     }}
                     className={stylesDialog.btnBody}
+                    disabled={addTool}
                   >
                     🔨 Sugerir herramienta
                   </Button>
                   <Button
+                    key={`${tools}`}
                     onClick={() => {
                       setTools(true);
                       setAddTool(false);
                     }}
+                    disabled={tools}
                     className={stylesDialog.btnBody}
                   >
                     🛠️ Mis herramientas

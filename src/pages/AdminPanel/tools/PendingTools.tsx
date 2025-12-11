@@ -26,29 +26,29 @@ function PendingTools({}: Props) {
     };
   }, []);
   const data = useTools();
-  const {
-    mutate: deleteTool,
-    isPending: isPendingDelete,
-    error: errorDelete,
-  } = useDeleteTool();
-  const {
-    mutate: aproveTool,
-    isPending: isPendingAprove,
-    error: errorAprove,
-  } = useAproveTool();
+  // const {
+  //   mutate: deleteTool,
+  //   isPending: isPendingDelete,
+  //   error: errorDelete,
+  // } = useDeleteTool();
+  // const {
+  //   mutate: aproveTool,
+  //   isPending: isPendingAprove,
+  //   error: errorAprove,
+  // } = useAproveTool();
 
-  const [_, PendingTools] = data;
-  const { data: tools } = PendingTools;
-  if (!tools) {
-    return;
-  }
+  // const [_, PendingTools] = data;
+  // const { data: tools } = PendingTools;
+  // if (!tools) {
+  //   return;
+  // }
   if (mostrar) {
     return (
       <>
         <Center>
           <h2>Herramientas pendientes </h2>
         </Center>
-        {tools.length == 0 ? (
+        {/* {tools.length == 0 ? (
           <Empty />
         ) : (
           <>
@@ -59,7 +59,7 @@ function PendingTools({}: Props) {
             Estas fueron pensadas para el momento de querer eliminar o aprobar un tool
             salga un pequeño mensaje (puede cambiarse por otra cosa en un futuro)
             */}
-            {tools.map((t) => (
+        {/* {tools.map((t) => (
               <>
                 <HStack
                   bg={"rgba(255, 255, 255, 0.19)"}
@@ -111,7 +111,7 @@ function PendingTools({}: Props) {
               </>
             ))}
           </>
-        )}
+        )} */}
       </>
     );
   }

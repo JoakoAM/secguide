@@ -42,7 +42,18 @@ type selectedCatType = {
 };
 
 const CategoriesView = ({}: Props) => {
-  const [Tools] = useTools();
+  const path = useLocation();
+  const {
+    data: categories,
+    error: errorCategories,
+    isLoading: isLoadingCategories,
+  } = useCategories();
+  console.log(categories);
+  const {
+    data: tools,
+    isError: errorTools,
+    isLoading: isLoadingTools,
+  } = useTools();
   const [openParent, setOpenParent] = useState(false);
   const [selectedCat, setSelectedCat] = useState<selectedCatType>();
 
@@ -110,14 +121,6 @@ const CategoriesView = ({}: Props) => {
     });
     return render;
   };
-  const path = useLocation();
-  const {
-    data: categories,
-    error: errorCategories,
-    isLoading: isLoadingCategories,
-  } = useCategories();
-  console.log(categories);
-  const { data: tools, error: errorTools, isLoading: isLoadingTools } = Tools;
 
   if (errorTools || errorCategories) {
     return;

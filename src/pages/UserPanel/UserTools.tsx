@@ -6,21 +6,22 @@ import {
   Spinner,
   Stack,
 } from "@chakra-ui/react";
-import { MdDelete } from "react-icons/md";
-import usedeleteTool from "../../hooks/useDeleteTool";
+
 import useTools from "../../hooks/useTools";
 import { useEffect, useState } from "react";
 import Empty from "../../components/Empty";
 import useAuth from "../../contexts/AuthContext";
-
+import { LuCircleAlert } from "react-icons/lu";
+import useUserTools from "../../hooks/useUserTools";
+import type { Tools } from "../../types";
+import { Tooltip } from "../../components/ui/tooltip";
+import { IoAlertOutline } from "react-icons/io5";
+import { FaCheck } from "react-icons/fa";
 type Props = {};
 
 function UserTools({}: Props) {
-  const [Tools, pendingT] = useTools();
-  const { mutate: deleteTool, isPending, error } = usedeleteTool();
   const [mostrar, setMostrar] = useState(false);
-  const { currentUser } = useAuth();
-
+  const { data: userTools, isLoading, isError } = useUserTools();
   useEffect(() => {
     let timeout: number;
     timeout = setTimeout(() => {
@@ -30,11 +31,17 @@ function UserTools({}: Props) {
       clearTimeout(timeout);
     };
   }, []);
-  const { data: tools } = Tools;
-  const { data: pendingTools } = pendingT;
-  console.log(tools, pendingTools);
-  if (!tools || !pendingTools) {
-    return <Empty />;
+
+  if (isLoading) {
+    return (
+      <Center mt={"20px"}>
+        <Spinner w="70px" h="70px" />
+      </Center>
+    );
+  }
+
+  if (isError) {
+    return <>Mensaje de error</>;
   }
 
   if (mostrar) {
@@ -49,80 +56,99 @@ function UserTools({}: Props) {
           p={"px"}
           gap={4}
         >
-          {tools
-            .filter((t) => t.createdBy == currentUser?.uid)
-            .map((t) => (
-              <HStack
-                bg={"rgba(255, 255, 255, 0.19)"}
-                borderRadius="10px"
-                p={"5px"}
-                gap={4}
-                key={t.id}
-              >
-                <span style={{ width: "55px", fontWeight: "bold" }}>
-                  {t.name}
-                </span>
-                <Separator
-                  borderColor={"rgba(0, 0, 0, 0.19)"}
-                  orientation="vertical"
-                  height="30px"
-                />
-                <span style={{ maxWidth: "291px", width: "291px" }}>
-                  {t.brief}
-                </span>
-                <div>
+          {(userTools as Tools[]).map((t) => (
+            <HStack
+              bg={"rgba(255, 255, 255, 0.19)"}
+              borderRadius="10px"
+              p={"5px"}
+              gap={4}
+              key={t.id}
+            >
+              <span style={{ width: "55px", fontWeight: "bold" }}>
+                {t.name}
+              </span>
+              <Separator
+                borderColor={"rgba(0, 0, 0, 0.19)"}
+                orientation="vertical"
+                height="30px"
+              />
+              <span style={{ maxWidth: "291px", width: "291px" }}>
+                {t.brief}
+              </span>
+              {t.approved && !t.pending ? (
+                <Tooltip
+                  showArrow
+                  contentProps={{
+                    css: { "--tooltip-bg": "rgba(66, 189, 78, 0.73)" },
+                  }}
+                  content="Aprobado"
+                >
                   <IconButton
-                    onClick={() => deleteTool(t)}
                     justifyItems={"center"}
-                    bg={"rgba(255, 0, 0, 0.2)"}
+                    bg={"rgba(10, 159, 25, 0.73)"}
                     _hover={{
-                      bg: "rgba(255, 0, 0, 0.59)",
+                      bg: "rgba(66, 189, 78, 0.73)",
                     }}
                     rounded={"lg"}
                     margin={"5px"}
+                    cursor={"none"}
                   >
-                    <MdDelete />
+                    <FaCheck />
                   </IconButton>
-                </div>
-              </HStack>
-            ))}
-          {pendingTools
-            .filter((t) => t.createdBy == currentUser?.uid)
-            .map((t) => (
-              <HStack
-                bg={"rgba(255, 255, 255, 0.19)"}
-                borderRadius="10px"
-                p={"5px"}
-                gap={4}
-                key={t.id}
-              >
-                <span style={{ width: "55px", fontWeight: "bold" }}>
-                  {t.name}
-                </span>
-                <Separator
-                  borderColor={"rgba(0, 0, 0, 0.19)"}
-                  orientation="vertical"
-                  height="30px"
-                />
-                <span style={{ maxWidth: "291px", width: "291px" }}>
-                  {t.brief}
-                </span>
-                <div>
+                </Tooltip>
+              ) : (
+                ""
+              )}
+              {t.pending && !t.approved ? (
+                <Tooltip
+                  showArrow
+                  contentProps={{
+                    css: { "--tooltip-bg": "rgba(255, 154, 3, 0.73)" },
+                  }}
+                  content="Pendiente"
+                >
                   <IconButton
-                    onClick={() => deleteTool(t)}
                     justifyItems={"center"}
-                    bg={"rgba(255, 0, 0, 0.2)"}
+                    bg={"rgba(255, 154, 3, 0.73)"}
                     _hover={{
-                      bg: "rgba(255, 0, 0, 0.59)",
+                      bg: "rgba(246, 186, 97, 0.73)",
                     }}
                     rounded={"lg"}
                     margin={"5px"}
+                    cursor={"none"}
                   >
-                    <MdDelete />
+                    <LuCircleAlert />
                   </IconButton>
-                </div>
-              </HStack>
-            ))}
+                </Tooltip>
+              ) : (
+                ""
+              )}
+              {!t.approved && !t.pending ? (
+                <Tooltip
+                  showArrow
+                  contentProps={{
+                    css: { "--tooltip-bg": "rgba(255, 13, 0, 0.73)" },
+                  }}
+                  content="Rechazada"
+                >
+                  <IconButton
+                    justifyItems={"center"}
+                    bg={"rgba(255, 13, 0, 0.73)"}
+                    _hover={{
+                      bg: "rgba(236, 97, 89, 0.73)",
+                    }}
+                    rounded={"lg"}
+                    margin={"5px"}
+                    cursor={"none"}
+                  >
+                    <IoAlertOutline />
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                ""
+              )}
+            </HStack>
+          ))}
         </Stack>
       </>
     );

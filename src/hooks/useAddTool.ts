@@ -11,16 +11,15 @@ const queryAddTool = async (tool: Tools, currentUser: User) => {
       throw new Error("No ha iniciado sesión");
     }
     const ref = collection(db, "tools");
-    addDoc(ref, {
+    await addDoc(ref, {
       ...tool,
       createdAt: serverTimestamp(),
       createdBy: currentUser.uid,
       approved: false,
+      pending: true,
     });
-    console.log("EXITOOOOOO");
   } catch (e) {
-    console.log(e);
-    throw new Error("Ha ocurrido un error creando la herramienta.");
+    throw new Error((e as Error).message);
   }
 };
 
@@ -28,24 +27,24 @@ export default function useAddTool() {
   const { currentUser } = useAuth();
   const queryClient = useQueryClient();
   return useMutation({
+    mutationKey: ["addTools"],
     mutationFn: (tool: Tools) => {
-      if (currentUser) queryAddTool(tool, currentUser);
-      throw new Error("Ha ocurrido un error creando la herramienta.");
+      if (!currentUser) {
+        throw new Error("No ha iniciado sesión");
+      }
+      return queryAddTool(tool, currentUser);
     },
     onMutate: (newTool) => {
-      const oldPendingTools = queryClient.getQueryData<Tools[]>([
-        "pendingTools",
-      ]);
-      queryClient.setQueryData<Tools[]>(["pendingTools"], (tool = []) => [
+      const oldTools = queryClient.getQueryData<Tools[]>(["userTools"]);
+      queryClient.setQueryData<Tools[]>(["userTools"], (old = []) => [
         newTool,
-        ...tool,
+        ...old,
       ]);
 
-      return { oldPendingTools };
+      return oldTools;
     },
     onError: (e, __, ctx) => {
-      queryClient.setQueryData<Tools[]>(["pendingTools"], ctx?.oldPendingTools);
-      console.log(e);
+      queryClient.setQueryData<Tools[]>(["userTools"], ctx);
       return e;
     },
   });

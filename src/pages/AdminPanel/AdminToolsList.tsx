@@ -13,12 +13,9 @@ import { useEffect, useState } from "react";
 import useAuth from "../../contexts/AuthContext";
 
 type Props = {};
-{
-  ("por alguna razon esta wea no esta funcionaaaaadooojasdolkfgdssweoipjfep");
-}
-function ToolsList({}: Props) {
-  const [Tools] = useTools();
-  const { mutate: deleteTool, isPending, error } = usedeleteTool();
+
+function AdminToolsList({}: Props) {
+  // const { mutate: deleteTool, isPending, error } = usedeleteTool();
   const [mostrar, setMostrar] = useState(false);
 
   useEffect(() => {
@@ -29,13 +26,8 @@ function ToolsList({}: Props) {
     () => {
       clearTimeout(timeout);
     };
-  }, []);
-  const { data: tools } = Tools;
-  if (!tools) {
-    return <span>No hay Herramientas</span>;
-  }
+  });
 
-  console.log(tools);
   if (mostrar) {
     return (
       <>
@@ -48,7 +40,7 @@ function ToolsList({}: Props) {
           p={"px"}
           gap={4}
         >
-          {tools.map((t) => (
+          {/* {tools.map((t) => (
             <HStack
               bg={"rgba(255, 255, 255, 0.19)"}
               borderRadius="10px"
@@ -82,7 +74,7 @@ function ToolsList({}: Props) {
                 </IconButton>
               </div>
             </HStack>
-          ))}
+          ))} */}
         </Stack>
       </>
     );
@@ -94,4 +86,4 @@ function ToolsList({}: Props) {
   );
 }
 
-export default ToolsList;
+export default AdminToolsList;

@@ -12,7 +12,7 @@ import {
   Spinner,
   Stack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useController, useForm } from "react-hook-form";
 import { FaLinux, FaToolbox, FaWindows } from "react-icons/fa";
 import { GrSystem } from "react-icons/gr";
@@ -20,23 +20,50 @@ import { LuLink } from "react-icons/lu";
 import { PiArticleNyTimes } from "react-icons/pi";
 import { SiMacos } from "react-icons/si";
 import { TbLicense, TbSettingsCog, TbTournament } from "react-icons/tb";
-import type { Tools } from "../types";
+import useAddTool from "../hooks/useAddTool";
 import CategorySelect from "../pages/AdminPanel/categories/CategorySelect";
 import stylesDialog from "../styles/Dialog.module.css";
 import stylesField from "../styles/Field.module.css";
-import useAddTool from "../hooks/useAddTool";
+import type { Tools } from "../types";
+import { toaster } from "./ui/toaster";
 
 type Props = {};
 
 const AddTool = ({}: Props) => {
+  const id = "addToolStatus";
   const [mostrar, setMostrar] = useState(false);
-  const { mutate: addTool } = useAddTool();
+
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const {
+    mutate: addTool,
+    isPending,
+    isError,
+    isSuccess,
+    error: mutateError,
+  } = useAddTool();
+
   const {
     register,
     handleSubmit,
+    reset,
     control,
     formState: { errors },
   } = useForm<Tools>();
+
+  useEffect(() => {
+    let timeout: number;
+    if (isSuccess) {
+      setShowSuccess(true);
+      timeout = setTimeout(() => {
+        setShowSuccess(false);
+        setMostrar(false);
+        reset();
+      }, 6000);
+      () => clearInterval(timeout);
+    }
+  }, [isSuccess]);
+
   useEffect(() => {
     let timeout: number;
     timeout = setTimeout(() => {
@@ -45,7 +72,37 @@ const AddTool = ({}: Props) => {
     () => {
       clearTimeout(timeout);
     };
-  }, []);
+  }, [mostrar]);
+
+  const show = () => {
+    if (toaster.isVisible(id)) return;
+    toaster.loading({
+      id,
+      title: "Creando herramienta...",
+      description: "Espera mientras creamos tu herramienta.",
+    });
+  };
+
+  const success = () => {
+    toaster.update(id, {
+      title: "Bien hecho 🥳🥳🥳!!!",
+      description:
+        "Tu herramienta fue creada, ahora debes esperar que un administrador la acepte.",
+      type: "success",
+      duration: 6000,
+      closable: true,
+    });
+  };
+
+  const error = (error: string) => {
+    toaster.update(id, {
+      title: "Hubo un error... 🥲",
+      description: `Tu herramienta no fue creada, intentalo nuevamente. Error: ${error}`,
+      type: "error",
+      duration: 6000,
+      closable: true,
+    });
+  };
 
   const items = [
     { icon: <FaWindows />, label: "Win", value: "Win" },
@@ -62,7 +119,15 @@ const AddTool = ({}: Props) => {
     name: "platform",
     defaultValue: [],
   });
-
+  {
+    isPending ? <>{show()}</> : "";
+  }
+  {
+    showSuccess ? <>{success()}</> : "";
+  }
+  {
+    isError ? <>{error(mutateError.message)}</> : "";
+  }
   if (mostrar) {
     const onSubmit = handleSubmit((data) => {
       addTool({
@@ -71,23 +136,23 @@ const AddTool = ({}: Props) => {
     });
     return (
       <>
-        <Stack animation="fade-in 0.8s ease-out" h={"100%"} gap="1">
+        <Stack
+          key={`${mostrar}`}
+          animation="fade-in 0.8s ease-out"
+          h={"100%"}
+          gap="1"
+        >
           <Center>
-            <h3>Añadir nueva herramienta</h3>
+            <h3>Sugerir nueva herramienta</h3>
           </Center>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              onSubmit();
-            }}
+          <Stack
+            bg={"rgba(255, 255, 255, 0.19)"}
+            borderRadius="10px"
+            id="addToolForm"
+            p={"10px"}
+            gap={4}
           >
-            <Stack
-              bg={"rgba(255, 255, 255, 0.19)"}
-              borderRadius="10px"
-              id="addToolForm"
-              p={"10px"}
-              gap={4}
-            >
+            <form onSubmit={onSubmit}>
               <div className="mb-3" id="toolName">
                 <Field.Root invalid={!!errors.name}>
                   <InputGroup startElement={<TbTournament fontWeight="bold" />}>
@@ -95,8 +160,14 @@ const AddTool = ({}: Props) => {
                       bg={"whiteAlpha.900"}
                       type="text"
                       {...register("name", {
-                        maxLength: { value: 20, message: "*Max 20 caracteres" },
-                        required: { value: true, message: "*Campo requerido" },
+                        maxLength: {
+                          value: 20,
+                          message: "*Max 20 caracteres",
+                        },
+                        required: {
+                          value: true,
+                          message: "*Campo requerido",
+                        },
                         minLength: {
                           value: 10,
                           message: "*Minimo 10 caracteres",
@@ -129,7 +200,10 @@ const AddTool = ({}: Props) => {
                           value: 60,
                           message: "*Max 60 caracteres",
                         },
-                        required: { value: true, message: "*Campo requerido" },
+                        required: {
+                          value: true,
+                          message: "*Campo requerido",
+                        },
                         minLength: {
                           value: 10,
                           message: "*Minimo 10 caracteres",
@@ -161,8 +235,14 @@ const AddTool = ({}: Props) => {
                       placeholder="Funcionalidades"
                       className="form-control"
                       {...register("func", {
-                        maxLength: { value: 60, message: "*Max 60 caracteres" },
-                        required: { value: true, message: "*Campo requerido" },
+                        maxLength: {
+                          value: 60,
+                          message: "*Max 60 caracteres",
+                        },
+                        required: {
+                          value: true,
+                          message: "*Campo requerido",
+                        },
                         minLength: {
                           value: 10,
                           message: "*Minimo 10 caracteres",
@@ -228,8 +308,14 @@ const AddTool = ({}: Props) => {
                       placeholder="Licencia"
                       className="form-control"
                       {...register("license", {
-                        maxLength: { value: 60, message: "*Max 60 caracteres" },
-                        required: { value: true, message: "*Campo requerido" },
+                        maxLength: {
+                          value: 60,
+                          message: "*Max 60 caracteres",
+                        },
+                        required: {
+                          value: true,
+                          message: "*Campo requerido",
+                        },
                         minLength: {
                           value: 10,
                           message: "*Minimo 10 caracteres",
@@ -255,7 +341,10 @@ const AddTool = ({}: Props) => {
                       placeholder="Enlace oficial"
                       className="form-control"
                       {...register("link", {
-                        required: { value: true, message: "*Campo requerido" },
+                        required: {
+                          value: true,
+                          message: "*Campo requerido",
+                        },
                         pattern: {
                           value:
                             /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/[\w\-._~:/?#[\]@!$&'()*+,;=.]+)?$/,
@@ -286,7 +375,10 @@ const AddTool = ({}: Props) => {
                           value: 2500,
                           message: "*Max 2500 caracteres",
                         },
-                        required: { value: true, message: "*Campo requerido" },
+                        required: {
+                          value: true,
+                          message: "*Campo requerido",
+                        },
                         minLength: {
                           value: 200,
                           message: "*Minimo 200 caracteres",
@@ -306,12 +398,16 @@ const AddTool = ({}: Props) => {
               <Button
                 type="submit"
                 className={stylesDialog.btnBody}
-                disabled={errors.root?.message ? true : false}
+                disabled={
+                  errors.root?.message
+                    ? true
+                    : false || showSuccess || isPending
+                }
               >
                 Guardar Herramienta
               </Button>
-            </Stack>
-          </form>
+            </form>
+          </Stack>
         </Stack>
       </>
     );

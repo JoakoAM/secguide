@@ -3,6 +3,7 @@ import type { FieldValue, Timestamp } from "firebase/firestore";
 
 export type Tools = {
   approved: boolean;
+  pending: boolean;
   article: string;
   brief: string;
   cats: string[];

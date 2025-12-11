@@ -12,7 +12,7 @@ import useOpen from "../../contexts/OpenContext";
 import stylesDialog from "../../styles/Dialog.module.css";
 import AddCategory from "./categories/AddCategory";
 import PendingTools from "./tools/PendingTools";
-import ToolsList from "./ToolsList";
+import AdminToolsList from "./AdminToolsList";
 
 type Props = {};
 
@@ -130,7 +130,7 @@ export default function DialogPanelAdmin({}: Props) {
                 {addCategory ? <AddCategory /> : ""}
                 {addTool ? <AddTool /> : ""}
                 {pendingTool ? <PendingTools /> : ""}
-                {currentTool ? <ToolsList /> : ""}
+                {currentTool ? <AdminToolsList /> : ""}
               </Dialog.Body>
               <DialogCloseTrigger
                 onClick={() => {

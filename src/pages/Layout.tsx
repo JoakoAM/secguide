@@ -18,6 +18,7 @@ import stylesGrid from "../styles/Grid.module.css";
 import useAuth from "../contexts/AuthContext";
 import LoadingAuth from "../components/LoadingAuth";
 import useOpen from "../contexts/OpenContext";
+import { Toaster } from "../components/ui/toaster";
 
 type Props = {
   children?: ReactNode;
@@ -114,6 +115,7 @@ function Layout({}: Props) {
         </GridItem>
         <GridItem area={"main"}>
           <CategoriesView />
+          <Toaster />
         </GridItem>
       </Grid>
     </>
