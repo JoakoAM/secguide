@@ -27,9 +27,11 @@ import stylesField from "../styles/Field.module.css";
 import type { Tools } from "../types";
 import { toaster } from "./ui/toaster";
 
-type Props = {};
+type Props = {
+  admin?: boolean;
+};
 
-const AddTool = ({}: Props) => {
+const AddTool = ({ admin }: Props) => {
   const id = "addToolStatus";
   const [mostrar, setMostrar] = useState(false);
 
@@ -144,7 +146,7 @@ const AddTool = ({}: Props) => {
           gap="1"
         >
           <Center>
-            <h3>Sugerir herramienta</h3>
+            {admin ? <h3>Añadir herramienta</h3> : <h3>Sugerir herramienta</h3>}
           </Center>
           <Stack
             bg={"rgba(255, 255, 255, 0.19)"}

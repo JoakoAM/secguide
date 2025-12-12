@@ -129,7 +129,7 @@ export default function DialogPanelAdmin({}: Props) {
                   border={"0.00001px solid rgb(131 126 126 / 81%)"}
                 />
                 {addCategory ? <AddCategory /> : ""}
-                {addTool ? <AddTool /> : ""}
+                {addTool ? <AddTool admin={true} /> : ""}
                 {pendingTool ? <PendingTools /> : ""}
                 {currentTool ? <AdminToolsList /> : ""}
               </Dialog.Body>
