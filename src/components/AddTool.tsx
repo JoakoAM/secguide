@@ -144,7 +144,7 @@ const AddTool = ({}: Props) => {
           gap="1"
         >
           <Center>
-            <h3>Sugerir nueva herramienta</h3>
+            <h3>Sugerir herramienta</h3>
           </Center>
           <Stack
             bg={"rgba(255, 255, 255, 0.19)"}
