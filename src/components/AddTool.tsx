@@ -140,6 +140,7 @@ const AddTool = ({}: Props) => {
           key={`${mostrar}`}
           animation="fade-in 0.8s ease-out"
           h={"100%"}
+          w={"100%"}
           gap="1"
         >
           <Center>
@@ -151,6 +152,8 @@ const AddTool = ({}: Props) => {
             id="addToolForm"
             p={"10px"}
             gap={4}
+            h={"100%"}
+            w={"100%"}
           >
             <form onSubmit={onSubmit}>
               <div className="mb-3" id="toolName">
@@ -273,21 +276,30 @@ const AddTool = ({}: Props) => {
                     name={plataforma.field.name}
                   >
                     <Fieldset.Content alignItems={"center"}>
-                      <HStack gap={12}>
+                      <HStack gap={{ smDown: 1, base: 12 }}>
                         {items.map((item) => (
                           <CheckboxCard.Root
                             align="center"
                             value={item.value}
                             key={item.label}
                             className="form-control"
+                            transition={"1.2s"}
+                            _hover={{
+                              smDown: { scale: "1.0" },
+                              base: { scale: "1.05" },
+                            }}
                           >
                             <CheckboxCard.HiddenInput />
                             <CheckboxCard.Control>
-                              <CheckboxCard.Content fontSize={"23px"}>
-                                <Icon fontSize="2xl" mb="2">
+                              <CheckboxCard.Content
+                                fontSize={{ smDown: "8px", base: "23px" }}
+                              >
+                                <Icon fontSize="5xl" mb="2">
                                   {item.icon}
                                 </Icon>
-                                <CheckboxCard.Label>
+                                <CheckboxCard.Label
+                                  fontSize={{ smDown: "12px", base: "23px" }}
+                                >
                                   {item.label}
                                 </CheckboxCard.Label>
                               </CheckboxCard.Content>
@@ -395,17 +407,19 @@ const AddTool = ({}: Props) => {
                   </Field.ErrorText>
                 </Field.Root>
               </div>
-              <Button
-                type="submit"
-                className={stylesDialog.btnBody}
-                disabled={
-                  errors.root?.message
-                    ? true
-                    : false || showSuccess || isPending
-                }
-              >
-                Guardar Herramienta
-              </Button>
+              <div style={{ justifySelf: "center" }}>
+                <Button
+                  type="submit"
+                  className={stylesDialog.btnBody}
+                  disabled={
+                    errors.root?.message
+                      ? true
+                      : false || showSuccess || isPending
+                  }
+                >
+                  Guardar Herramienta
+                </Button>
+              </div>
             </form>
           </Stack>
         </Stack>

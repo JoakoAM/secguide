@@ -12,7 +12,7 @@ const LogOut = ({}: Props) => {
   const logOut = () => {
     setTimeout(() => {
       auth.signOut();
-      nav("/");
+      nav("/secguide");
       setOpen(false);
     }, 3000);
   };

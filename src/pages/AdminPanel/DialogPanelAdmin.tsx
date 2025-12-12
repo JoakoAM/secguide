@@ -33,7 +33,8 @@ export default function DialogPanelAdmin({}: Props) {
     <>
       <Dialog.Root
         closeOnInteractOutside={false}
-        placement={{ sm: "bottom", md: "top" }}
+        placement={{ smDown: "center", md: "top" }}
+        size={{ smDown: "sm", base: "lg" }}
         open={openAdmin}
         onOpenChange={(e) => {
           e.open;
@@ -59,7 +60,7 @@ export default function DialogPanelAdmin({}: Props) {
               justifyContent={"space-between"}
             >
               <Dialog.Header></Dialog.Header>
-              <Dialog.Body w="513px" pb="4">
+              <Dialog.Body pb="4">
                 <Dialog.Title justifySelf={"center"}>
                   Panel de administración
                 </Dialog.Title>

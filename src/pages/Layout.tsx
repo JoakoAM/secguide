@@ -63,13 +63,13 @@ function Layout({}: Props) {
         justifyItems={"center"}
       >
         <GridItem className={stylesGrid.item} area={"header"}>
-          <HStack>
+          <HStack h={"100%"}>
             <VStack className={stylesGrid.vStack}>
               <h1>Cybersecurity NavTools Hub</h1>
               <h2>SecGuide 🔏</h2>
               <p>Explora las mejores herramientas y aprende cómo funcionan</p>
             </VStack>
-            <Stack>
+            <Stack h={"100%"}>
               <Menu.Root
                 open={openMenu}
                 onOpenChange={(e) => {
@@ -79,10 +79,11 @@ function Layout({}: Props) {
               >
                 <Menu.Trigger asChild>
                   <Button
-                    className={stylesMenu.btnTrigger}
                     _hover={{ bg: "whiteAlpha.400" }}
                     variant="plain"
                     outline="none"
+                    borderRadius={"2xl"}
+                    height={"100%"}
                     size="sm"
                     onClick={() => {
                       if (openMenu == false) {
@@ -91,6 +92,7 @@ function Layout({}: Props) {
                         setOpenMenu(false);
                       }
                     }}
+                    color={"white"}
                   >
                     <VscThreeBars />
                   </Button>

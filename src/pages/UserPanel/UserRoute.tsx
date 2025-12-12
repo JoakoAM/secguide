@@ -16,7 +16,7 @@ const UserRoute = ({ children }: Props) => {
 
   if (isLoadingAuth) return null;
 
-  if (!currentUser) return <Navigate to="/" />;
+  if (!currentUser) return <Navigate to="/secguide" />;
 
   if (isAdmin === true) return <Navigate to="/adminpanel" />;
 

@@ -12,6 +12,7 @@ import Empty from "../../../components/Empty";
 import { FaCheck } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import useUserTools from "../../../hooks/useUserTools";
+import stylesDialog from "../../../styles/Dialog.module.css";
 type Props = {};
 
 function PendingTools({}: Props) {
@@ -64,18 +65,17 @@ function PendingTools({}: Props) {
                   borderRadius="10px"
                   p={"5px"}
                   gap={4}
+                  margin={"5px"}
                   key={t.id}
                   animation="fade-in 0.5s ease-out"
                 >
-                  <span style={{ width: "55px", fontWeight: "bold" }}>
-                    {t.name}
-                  </span>{" "}
+                  <span className={stylesDialog.hStackSpanName}>{t.name}</span>{" "}
                   <Separator
                     borderColor={"rgba(0, 0, 0, 0.19)"}
                     orientation="vertical"
                     height="30px"
                   />
-                  <span style={{ maxWidth: "241px", width: "241px" }}>
+                  <span className={stylesDialog.hStackSpanBrief}>
                     {t.brief}
                   </span>
                   <IconButton

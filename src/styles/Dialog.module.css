@@ -20,7 +20,6 @@
   transition: 0.2s;
   box-shadow: 0px 5px 0px 0px rgba(95, 156, 212, 0.651);
   border-radius: 10px;
-  justify-self: center;
   width: 100%;
 }
 .btnBody:hover:not(:disabled) {
@@ -69,4 +68,29 @@
 .hStackSpanBrief {
   max-width: 291px;
   width: 291px;
+}
+
+@media screen and (max-width: 29.9975rem) {
+  .btnBody {
+    width: 256px;
+    align-self: center;
+  }
+  .hStack {
+    width: calc(100% - 50px);
+    border: 1px solid rgba(255, 255, 255, 0.21);
+    background: rgba(255, 255, 255, 0.19);
+    border-radius: 10px;
+    padding: 2px;
+    gap: 5;
+    cursor: pointer;
+    align-self: center;
+  }
+  .hStackSpanName {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .hStackSpanBrief {
+    font-size: 12px;
+    width: 100%;
+  }
 }

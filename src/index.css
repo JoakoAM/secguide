@@ -19,8 +19,8 @@ body::before {
   height: 100%;
   background: linear-gradient(
     var(--angle),
-    #0a2291 0%,
-    #9c2d0b 100%,
+    #081242 0%,
+    #341005 100%,
     #ffffff 100%
   );
   animation: changeColor 15s linear infinite;
@@ -54,11 +54,6 @@ body::before {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
 .squares li:nth-child(1) {
   --n: 1;
   left: 10%;
@@ -137,7 +132,7 @@ body::before {
 
 @keyframes goingUp {
   from {
-    transform: translateY(1000px) rotate(0);
+    transform: translateY(100vh) rotate(0);
     opacity: 1;
     border-radius: 100%;
   }
@@ -145,7 +140,7 @@ body::before {
     opacity: 0.1;
     border-radius: 90%;
 
-    transform: translateY(-1000px) rotate(720deg);
+    transform: translateY(-105vh) rotate(720deg);
   }
 }
 

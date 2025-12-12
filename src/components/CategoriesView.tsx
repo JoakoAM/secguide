@@ -71,6 +71,8 @@ const CategoriesView = ({}: Props) => {
             setOpenParent(true);
             setSelectedCat({ idx, tools: selectedTools });
           }}
+          width={{ smDown: "calc(100% - 20px)", base: "486px" }}
+          height={{ smDown: "190px", base: "200px" }}
           className={stylesCard.root}
         >
           <Card.Body className={stylesCard.body}>
@@ -85,7 +87,8 @@ const CategoriesView = ({}: Props) => {
             <Stack
               position={"absolute"}
               left={"-10px"}
-              fontSize={"70px"}
+              top={{ smDown: "100px" }}
+              fontSize={{ base: "70px", smDown: "60px" }}
               w={"100%"}
               alignItems={"flex-end"}
             >
@@ -137,7 +140,11 @@ const CategoriesView = ({}: Props) => {
         key={path.pathname}
       >
         {skeletons.map((_, idx) => (
-          <Card.Root className={stylesSkeleton.card} key={idx * 3123}>
+          <Card.Root
+            className={stylesSkeleton.card}
+            width={{ smDown: "calc(100% - 20px)", md: "486px" }}
+            key={idx * 3123}
+          >
             <Card.Body marginTop={"10px"} gap="2">
               <SkeletonText bg={"gray.600"} w="200px" noOfLines={1} />
               <SkeletonText bg={"gray.600"} w="100px" noOfLines={1} />

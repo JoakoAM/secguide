@@ -11,7 +11,7 @@ const AdminRoute = ({ children }: Props) => {
 
   if (isLoadingAuth) return "Que haces aqui -.-";
 
-  if (!currentUser) return <Navigate to="/" />;
+  if (!currentUser) return <Navigate to="/secguide" />;
 
   if (isAdmin === false) return <Navigate to="/userpanel" />;
 
